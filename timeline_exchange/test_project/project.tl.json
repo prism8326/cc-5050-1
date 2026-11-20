@@ -1,0 +1,206 @@
+{
+  "schema": "tl-json",
+  "version": 1,
+  "timeline_id": "mixed_rate_demo",
+  "rate": "24000/1001",
+  "start_timecode": "01:00:00:00",
+  "start_time": {
+    "rational": "18018/5",
+    "timecode": "01:00:00:00"
+  },
+  "metadata": {
+    "title": "Mixed rate gap/transition demo"
+  },
+  "sources": {
+    "CAM_A": {
+      "path": "sources/CAM_A",
+      "reel": null,
+      "rate": "24000/1001",
+      "duration": {
+        "rational": "1001/400",
+        "timecode": "00:00:02:12"
+      },
+      "exists": true
+    },
+    "CAM_B": {
+      "path": "sources/CAM_B",
+      "reel": null,
+      "rate": "25/1",
+      "duration": {
+        "rational": "48/25",
+        "timecode": "00:00:01:23"
+      },
+      "exists": true
+    },
+    "CAM_C": {
+      "path": "sources/CAM_C",
+      "reel": null,
+      "rate": "30000/1001",
+      "duration": {
+        "rational": "3003/1250",
+        "timecode": "00:00:02:12"
+      },
+      "exists": true
+    }
+  },
+  "tracks": [
+    {
+      "track_id": "V1",
+      "kind": "video",
+      "index": 0,
+      "clips": [
+        {
+          "clip_id": "C0001",
+          "source_id": "CAM_A",
+          "source_in": {
+            "rational": "0",
+            "timecode": "00:00:00:00"
+          },
+          "source_out": {
+            "rational": "1001/2000",
+            "timecode": "00:00:00:12"
+          },
+          "timeline_start": {
+            "rational": "18018/5",
+            "timecode": "00:00:00:00"
+          },
+          "duration": {
+            "rational": "1001/2000",
+            "timecode": "-1:00:00:12"
+          },
+          "transition_in": "cut",
+          "transition_duration": {
+            "rational": "0",
+            "timecode": "-1:00:00:00"
+          },
+          "enabled": true
+        },
+        {
+          "clip_id": "C0002",
+          "source_id": "CAM_B",
+          "source_in": {
+            "rational": "4/25",
+            "timecode": "00:00:00:04"
+          },
+          "source_out": {
+            "rational": "16/25",
+            "timecode": "00:00:00:16"
+          },
+          "timeline_start": {
+            "rational": "7208201/2000",
+            "timecode": "00:00:00:12"
+          },
+          "duration": {
+            "rational": "1001/2000",
+            "timecode": "-1:00:00:12"
+          },
+          "transition_in": "cut",
+          "transition_duration": {
+            "rational": "0",
+            "timecode": "-1:00:00:00"
+          },
+          "enabled": true
+        },
+        {
+          "clip_id": "C0003",
+          "source_id": "CAM_C",
+          "source_in": {
+            "rational": "1001/3000",
+            "timecode": "00:00:00:10"
+          },
+          "source_out": {
+            "rational": "11011/15000",
+            "timecode": "00:00:00:22"
+          },
+          "timeline_start": {
+            "rational": "2883881/800",
+            "timecode": "00:00:01:06"
+          },
+          "duration": {
+            "rational": "1001/2000",
+            "timecode": "-1:00:00:12"
+          },
+          "transition_in": "dissolve",
+          "transition_duration": {
+            "rational": "1001/4000",
+            "timecode": "-1:00:00:06"
+          },
+          "enabled": true
+        },
+        {
+          "clip_id": "C0004",
+          "source_id": "CAM_A",
+          "source_in": {
+            "rational": "1001/1200",
+            "timecode": "00:00:00:20"
+          },
+          "source_out": {
+            "rational": "1001/800",
+            "timecode": "00:00:01:06"
+          },
+          "timeline_start": {
+            "rational": "14421407/4000",
+            "timecode": "00:00:01:18"
+          },
+          "duration": {
+            "rational": "1001/2400",
+            "timecode": "-1:00:00:10"
+          },
+          "transition_in": "push",
+          "transition_duration": {
+            "rational": "1001/6000",
+            "timecode": "-1:00:00:04"
+          },
+          "enabled": true
+        }
+      ],
+      "gaps": [
+        {
+          "gap_id": "G0001",
+          "start": {
+            "rational": "3604601/1000",
+            "timecode": "00:00:01:00"
+          },
+          "duration": {
+            "rational": "1001/4000",
+            "timecode": "-1:00:00:06"
+          }
+        }
+      ]
+    },
+    {
+      "track_id": "V2",
+      "kind": "video",
+      "index": 1,
+      "clips": [
+        {
+          "clip_id": "C0101",
+          "source_id": "CAM_B",
+          "source_in": {
+            "rational": "0",
+            "timecode": "00:00:00:00"
+          },
+          "source_out": {
+            "rational": "6/25",
+            "timecode": "00:00:00:06"
+          },
+          "timeline_start": {
+            "rational": "2703701/750",
+            "timecode": "00:00:01:08"
+          },
+          "duration": {
+            "rational": "1001/4000",
+            "timecode": "-1:00:00:06"
+          },
+          "transition_in": "cut",
+          "transition_duration": {
+            "rational": "0",
+            "timecode": "-1:00:00:00"
+          },
+          "enabled": true
+        }
+      ],
+      "gaps": []
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "target_format": "cmx3600",
+  "entry_count": 5,
+  "has_errors": true,
+  "entries": [
+    {
+      "code": "track_not_expressible",
+      "severity": "error",
+      "kind": "track",
+      "object_id": "V2",
+      "timeline_start": {
+        "rational": null,
+        "timecode": null
+      },
+      "timeline_end": {
+        "rational": null,
+        "timecode": null
+      },
+      "message": "CMX 3600 holds a single video track; clips on V2 cannot be exported"
+    },
+    {
+      "code": "mixed_rate_source",
+      "severity": "warning",
+      "kind": "source",
+      "object_id": "CAM_B",
+      "timeline_start": {
+        "rational": "7208201/2000",
+        "timecode": "01:00:00:12"
+      },
+      "timeline_end": {
+        "rational": "3604601/1000",
+        "timecode": "01:00:01:00"
+      },
+      "message": "source rate 25fps differs from record rate 24000/1001fps; EDL stores timecodes only, retiming metadata is lost"
+    },
+    {
+      "code": "gap_not_expressible",
+      "severity": "error",
+      "kind": "gap",
+      "object_id": "G0001",
+      "timeline_start": {
+        "rational": "3604601/1000",
+        "timecode": "01:00:01:00"
+      },
+      "timeline_end": {
+        "rational": "2883881/800",
+        "timecode": "01:00:01:06"
+      },
+      "message": "CMX 3600 has no explicit gap construct; the empty interval is represented only by the record-time jump"
+    },
+    {
+      "code": "mixed_rate_source",
+      "severity": "warning",
+      "kind": "source",
+      "object_id": "CAM_C",
+      "timeline_start": {
+        "rational": "2883881/800",
+        "timecode": "01:00:01:06"
+      },
+      "timeline_end": {
+        "rational": "14421407/4000",
+        "timecode": "01:00:01:18"
+      },
+      "message": "source rate 30000/1001fps differs from record rate 24000/1001fps; EDL stores timecodes only, retiming metadata is lost"
+    },
+    {
+      "code": "transition_not_expressible",
+      "severity": "error",
+      "kind": "transition",
+      "object_id": "C0004",
+      "timeline_start": {
+        "rational": "14421407/4000",
+        "timecode": "01:00:01:18"
+      },
+      "timeline_end": {
+        "rational": "43266223/12000",
+        "timecode": "01:00:01:22"
+      },
+      "message": "transition 'push' has no CMX 3600 equivalent; exported as a hard cut"
+    }
+  ]
+}

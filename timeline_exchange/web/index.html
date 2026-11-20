@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>剪辑时间线交换 · Clip Timeline Exchange</title>
+<style>
+  :root {
+    --bg: #0f141b; --panel: #171f2a; --panel2: #1f2a38; --line: #2c3a4c;
+    --text: #dce6f2; --muted: #8aa0b8; --accent: #4da3ff; --warn: #ffb347;
+    --err: #ff6b6b; --ok: #58d68d; --gap: #3a6ea5;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font: 14px/1.5 "DejaVu Sans", system-ui, sans-serif;
+  }
+  header {
+    padding: 12px 20px; background: var(--panel); border-bottom: 1px solid var(--line);
+    display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap;
+  }
+  header h1 { font-size: 18px; margin: 0; }
+  header .sub { color: var(--muted); font-size: 12px; }
+  main { padding: 16px 20px; display: grid; gap: 16px; }
+  .card {
+    background: var(--panel); border: 1px solid var(--line); border-radius: 10px;
+    padding: 14px 16px;
+  }
+  .card h2 { font-size: 14px; margin: 0 0 10px; color: var(--accent); letter-spacing: .4px; }
+  .controls { display: flex; gap: 12px; flex-wrap: wrap; align-items: end; }
+  label { display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: var(--muted); }
+  select, textarea, input[type=text] {
+    background: var(--panel2); color: var(--text); border: 1px solid var(--line);
+    border-radius: 6px; padding: 8px 10px; font: inherit;
+  }
+  textarea { width: 100%; min-height: 180px; font-family: "DejaVu Sans Mono", monospace; font-size: 12px; }
+  button {
+    background: var(--accent); color: #08121f; border: 0; border-radius: 6px;
+    padding: 9px 16px; font-weight: 700; cursor: pointer;
+  }
+  button.secondary { background: var(--panel2); color: var(--text); border: 1px solid var(--line); }
+  button:disabled { opacity: .45; cursor: not-allowed; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 1100px) { .grid2 { grid-template-columns: 1fr; } }
+  .status { font-size: 12px; padding: 8px 12px; border-radius: 6px; display: none; }
+  .status.ok { display: block; background: rgba(88,214,141,.12); border: 1px solid var(--ok); }
+  .status.fail { display: block; background: rgba(255,107,107,.12); border: 1px solid var(--err); }
+  .status.info { display: block; background: rgba(77,163,255,.12); border: 1px solid var(--accent); }
+  table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  th, td { text-align: left; padding: 5px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { color: var(--muted); font-weight: 600; }
+  .timeline {
+    position: relative; background: var(--panel2); border-radius: 8px; padding: 8px;
+    overflow-x: auto;
+  }
+  .track-row { display: flex; align-items: stretch; min-height: 46px; margin-bottom: 6px; position: relative; }
+  .track-label { width: 54px; flex: 0 0 54px; color: var(--muted); font-size: 11px; display: flex; align-items: center; }
+  .track-lane { position: relative; flex: 1; height: 40px; background: #0d131b; border-radius: 5px; }
+  .clip-block, .gap-block {
+    position: absolute; top: 4px; bottom: 4px; border-radius: 4px; font-size: 11px;
+    padding: 3px 6px; overflow: hidden; white-space: nowrap; cursor: default;
+    border: 1px solid rgba(255,255,255,.25);
+  }
+  .clip-block { background: linear-gradient(180deg,#2d6fb0,#22548a); }
+  .clip-block.trans { border-color: var(--warn); }
+  .gap-block { background: repeating-linear-gradient(45deg,#1d3a5c,#1d3a5c 6px,#15314b 6px,#15314b 12px); color: #b9d6f5; }
+  .ruler { position: relative; height: 18px; margin-left: 54px; color: var(--muted); font-size: 10px; }
+  .ruler span { position: absolute; top: 0; transform: translateX(-50%); }
+  .cursor-line {
+    position: absolute; top: -2px; bottom: -2px; width: 2px; background: var(--warn);
+    pointer-events: none; z-index: 5;
+  }
+  .loss-error { border-left: 3px solid var(--err); }
+  .loss-warning { border-left: 3px solid var(--warn); }
+  .loss-row { padding: 7px 10px; margin-bottom: 6px; border-radius: 5px; background: var(--panel2); font-size: 12px; }
+  .loss-row code { color: var(--warn); }
+  .preview-wrap { display: grid; grid-template-columns: 320px 1fr; gap: 16px; align-items: start; }
+  @media (max-width: 900px) { .preview-wrap { grid-template-columns: 1fr; } }
+  .tile svg { width: 100%; height: auto; border-radius: 8px; border: 1px solid var(--line); background: #000; }
+  .scrubber { display: flex; align-items: center; gap: 10px; margin: 10px 0; }
+  .scrubber input[type=range] { flex: 1; }
+  .pill { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 11px; background: var(--panel2); border: 1px solid var(--line); }
+  .pill.gap { color: #b9d6f5; } .pill.frame { color: var(--ok); }
+  .pill.missing, .pill.black { color: var(--err); }
+  .mono { font-family: "DejaVu Sans Mono", monospace; }
+  .muted { color: var(--muted); }
+  .frame-table-scroll { max-height: 260px; overflow-y: auto; }
+  .badge-err { color: var(--err); font-weight: 700; }
+  .badge-ok { color: var(--ok); font-weight: 700; }
+  .stage-switch button { padding: 6px 12px; font-size: 12px; }
+  .stage-switch button.active { background: var(--accent); color: #08121f; }
+</style>
+</head>
+<body>
+<header>
+  <h1>剪辑时间线交换工具</h1>
+  <span class="sub">精确有理时间 · 逐帧源帧校验 · 损失带位置报告 · 真实预览重建</span>
+</header>
+
+<main>
+  <section class="card">
+    <h2>1 · 导入剪辑表并选择交换方向</h2>
+    <div class="controls">
+      <label>源格式
+        <select id="srcFmt">
+          <option value="tl-json">TL-JSON（富格式 / 无损）</option>
+          <option value="cmx3600">CMX 3600 EDL（单视频轨）</option>
+        </select>
+      </label>
+      <label>目标格式
+        <select id="tgtFmt">
+          <option value="cmx3600">CMX 3600 EDL（单视频轨）</option>
+          <option value="tl-json">TL-JSON（富格式 / 无损）</option>
+        </select>
+      </label>
+      <label>记录帧率（导入 EDL 时必填）
+        <input type="text" id="rate" value="24000/1001" style="width:120px">
+      </label>
+      <button id="runBtn">执行交换并重新读取</button>
+      <button id="sampleBtn" class="secondary">载入混合帧率示例工程</button>
+    </div>
+    <p class="muted" style="margin:10px 0 0;font-size:12px">
+      时间一律以有理秒（如 <span class="mono">1001/24000</span>）与时间码双表示，禁止裸浮点秒。
+    </p>
+    <textarea id="docInput" placeholder="粘贴 TL-JSON 或 CMX 3600 EDL 文本，或点击“载入混合帧率示例工程”"></textarea>
+    <div id="inputStatus" class="status"></div>
+  </section>
+
+  <section class="card" id="resultsCard" style="display:none">
+    <h2>2 · 交换结果 · 损失报告 · 重新读取校验</h2>
+    <div id="verifyStatus" class="status"></div>
+    <div class="grid2" style="margin-top:12px">
+      <div>
+        <h2 style="font-size:13px">导出文档（目标格式原文）</h2>
+        <textarea id="exportDoc" style="min-height:220px" readonly></textarea>
+      </div>
+      <div>
+        <h2 style="font-size:13px">损失报告（无静默删除）</h2>
+        <div id="lossList"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card" id="timelineCard" style="display:none">
+    <h2>3 · 交换前后时间线结构（并排）</h2>
+    <div class="grid2">
+      <div>
+        <h2 style="font-size:13px">交换前 <span id="beforeMeta" class="muted"></span></h2>
+        <div class="timeline" id="beforeTl"></div>
+      </div>
+      <div>
+        <h2 style="font-size:13px">交换后（重新读取）<span id="afterMeta" class="muted"></span></h2>
+        <div class="timeline" id="afterTl"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card" id="previewCard" style="display:none">
+    <h2>4 · 拖动游标 · 内核返回该记录时刻实际选中的源帧</h2>
+    <div class="stage-switch controls" style="margin-bottom:8px">
+      <button data-stage="before" class="active">交换前预览</button>
+      <button data-stage="after">交换后预览（重读取）</button>
+      <span class="pill mono" id="stageRate"></span>
+    </div>
+    <div class="preview-wrap">
+      <div>
+        <div class="tile" id="tile"></div>
+        <div class="scrubber">
+          <span class="mono muted" id="curTc">00:00:00:00</span>
+          <input type="range" id="scrub" min="0" max="0" value="0">
+          <span class="mono muted" id="curFrame">f0</span>
+        </div>
+        <div id="selDetail" class="mono" style="font-size:12px"></div>
+      </div>
+      <div>
+        <h2 style="font-size:13px">逐帧选择审计（记录帧 → 实际源帧）</h2>
+        <div class="frame-table-scroll">
+          <table id="frameTable">
+            <thead><tr>
+              <th>记录帧</th><th>类型</th><th>片段</th><th>源</th><th>源帧</th><th>时间码</th><th>转场</th>
+            </tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script src="/static/app.js"></script>
+</body>
+</html>

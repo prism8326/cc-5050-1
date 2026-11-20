@@ -1,0 +1,886 @@
+[
+  {
+    "record_frame": 0,
+    "record_timecode": "00:00:00:00",
+    "before": {
+      "kind": "frame",
+      "source_id": "CAM_A",
+      "source_frame_index": 0,
+      "transition_in": null
+    },
+    "after": {
+      "kind": "frame",
+      "source_id": "CAM_A",
+      "source_frame_index": 0,
+      "transition_in": null
+    },
+    "frame_identity_preserved": true
+  },
+  {
+    "record_frame": 1,
+    "record_timecode": "00:00:00:01",
+    "before": {
+      "kind": "frame",
+      "source_id": "CAM_A",
+      "source_frame_index": 1,
+      "transition_in": null
+    },
+    "after": {
+      "kind": "frame",
+      "source_id": "CAM_A",
+      "source_frame_index": 1,
+      "transition_in": null
+    },
+    "frame_identity_preserved": true
+  },
+  {
+    "record_frame": 2,
+    "record_timecode": "00:00:00:02",
+    "before": {
+      "kind": "frame",
+      "source_id": "CAM_A",
+      "source_frame_index": 2,
+      "transition_in": null
+    },
+    "after": {
+      "kind": "frame",
+      "source_id": "CAM_A",
+      "source_frame_index": 2,
+      "transition_in": null
+    },
+    "frame_identity_preserved": true
+  },
+  {
+    "record_frame": 3,
+    "record_timecode": "00:00:00:03",
+    "before": {
+      "kind": "frame",
+      "source_id": "CAM_A",
+      "source_frame_index": 3,
+      "transition_in": null
+    },
+    "after": {
+      "kind": "frame",
+      "source_id": "CAM_A",
+      "source_frame_index": 3,
+      "transition_in": null
+    },
+    "frame_identity_preserved": true
+  },
+  {
+    "record_frame": 4,
+    "record_timecode": "00:00:00:04",
+    "before": {
+      "kind": "frame",
+      "source_id": "CAM_A",
+      "source_frame_index": 4,
+      "transition_in": null
+    },
+    "after": {
+      "kind": "frame",
+      "source_id": "CAM_A",
+      "source_frame_index": 4,
+      "transition_in": null
+    },
+    "frame_identity_preserved": true
+  },
+  {
+    "record_frame": 5,
+    "record_timecode": "00:00:00:05",
+    "before": {
+      "kind": "frame",
+      "source_id": "CAM_A",
+      "source_frame_index": 5,
+      "transition_in": null
+    },
+    "after": {
+      "kind": "frame",
+      "source_id": "CAM_A",
+      "source_frame_index": 5,
+      "transition_in": null
+    },
+    "frame_identity_preserved": true
+  },
+  {
+    "record_frame": 6,
+    "record_timecode": "00:00:00:06",
+    "before": {
+      "kind": "frame",
+      "source_id": "CAM_A",
+      "source_frame_index": 6,
+      "transition_in": null
+    },
+    "after": {
+      "kind": "frame",
+      "source_id": "CAM_A",
+      "source_frame_index": 6,
+      "transition_in": null
+    },
+    "frame_identity_preserved": true
+  },
+  {
+    "record_frame": 7,
+    "record_timecode": "00:00:00:07",
+    "before": {
+      "kind": "frame",
+      "source_id": "CAM_A",
+      "source_frame_index": 7,
+      "transition_in": null
+    },
+    "after": {
+      "kind": "frame",
+      "source_id": "CAM_A",
+      "source_frame_index": 7,
+      "transition_in": null
+    },
+    "frame_identity_preserved": true
+  },
+  {
+    "record_frame": 8,
+    "record_timecode": "00:00:00:08",
+    "before": {
+      "kind": "frame",
+      "source_id": "CAM_A",
+      "source_frame_index": 8,
+      "transition_in": null
+    },
+    "after": {
+      "kind": "frame",
+      "source_id": "CAM_A",
+      "source_frame_index": 8,
+      "transition_in": null
+    },
+    "frame_identity_preserved": true
+  },
+  {
+    "record_frame": 9,
+    "record_timecode": "00:00:00:09",
+    "before": {
+      "kind": "frame",
+      "source_id": "CAM_A",
+      "source_frame_index": 9,
+      "transition_in": null
+    },
+    "after": {
+      "kind": "frame",
+      "source_id": "CAM_A",
+      "source_frame_index": 9,
+      "transition_in": null
+    },
+    "frame_identity_preserved": true
+  },
+  {
+    "record_frame": 10,
+    "record_timecode": "00:00:00:10",
+    "before": {
+      "kind": "frame",
+      "source_id": "CAM_A",
+      "source_frame_index": 10,
+      "transition_in": null
+    },
+    "after": {
+      "kind": "frame",
+      "source_id": "CAM_A",
+      "source_frame_index": 10,
+      "transition_in": null
+    },
+    "frame_identity_preserved": true
+  },
+  {
+    "record_frame": 11,
+    "record_timecode": "00:00:00:11",
+    "before": {
+      "kind": "frame",
+      "source_id": "CAM_A",
+      "source_frame_index": 11,
+      "transition_in": null
+    },
+    "after": {
+      "kind": "frame",
+      "source_id": "CAM_A",
+      "source_frame_index": 11,
+      "transition_in": null
+    },
+    "frame_identity_preserved": true
+  },
+  {
+    "record_frame": 12,
+    "record_timecode": "00:00:00:12",
+    "before": {
+      "kind": "frame",
+      "source_id": "CAM_B",
+      "source_frame_index": 4,
+      "transition_in": null
+    },
+    "after": {
+      "kind": "frame",
+      "source_id": "CAM_B",
+      "source_frame_index": 4,
+      "transition_in": null
+    },
+    "frame_identity_preserved": true
+  },
+  {
+    "record_frame": 13,
+    "record_timecode": "00:00:00:13",
+    "before": {
+      "kind": "frame",
+      "source_id": "CAM_B",
+      "source_frame_index": 5,
+      "transition_in": null
+    },
+    "after": {
+      "kind": "frame",
+      "source_id": "CAM_B",
+      "source_frame_index": 5,
+      "transition_in": null
+    },
+    "frame_identity_preserved": true
+  },
+  {
+    "record_frame": 14,
+    "record_timecode": "00:00:00:14",
+    "before": {
+      "kind": "frame",
+      "source_id": "CAM_B",
+      "source_frame_index": 6,
+      "transition_in": null
+    },
+    "after": {
+      "kind": "frame",
+      "source_id": "CAM_B",
+      "source_frame_index": 6,
+      "transition_in": null
+    },
+    "frame_identity_preserved": true
+  },
+  {
+    "record_frame": 15,
+    "record_timecode": "00:00:00:15",
+    "before": {
+      "kind": "frame",
+      "source_id": "CAM_B",
+      "source_frame_index": 7,
+      "transition_in": null
+    },
+    "after": {
+      "kind": "frame",
+      "source_id": "CAM_B",
+      "source_frame_index": 7,
+      "transition_in": null
+    },
+    "frame_identity_preserved": true
+  },
+  {
+    "record_frame": 16,
+    "record_timecode": "00:00:00:16",
+    "before": {
+      "kind": "frame",
+      "source_id": "CAM_B",
+      "source_frame_index": 8,
+      "transition_in": null
+    },
+    "after": {
+      "kind": "frame",
+      "source_id": "CAM_B",
+      "source_frame_index": 8,
+      "transition_in": null
+    },
+    "frame_identity_preserved": true
+  },
+  {
+    "record_frame": 17,
+    "record_timecode": "00:00:00:17",
+    "before": {
+      "kind": "frame",
+      "source_id": "CAM_B",
+      "source_frame_index": 9,
+      "transition_in": null
+    },
+    "after": {
+      "kind": "frame",
+      "source_id": "CAM_B",
+      "source_frame_index": 9,
+      "transition_in": null
+    },
+    "frame_identity_preserved": true
+  },
+  {
+    "record_frame": 18,
+    "record_timecode": "00:00:00:18",
+    "before": {
+      "kind": "frame",
+      "source_id": "CAM_B",
+      "source_frame_index": 10,
+      "transition_in": null
+    },
+    "after": {
+      "kind": "frame",
+      "source_id": "CAM_B",
+      "source_frame_index": 10,
+      "transition_in": null
+    },
+    "frame_identity_preserved": true
+  },
+  {
+    "record_frame": 19,
+    "record_timecode": "00:00:00:19",
+    "before": {
+      "kind": "frame",
+      "source_id": "CAM_B",
+      "source_frame_index": 11,
+      "transition_in": null
+    },
+    "after": {
+      "kind": "frame",
+      "source_id": "CAM_B",
+      "source_frame_index": 11,
+      "transition_in": null
+    },
+    "frame_identity_preserved": true
+  },
+  {
+    "record_frame": 20,
+    "record_timecode": "00:00:00:20",
+    "before": {
+      "kind": "frame",
+      "source_id": "CAM_B",
+      "source_frame_index": 12,
+      "transition_in": null
+    },
+    "after": {
+      "kind": "frame",
+      "source_id": "CAM_B",
+      "source_frame_index": 12,
+      "transition_in": null
+    },
+    "frame_identity_preserved": true
+  },
+  {
+    "record_frame": 21,
+    "record_timecode": "00:00:00:21",
+    "before": {
+      "kind": "frame",
+      "source_id": "CAM_B",
+      "source_frame_index": 13,
+      "transition_in": null
+    },
+    "after": {
+      "kind": "frame",
+      "source_id": "CAM_B",
+      "source_frame_index": 13,
+      "transition_in": null
+    },
+    "frame_identity_preserved": true
+  },
+  {
+    "record_frame": 22,
+    "record_timecode": "00:00:00:22",
+    "before": {
+      "kind": "frame",
+      "source_id": "CAM_B",
+      "source_frame_index": 14,
+      "transition_in": null
+    },
+    "after": {
+      "kind": "frame",
+      "source_id": "CAM_B",
+      "source_frame_index": 14,
+      "transition_in": null
+    },
+    "frame_identity_preserved": true
+  },
+  {
+    "record_frame": 23,
+    "record_timecode": "00:00:00:23",
+    "before": {
+      "kind": "frame",
+      "source_id": "CAM_B",
+      "source_frame_index": 15,
+      "transition_in": null
+    },
+    "after": {
+      "kind": "frame",
+      "source_id": "CAM_B",
+      "source_frame_index": 15,
+      "transition_in": null
+    },
+    "frame_identity_preserved": true
+  },
+  {
+    "record_frame": 24,
+    "record_timecode": "00:00:01:00",
+    "before": {
+      "kind": "gap",
+      "source_id": null,
+      "source_frame_index": null,
+      "transition_in": null
+    },
+    "after": {
+      "kind": "gap",
+      "source_id": null,
+      "source_frame_index": null,
+      "transition_in": null
+    },
+    "frame_identity_preserved": true
+  },
+  {
+    "record_frame": 25,
+    "record_timecode": "00:00:01:01",
+    "before": {
+      "kind": "gap",
+      "source_id": null,
+      "source_frame_index": null,
+      "transition_in": null
+    },
+    "after": {
+      "kind": "gap",
+      "source_id": null,
+      "source_frame_index": null,
+      "transition_in": null
+    },
+    "frame_identity_preserved": true
+  },
+  {
+    "record_frame": 26,
+    "record_timecode": "00:00:01:02",
+    "before": {
+      "kind": "gap",
+      "source_id": null,
+      "source_frame_index": null,
+      "transition_in": null
+    },
+    "after": {
+      "kind": "gap",
+      "source_id": null,
+      "source_frame_index": null,
+      "transition_in": null
+    },
+    "frame_identity_preserved": true
+  },
+  {
+    "record_frame": 27,
+    "record_timecode": "00:00:01:03",
+    "before": {
+      "kind": "gap",
+      "source_id": null,
+      "source_frame_index": null,
+      "transition_in": null
+    },
+    "after": {
+      "kind": "gap",
+      "source_id": null,
+      "source_frame_index": null,
+      "transition_in": null
+    },
+    "frame_identity_preserved": true
+  },
+  {
+    "record_frame": 28,
+    "record_timecode": "00:00:01:04",
+    "before": {
+      "kind": "gap",
+      "source_id": null,
+      "source_frame_index": null,
+      "transition_in": null
+    },
+    "after": {
+      "kind": "gap",
+      "source_id": null,
+      "source_frame_index": null,
+      "transition_in": null
+    },
+    "frame_identity_preserved": true
+  },
+  {
+    "record_frame": 29,
+    "record_timecode": "00:00:01:05",
+    "before": {
+      "kind": "gap",
+      "source_id": null,
+      "source_frame_index": null,
+      "transition_in": null
+    },
+    "after": {
+      "kind": "gap",
+      "source_id": null,
+      "source_frame_index": null,
+      "transition_in": null
+    },
+    "frame_identity_preserved": true
+  },
+  {
+    "record_frame": 30,
+    "record_timecode": "00:00:01:06",
+    "before": {
+      "kind": "frame",
+      "source_id": "CAM_C",
+      "source_frame_index": 10,
+      "transition_in": "dissolve"
+    },
+    "after": {
+      "kind": "frame",
+      "source_id": "CAM_C",
+      "source_frame_index": 10,
+      "transition_in": "dissolve"
+    },
+    "frame_identity_preserved": true
+  },
+  {
+    "record_frame": 31,
+    "record_timecode": "00:00:01:07",
+    "before": {
+      "kind": "frame",
+      "source_id": "CAM_C",
+      "source_frame_index": 11,
+      "transition_in": "dissolve"
+    },
+    "after": {
+      "kind": "frame",
+      "source_id": "CAM_C",
+      "source_frame_index": 11,
+      "transition_in": "dissolve"
+    },
+    "frame_identity_preserved": true
+  },
+  {
+    "record_frame": 32,
+    "record_timecode": "00:00:01:08",
+    "before": {
+      "kind": "frame",
+      "source_id": "CAM_B",
+      "source_frame_index": 0,
+      "transition_in": null
+    },
+    "after": {
+      "kind": "frame",
+      "source_id": "CAM_C",
+      "source_frame_index": 12,
+      "transition_in": "dissolve"
+    },
+    "frame_identity_preserved": false
+  },
+  {
+    "record_frame": 33,
+    "record_timecode": "00:00:01:09",
+    "before": {
+      "kind": "frame",
+      "source_id": "CAM_B",
+      "source_frame_index": 1,
+      "transition_in": null
+    },
+    "after": {
+      "kind": "frame",
+      "source_id": "CAM_C",
+      "source_frame_index": 13,
+      "transition_in": "dissolve"
+    },
+    "frame_identity_preserved": false
+  },
+  {
+    "record_frame": 34,
+    "record_timecode": "00:00:01:10",
+    "before": {
+      "kind": "frame",
+      "source_id": "CAM_B",
+      "source_frame_index": 2,
+      "transition_in": null
+    },
+    "after": {
+      "kind": "frame",
+      "source_id": "CAM_C",
+      "source_frame_index": 15,
+      "transition_in": "dissolve"
+    },
+    "frame_identity_preserved": false
+  },
+  {
+    "record_frame": 35,
+    "record_timecode": "00:00:01:11",
+    "before": {
+      "kind": "frame",
+      "source_id": "CAM_B",
+      "source_frame_index": 3,
+      "transition_in": null
+    },
+    "after": {
+      "kind": "frame",
+      "source_id": "CAM_C",
+      "source_frame_index": 16,
+      "transition_in": "dissolve"
+    },
+    "frame_identity_preserved": false
+  },
+  {
+    "record_frame": 36,
+    "record_timecode": "00:00:01:12",
+    "before": {
+      "kind": "frame",
+      "source_id": "CAM_B",
+      "source_frame_index": 4,
+      "transition_in": null
+    },
+    "after": {
+      "kind": "frame",
+      "source_id": "CAM_C",
+      "source_frame_index": 17,
+      "transition_in": null
+    },
+    "frame_identity_preserved": false
+  },
+  {
+    "record_frame": 37,
+    "record_timecode": "00:00:01:13",
+    "before": {
+      "kind": "frame",
+      "source_id": "CAM_B",
+      "source_frame_index": 5,
+      "transition_in": null
+    },
+    "after": {
+      "kind": "frame",
+      "source_id": "CAM_C",
+      "source_frame_index": 18,
+      "transition_in": null
+    },
+    "frame_identity_preserved": false
+  },
+  {
+    "record_frame": 38,
+    "record_timecode": "00:00:01:14",
+    "before": {
+      "kind": "frame",
+      "source_id": "CAM_C",
+      "source_frame_index": 20,
+      "transition_in": null
+    },
+    "after": {
+      "kind": "frame",
+      "source_id": "CAM_C",
+      "source_frame_index": 20,
+      "transition_in": null
+    },
+    "frame_identity_preserved": true
+  },
+  {
+    "record_frame": 39,
+    "record_timecode": "00:00:01:15",
+    "before": {
+      "kind": "frame",
+      "source_id": "CAM_C",
+      "source_frame_index": 21,
+      "transition_in": null
+    },
+    "after": {
+      "kind": "frame",
+      "source_id": "CAM_C",
+      "source_frame_index": 21,
+      "transition_in": null
+    },
+    "frame_identity_preserved": true
+  },
+  {
+    "record_frame": 40,
+    "record_timecode": "00:00:01:16",
+    "before": {
+      "kind": "frame",
+      "source_id": "CAM_C",
+      "source_frame_index": 22,
+      "transition_in": null
+    },
+    "after": {
+      "kind": "frame",
+      "source_id": "CAM_C",
+      "source_frame_index": 22,
+      "transition_in": null
+    },
+    "frame_identity_preserved": true
+  },
+  {
+    "record_frame": 41,
+    "record_timecode": "00:00:01:17",
+    "before": {
+      "kind": "frame",
+      "source_id": "CAM_C",
+      "source_frame_index": 23,
+      "transition_in": null
+    },
+    "after": {
+      "kind": "frame",
+      "source_id": "CAM_C",
+      "source_frame_index": 23,
+      "transition_in": null
+    },
+    "frame_identity_preserved": true
+  },
+  {
+    "record_frame": 42,
+    "record_timecode": "00:00:01:18",
+    "before": {
+      "kind": "frame",
+      "source_id": "CAM_A",
+      "source_frame_index": 20,
+      "transition_in": "push"
+    },
+    "after": {
+      "kind": "frame",
+      "source_id": "CAM_A",
+      "source_frame_index": 20,
+      "transition_in": null
+    },
+    "frame_identity_preserved": true
+  },
+  {
+    "record_frame": 43,
+    "record_timecode": "00:00:01:19",
+    "before": {
+      "kind": "frame",
+      "source_id": "CAM_A",
+      "source_frame_index": 21,
+      "transition_in": "push"
+    },
+    "after": {
+      "kind": "frame",
+      "source_id": "CAM_A",
+      "source_frame_index": 21,
+      "transition_in": null
+    },
+    "frame_identity_preserved": true
+  },
+  {
+    "record_frame": 44,
+    "record_timecode": "00:00:01:20",
+    "before": {
+      "kind": "frame",
+      "source_id": "CAM_A",
+      "source_frame_index": 22,
+      "transition_in": "push"
+    },
+    "after": {
+      "kind": "frame",
+      "source_id": "CAM_A",
+      "source_frame_index": 22,
+      "transition_in": null
+    },
+    "frame_identity_preserved": true
+  },
+  {
+    "record_frame": 45,
+    "record_timecode": "00:00:01:21",
+    "before": {
+      "kind": "frame",
+      "source_id": "CAM_A",
+      "source_frame_index": 23,
+      "transition_in": "push"
+    },
+    "after": {
+      "kind": "frame",
+      "source_id": "CAM_A",
+      "source_frame_index": 23,
+      "transition_in": null
+    },
+    "frame_identity_preserved": true
+  },
+  {
+    "record_frame": 46,
+    "record_timecode": "00:00:01:22",
+    "before": {
+      "kind": "frame",
+      "source_id": "CAM_A",
+      "source_frame_index": 24,
+      "transition_in": null
+    },
+    "after": {
+      "kind": "frame",
+      "source_id": "CAM_A",
+      "source_frame_index": 24,
+      "transition_in": null
+    },
+    "frame_identity_preserved": true
+  },
+  {
+    "record_frame": 47,
+    "record_timecode": "00:00:01:23",
+    "before": {
+      "kind": "frame",
+      "source_id": "CAM_A",
+      "source_frame_index": 25,
+      "transition_in": null
+    },
+    "after": {
+      "kind": "frame",
+      "source_id": "CAM_A",
+      "source_frame_index": 25,
+      "transition_in": null
+    },
+    "frame_identity_preserved": true
+  },
+  {
+    "record_frame": 48,
+    "record_timecode": "00:00:02:00",
+    "before": {
+      "kind": "frame",
+      "source_id": "CAM_A",
+      "source_frame_index": 26,
+      "transition_in": null
+    },
+    "after": {
+      "kind": "frame",
+      "source_id": "CAM_A",
+      "source_frame_index": 26,
+      "transition_in": null
+    },
+    "frame_identity_preserved": true
+  },
+  {
+    "record_frame": 49,
+    "record_timecode": "00:00:02:01",
+    "before": {
+      "kind": "frame",
+      "source_id": "CAM_A",
+      "source_frame_index": 27,
+      "transition_in": null
+    },
+    "after": {
+      "kind": "frame",
+      "source_id": "CAM_A",
+      "source_frame_index": 27,
+      "transition_in": null
+    },
+    "frame_identity_preserved": true
+  },
+  {
+    "record_frame": 50,
+    "record_timecode": "00:00:02:02",
+    "before": {
+      "kind": "frame",
+      "source_id": "CAM_A",
+      "source_frame_index": 28,
+      "transition_in": null
+    },
+    "after": {
+      "kind": "frame",
+      "source_id": "CAM_A",
+      "source_frame_index": 28,
+      "transition_in": null
+    },
+    "frame_identity_preserved": true
+  },
+  {
+    "record_frame": 51,
+    "record_timecode": "00:00:02:03",
+    "before": {
+      "kind": "frame",
+      "source_id": "CAM_A",
+      "source_frame_index": 29,
+      "transition_in": null
+    },
+    "after": {
+      "kind": "frame",
+      "source_id": "CAM_A",
+      "source_frame_index": 29,
+      "transition_in": null
+    },
+    "frame_identity_preserved": true
+  }
+]
