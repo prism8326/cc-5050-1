@@ -24,16 +24,27 @@ MASTER = FrameRate(24000, 1001)
 ORIGIN = parse_timecode("01:00:00:00", MASTER)
 
 
+CATALOG_MEDIA_REFS = {
+    "CAM_A": "media:cam-a",
+    "CAM_B": "media:cam-b",
+    "CAM_C": "media:cam-c",
+}
+
+
 def _load_source(source_id: str) -> Source:
     manifest_path = os.path.join(SOURCE_DIR, source_id, "manifest.json")
     with open(manifest_path, encoding="utf-8") as fh:
         manifest = json.load(fh)
+    manifest["media_ref"] = CATALOG_MEDIA_REFS[source_id]
     return Source(
         source_id=source_id,
         path=os.path.join("sources", source_id),
         rate=FrameRate.from_value(manifest["rate"]),
         duration=Fraction(manifest["duration_rational"]),
         exists=True,
+        media_ref=manifest.get("media_ref"),
+        content_id=manifest.get("content_id"),
+        timecode_origin=Fraction(manifest.get("timecode_origin_rational", "0")),
     )
 
 

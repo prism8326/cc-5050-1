@@ -11,7 +11,10 @@ from .model import (
     CMX_EXPRESSIBLE_TRANSITIONS,
 )
 from .loss import LossReport, LossEntry
-from . import tl_json, cmx, preview, render
+from . import (
+    tl_json, cmx, preview, render,
+    capabilities, contracts, fidelity, relink, trace, validate, media,
+)
 
 __all__ = [
     "FrameRate",
@@ -31,4 +34,11 @@ __all__ = [
     "cmx",
     "preview",
     "render",
+    "capabilities",
+    "contracts",
+    "fidelity",
+    "relink",
+    "trace",
+    "validate",
+    "media",
 ]

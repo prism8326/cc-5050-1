@@ -29,6 +29,7 @@ from .model import (
     CMX_EXPRESSIBLE_TRANSITIONS,
 )
 from .loss import LossReport, LossEntry
+from .capabilities import fallback_transition
 
 FORMAT_NAME = "cmx3600"
 DEFAULT_ORIGIN_HOUR = 1  # 01:00:00:00 record origin convention
@@ -150,9 +151,10 @@ def import_text(text: str, rate: FrameRate, sources: dict[str, Source] | None = 
         rec_in = origin + parse_timecode(ev["record_in"], rate)
         rec_out = origin + parse_timecode(ev["record_out"], rate)
         # Source timecodes are labelled on the source's own clock, so they must
-        # be parsed against the source frame rate, never the record rate.
-        src_in = parse_timecode(ev["source_in"], src.rate)
-        src_out = parse_timecode(ev["source_out"], src.rate)
+        # be parsed against the source frame rate, never the record rate, and
+        # rebased by the media's first-frame timecode.
+        src_in = parse_timecode(ev["source_in"], src.rate) - src.timecode_origin
+        src_out = parse_timecode(ev["source_out"], src.rate) - src.timecode_origin
         duration = rec_out - rec_in
 
         # An explicit record gap between adjacent events becomes a real Gap.
@@ -210,27 +212,43 @@ def _reel_name(source_id: str, reel: str | None) -> str:
     return name.upper()
 
 
-def export_text(tl: Timeline, report: LossReport | None = None) -> str:
-    """Export to CMX 3600 EDL, recording every loss in ``report``."""
+def export_text(tl: Timeline, report: LossReport | None = None,
+                profile=None) -> str:
+    """Export to CMX 3600 EDL, recording every loss in ``report``.
+
+    ``profile`` is a :class:`~tlx.capabilities.TargetProfile`; defaults to the
+    full CMX profile.  A narrowed profile degrades exactly the capabilities it
+    dropped and reports them, so the capability list and the exporter cannot
+    drift apart.
+    """
     if report is None:
         report = LossReport(FORMAT_NAME)
+    if profile is None:
+        from .capabilities import CMX_PROFILE
+        profile = CMX_PROFILE
     origin = tl.start_time
     rate = tl.rate
     video = tl.video_tracks()
-    if len(video) > 1:
+    if len(video) > 1 and not profile.multi_video_track:
         for extra in video[1:]:
+            first_clip = min(
+                extra.clips, key=lambda c: c.timeline_start, default=None
+            )
             report.add(
                 LossEntry(
                     code="track_not_expressible",
                     severity="error",
                     kind="track",
                     object_id=extra.track_id,
-                    timeline_start=None,
-                    timeline_end=None,
+                    timeline_start=(
+                        first_clip.timeline_start if first_clip else None
+                    ),
+                    timeline_end=(first_clip.timeline_end if first_clip else None),
                     message=(
                         "CMX 3600 holds a single video track; clips on "
                         f"{extra.track_id} cannot be exported"
                     ),
+                    details={"fallback": "track_dropped"},
                 )
             )
     if not video:
@@ -260,20 +278,22 @@ def export_text(tl: Timeline, report: LossReport | None = None) -> str:
     items = track.sorted_items()
     for item in items:
         if isinstance(item, Gap):
-            report.add(
-                LossEntry(
-                    code="gap_not_expressible",
-                    severity="error",
-                    kind="gap",
-                    object_id=item.gap_id,
-                    timeline_start=item.start,
-                    timeline_end=item.end,
-                    message=(
-                        "CMX 3600 has no explicit gap construct; the empty "
-                        "interval is represented only by the record-time jump"
-                    ),
+            if not profile.explicit_gaps:
+                report.add(
+                    LossEntry(
+                        code="gap_not_expressible",
+                        severity="error",
+                        kind="gap",
+                        object_id=item.gap_id,
+                        timeline_start=item.start,
+                        timeline_end=item.end,
+                        message=(
+                            "CMX 3600 has no explicit gap construct; the empty "
+                            "interval is represented only by the record-time jump"
+                        ),
+                        details={"fallback": "record_time_jump"},
+                    )
                 )
-            )
             continue
 
         clip = item
@@ -311,10 +331,47 @@ def export_text(tl: Timeline, report: LossReport | None = None) -> str:
                         f"source rate {src.rate} differs from record rate {rate}; "
                         "EDL stores timecodes only, retiming metadata is lost"
                     ),
+                    details={"fallback": "record_rate_timecode"},
                 )
             )
 
-        if clip.transition_in not in CMX_EXPRESSIBLE_TRANSITIONS:
+        if clip.baked and not profile.baked_media:
+            report.add(
+                LossEntry(
+                    code="baked_media_not_expressible",
+                    severity="error",
+                    kind="clip",
+                    object_id=clip.clip_id,
+                    timeline_start=clip.timeline_start,
+                    timeline_end=clip.timeline_end,
+                    message=(
+                        "target profile cannot reference a pre-baked media asset; "
+                        "the flattened transition cannot be relinked"
+                    ),
+                    details={"fallback": "baked_asset_dropped"},
+                )
+            )
+
+        if clip.reverse and not profile.reverse:
+            report.add(
+                LossEntry(
+                    code="reverse_not_expressible",
+                    severity="error",
+                    kind="clip",
+                    object_id=clip.clip_id,
+                    timeline_start=clip.timeline_start,
+                    timeline_end=clip.timeline_end,
+                    message=(
+                        "target profile cannot express reverse playback; the "
+                        "source range is exported forwards"
+                    ),
+                    details={"fallback": "forward_playback", "source_range_reversed": True},
+                )
+            )
+
+        effective = clip.transition_in
+        if effective not in profile.transitions:
+            effective = fallback_transition(effective, profile)
             report.add(
                 LossEntry(
                     code="transition_not_expressible",
@@ -328,19 +385,24 @@ def export_text(tl: Timeline, report: LossReport | None = None) -> str:
                     ),
                     message=(
                         f"transition {clip.transition_in!r} has no CMX 3600 "
-                        "equivalent; exported as a hard cut"
+                        f"equivalent under {profile.profile_id}; "
+                        f"degraded to {effective}"
                     ),
+                    details={
+                        "requested": clip.transition_in,
+                        "fallback": effective,
+                        "source_frames_unchanged": True,
+                    },
                 )
             )
+        if effective == TRANSITION_CUT:
             trans_code, aux = "C", ""
-        elif clip.transition_in == TRANSITION_CUT:
-            trans_code, aux = "C", ""
-        elif clip.transition_in in (TRANSITION_DISSOLVE, TRANSITION_FADE):
-            frames = int(clip.transition_duration * rate.rate)
-            trans_code, aux = "D", f"{frames:3d}"
-        else:  # wipe
+        elif effective == TRANSITION_WIPE:
             frames = int(clip.transition_duration * rate.rate)
             trans_code, aux = "W", f"{frames:3d}"
+        else:  # dissolve (fade is not distinguishable and falls back here)
+            frames = int(clip.transition_duration * rate.rate)
+            trans_code, aux = "D", f"{frames:3d}"
 
         if not clip.enabled:
             report.add(
@@ -355,8 +417,8 @@ def export_text(tl: Timeline, report: LossReport | None = None) -> str:
                 )
             )
 
-        sin = format_timecode(clip.source_in, src.rate)
-        sout = format_timecode(clip.source_out, src.rate)
+        sin = format_timecode(clip.source_in + src.timecode_origin, src.rate)
+        sout = format_timecode(clip.source_out + src.timecode_origin, src.rate)
         rin = format_timecode(clip.timeline_start - origin, rate)
         rout = format_timecode(clip.timeline_end - origin, rate)
         lines.append(
@@ -366,3 +428,8 @@ def export_text(tl: Timeline, report: LossReport | None = None) -> str:
         lines.append("")
 
     return "\n".join(lines).rstrip() + "\n"
+
+
+def _fallback_for(transition: str, profile) -> str:
+    from .capabilities import fallback_transition
+    return fallback_transition(transition, profile)

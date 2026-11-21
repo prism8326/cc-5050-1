@@ -1,7 +1,10 @@
 "use strict";
 
 const $ = (id) => document.getElementById(id);
-const state = { session: null, stage: "before", frameCount: 0, frameTable: [] };
+const state = {
+  session: null, stage: "before", frameCount: 0, frameTable: [],
+  profiles: [], capData: null,
+};
 let frameReqSeq = 0;
 
 function setStatus(el, kind, html) {
@@ -12,6 +15,13 @@ function setStatus(el, kind, html) {
 function clearStatus(el) {
   el.className = "status";
   el.innerHTML = "";
+}
+
+async function getJSON(url) {
+  const res = await fetch(url);
+  const data = await res.json();
+  if (!res.ok) throw new Error(data.error || "request failed");
+  return data;
 }
 
 async function postJSON(url, body) {
@@ -157,6 +167,7 @@ async function runExchange(sample) {
           source_format: $("srcFmt").value,
           target_format: $("tgtFmt").value,
           rate: $("rate").value.trim(),
+          target_profile: $("profileSel").value || null,
         });
     if (sample && data.sample_document) $("docInput").value = data.sample_document;
     applyResult(data);
@@ -216,11 +227,187 @@ function setStage(stage) {
     b.classList.toggle("active", b.dataset.stage === stage);
   });
   requestFrame(Number($("scrub").value));
+  requestTrace(Number($("scrub").value));
 }
+
+/* ------------------------------------------------------------------ *
+ * Capability manifest + executable contracts
+ * ------------------------------------------------------------------ */
+
+async function loadProfiles() {
+  const data = await getJSON("/api/formats");
+  state.profiles = data.profiles || [];
+  const runSel = $("profileSel");
+  const capSel = $("capProfileSel");
+  for (const p of state.profiles) {
+    runSel.insertAdjacentHTML("beforeend",
+      `<option value="${p.profile_id}">${p.label}</option>`);
+    capSel.insertAdjacentHTML("beforeend",
+      `<option value="${p.profile_id}">${p.label}</option>`);
+  }
+  // Default the capability inspector to CMX so narrowing is visible.
+  if (state.profiles.some(p => p.profile_id === "cmx3600")) {
+    capSel.value = "cmx3600";
+  }
+}
+
+function renderCapabilities(data) {
+  state.capData = data;
+  const tb = $("capTable").querySelector("tbody");
+  const rows = [];
+  for (const cap of data.manifest.capabilities) {
+    const samples = cap.samples.length
+      ? cap.samples.map(s =>
+          `${s.sample}: <span class="badge-${s.outcome === "reversible"
+            ? "ok" : "err"}">${s.outcome}</span>`).join("<br>")
+      : '<span class="badge-err">无样例</span>';
+    const measured = cap.samples.length ? cap.samples : [];
+    const pixel = measured.length
+      ? measured.map(s => s.outcome === "rejected" ? "否" : "是").join(" / ")
+      : "—";
+    const struct = measured.length
+      ? measured.map(s => s.outcome === "reversible" ? "是" : "否").join(" / ")
+      : "—";
+    const first = measured.length
+      ? measured.map(s => s.first_loss ? s.first_loss.record_timecode || "—" : "—")
+          .join(" / ")
+      : "—";
+    rows.push(`<tr>
+      <td class="mono">${cap.capability}</td>
+      <td>${cap.supported
+        ? '<span class="badge-ok">支持</span>'
+        : '<span class="badge-err">不支持</span>'}</td>
+      <td>${samples}</td>
+      <td>${measured.map(s => s.outcome).join(" / ") || "—"}</td>
+      <td>${pixel}</td><td>${struct}</td><td class="mono">${first}</td>
+    </tr>`);
+  }
+  tb.innerHTML = rows.join("");
+  const uncovered = data.manifest.uncovered_capabilities;
+  setStatus($("capStatus"), uncovered.length ? "fail" : "ok",
+    `清单 ${data.manifest.profile.profile_id}：${data.manifest.capabilities.length} 项能力，`
+    + `${uncovered.length ? "未覆盖：" + uncovered.join(", ") : "每项能力都有可执行样例"}。`);
+}
+
+async function runCapabilities() {
+  $("capBtn").disabled = true;
+  try {
+    const data = await getJSON(
+      `/api/capabilities?profile=${encodeURIComponent($("capProfileSel").value)}`);
+    renderCapabilities(data);
+  } catch (err) {
+    setStatus($("capStatus"), "fail", `契约运行失败：${err.message}`);
+  } finally {
+    $("capBtn").disabled = false;
+  }
+}
+
+async function runScenarios() {
+  $("scenarioBtn").disabled = true;
+  try {
+    const data = await getJSON(`/api/scenarios?seed=${Math.floor(Math.random()*1000)}`);
+    const lines = Object.entries(data.scenarios).map(([name, r]) => {
+      const mark = r.pass
+        ? '<span class="badge-ok">PASS</span>'
+        : '<span class="badge-err">FAIL</span>';
+      return `<div>${mark} <strong>${name}</strong> — ${r.description}</div>`;
+    });
+    $("scenarioOut").innerHTML =
+      `<div>随机种子 ${data.seed}</div>` + lines.join("")
+      + (data.failed.length
+        ? `<div class="badge-err">失败：${data.failed.join(", ")}</div>`
+        : '<div class="badge-ok">全部场景通过</div>');
+  } catch (err) {
+    $("scenarioOut").innerHTML =
+      `<div class="badge-err">场景运行失败：${err.message}</div>`;
+  } finally {
+    $("scenarioBtn").disabled = false;
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * Any-frame trace, relink, source-reference validation
+ * ------------------------------------------------------------------ */
+
+async function requestTrace(frameIdx) {
+  if (!state.session) return;
+  try {
+    const data = await postJSON("/api/trace",
+      { session: state.session, frame: frameIdx });
+    const r = data.resolution;
+    const parts = [
+      `<div>记录 ${r.record_timecode} · 类型 ${r.kind} · 需要 ${r.needs}</div>`,
+    ];
+    for (const s of r.sources) {
+      parts.push(`<div>${s.role}: ${s.source_id} 源区间 `
+        + `${s.source_in_timecode}–${s.source_out_timecode} `
+        + `→ 帧 #${s.source_frame_index} @ ${s.source_timecode}`
+        + `${s.reverse ? " (倒放)" : ""}${s.baked ? " (烘焙)" : ""}</div>`);
+    }
+    parts.push(`<div class="muted">${r.note}</div>`);
+    $("traceOut").innerHTML = parts.join("");
+  } catch (err) {
+    $("traceOut").innerHTML =
+      `<span class="badge-err">溯源失败：${err.message}</span>`;
+  }
+}
+
+async function runRelink() {
+  if (!state.session) return;
+  try {
+    const data = await postJSON("/api/relink", { session: state.session });
+    const rel = data.relink;
+    const acc = rel.accepted.map(a =>
+      `<div>接受 ${a.role} ${a.source_id} ← ${a.candidate_path}（${a.reason}）</div>`
+    ).join("");
+    const rej = rel.rejected.slice(0, 6).map(r =>
+      `<div class="badge-err">拒绝 ${r.source_id} ← ${r.candidate_path}：${r.reason}</div>`
+    ).join("");
+    $("identityOut").innerHTML = acc + rej
+      + (rel.missing_requests.length
+        ? `<div class="badge-err">未解析：${rel.missing_requests.join(", ")}</div>`
+        : "");
+  } catch (err) {
+    $("identityOut").innerHTML =
+      `<span class="badge-err">重连失败：${err.message}</span>`;
+  }
+}
+
+async function runValidate() {
+  if (!state.session) return;
+  try {
+    const data = await postJSON("/api/validate", { session: state.session });
+    const v = data.validation;
+    if (v.ok) {
+      $("identityOut").innerHTML =
+        `<span class="badge-ok">全部源引用按 media_ref 定位成功（${v.resolved.length} 条）</span>`;
+      return;
+    }
+    $("identityOut").innerHTML = v.needs_human.map(i =>
+      `<div class="badge-err">需人工 ${i.clip_id} ${i.source_id} @ ${i.record_timecode}`
+      + ` — ${i.kind}: ${i.message}`
+      + `${i.name_only_candidate ? `（同名候选 ${i.name_only_candidate}，未采用）` : ""}</div>`
+    ).join("");
+  } catch (err) {
+    $("identityOut").innerHTML =
+      `<span class="badge-err">校验失败：${err.message}</span>`;
+  }
+}
+
+$("capBtn").addEventListener("click", runCapabilities);
+$("capProfileSel").addEventListener("change", runCapabilities);
+$("scenarioBtn").addEventListener("click", runScenarios);
+$("relinkBtn").addEventListener("click", runRelink);
+$("validateBtn").addEventListener("click", runValidate);
+loadProfiles().then(runCapabilities);
 
 $("runBtn").addEventListener("click", () => runExchange(false));
 $("sampleBtn").addEventListener("click", () => runExchange(true));
-$("scrub").addEventListener("input", (e) => requestFrame(Number(e.target.value)));
+$("scrub").addEventListener("input", (e) => {
+  const frame = Number(e.target.value);
+  requestFrame(frame);
+  requestTrace(frame);
+});
 document.querySelectorAll(".stage-switch button").forEach((b) => {
   b.addEventListener("click", () => setStage(b.dataset.stage));
 });

@@ -21,8 +21,11 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 sys.path.insert(0, ROOT)
 
-from tlx import exchange, tl_json  # noqa: E402
-from tlx.timecode import FrameRate  # noqa: E402
+from tlx import (  # noqa: E402
+    exchange, tl_json, capabilities, contracts, relink, trace, validate,
+)
+from tlx.media import MediaCatalog  # noqa: E402
+from tlx.timecode import FrameRate, frame_time, frame_index_at  # noqa: E402
 
 
 def _load_source_registry(path: str | None):
@@ -46,6 +49,13 @@ def main() -> int:
     )
     ap.add_argument("--out", required=True)
     ap.add_argument("--report", default=None)
+    ap.add_argument(
+        "--target-profile", default=None,
+        choices=sorted(capabilities.PROFILES),
+        help="narrow the target capability set (e.g. cmx3600-narrow-wipe)",
+    )
+    ap.add_argument("--contracts", action="store_true",
+                    help="also print per-capability contract outcomes")
     args = ap.parse_args()
 
     with open(args.inp, encoding="utf-8") as fh:
@@ -55,7 +65,7 @@ def main() -> int:
 
     result = exchange.run_exchange(
         text, args.src, args.tgt, rate=rate, sources=sources,
-        media_base_dir=args.media_dir,
+        media_base_dir=args.media_dir, profile_id=args.target_profile,
     )
     with open(args.out, "w", encoding="utf-8") as fh:
         fh.write(result.exported_text)
@@ -72,8 +82,21 @@ def main() -> int:
     print(f"  loss entries: {summary['loss']['entry_count']} "
           f"(errors={sum(1 for e in summary['loss']['entries'] if e['severity'] == 'error')})")
     print(f"  missing media: {summary['missing_sources'] or 'none'}")
+    first = summary.get("first_loss_position")
+    if first:
+        print(f"  first lost edit semantics: {first['timecode']} "
+              f"({first['code']} on {first['object_id']})")
     if args.report:
         print(f"  verification report: {args.report}")
+    if args.contracts:
+        profile = capabilities.get_profile(
+            args.target_profile, args.tgt
+        )
+        for outcome in contracts.run_all(profile):
+            print(f"  contract {outcome.sample:<12} {outcome.outcome:<11} "
+                  f"pixel={outcome.pixel_match} structure="
+                  f"{outcome.edit_structure_faithful} "
+                  f"first={outcome.first_loss_record_timecode}")
     # Non-zero exit only when a loss is an error, so CI can gate strict targets.
     return 2 if result.loss_report.has_errors else 0
 

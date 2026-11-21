@@ -36,10 +36,24 @@ CMX_EXPRESSIBLE_TRANSITIONS = frozenset(
     {TRANSITION_CUT, TRANSITION_DISSOLVE, TRANSITION_FADE, TRANSITION_WIPE}
 )
 
+#: Transition downgrades when the target cannot express it.  The value is the
+#: semantics that replaces it, so a narrower target is a *decided* mapping.
+CMX_TRANSITION_FALLBACK = {
+    TRANSITION_PUSH: TRANSITION_CUT,
+    TRANSITION_SLIDE: TRANSITION_CUT,
+}
+
 
 @dataclass
 class Source:
-    """A piece of source media."""
+    """A piece of source media.
+
+    ``media_ref`` is the stable identity a relinker must follow.  A display
+    name (``source_id`` / ``reel``) is *not* enough: two projects may reference
+    different media under the same name.  ``content_id`` is a media fingerprint
+    used to catch a same-duration stand-in, and ``timecode_origin`` records the
+    timecode label of the media's first frame.
+    """
 
     source_id: str
     path: Optional[str]
@@ -47,6 +61,9 @@ class Source:
     duration: Fraction  # exact duration of the media
     exists: bool = True  # set False after a real media probe fails
     reel: Optional[str] = None  # CMX reel name, assigned at export if needed
+    media_ref: Optional[str] = None  # stable cross-project media identity
+    content_id: Optional[str] = None  # media fingerprint, not a display name
+    timecode_origin: Fraction = Fraction(0)  # timecode of the first frame
 
 
 @dataclass
@@ -73,6 +90,10 @@ class Clip:
     transition_in: str = TRANSITION_CUT
     transition_duration: Fraction = Fraction(0)
     enabled: bool = True
+    reverse: bool = False  # play the source range backwards
+    # True when this clip already carries a flattened (baked) transition and
+    # therefore must be relinked against baked media, not the two source ranges.
+    baked: bool = False
 
     @property
     def timeline_end(self) -> Fraction:

@@ -116,6 +116,11 @@
       <label>记录帧率（导入 EDL 时必填）
         <input type="text" id="rate" value="24000/1001" style="width:120px">
       </label>
+      <label>目标能力清单
+        <select id="profileSel">
+          <option value="">使用完整目标格式</option>
+        </select>
+      </label>
       <button id="runBtn">执行交换并重新读取</button>
       <button id="sampleBtn" class="secondary">载入混合帧率示例工程</button>
     </div>
@@ -155,6 +160,27 @@
     </div>
   </section>
 
+  <section class="card" id="capabilityCard">
+    <h2>2a · 能力清单 × 可执行契约样例</h2>
+    <div class="controls" style="margin-bottom:10px">
+      <label>查看能力清单
+        <select id="capProfileSel"></select>
+      </label>
+      <button id="capBtn" class="secondary">运行全部契约样例</button>
+      <button id="scenarioBtn" class="secondary">运行场景（含随机顺序）</button>
+    </div>
+    <div id="capStatus" class="status"></div>
+    <div class="frame-table-scroll" style="max-height:340px;margin-top:10px">
+      <table id="capTable">
+        <thead><tr>
+          <th>能力</th><th>本清单</th><th>样例</th><th>实测结果</th>
+          <th>像素一致</th><th>剪辑结构保真</th><th>首个丢失位置</th>
+        </tr></thead><tbody></tbody>
+      </table>
+    </div>
+    <div id="scenarioOut" class="mono" style="font-size:12px;margin-top:10px"></div>
+  </section>
+
   <section class="card" id="previewCard" style="display:none">
     <h2>4 · 拖动游标 · 内核返回该记录时刻实际选中的源帧</h2>
     <div class="stage-switch controls" style="margin-bottom:8px">
@@ -173,6 +199,13 @@
         <div id="selDetail" class="mono" style="font-size:12px"></div>
       </div>
       <div>
+        <h2 style="font-size:13px">任意输出帧 → 源片与区间（交换窗口溯源）</h2>
+        <div id="traceOut" class="mono" style="font-size:12px;margin-bottom:8px"></div>
+        <div class="controls" style="margin-bottom:10px">
+          <button id="relinkBtn" class="secondary">按物料身份重连</button>
+          <button id="validateBtn" class="secondary">校验源引用</button>
+        </div>
+        <div id="identityOut" class="mono" style="font-size:12px;margin-bottom:10px"></div>
         <h2 style="font-size:13px">逐帧选择审计（记录帧 → 实际源帧）</h2>
         <div class="frame-table-scroll">
           <table id="frameTable">

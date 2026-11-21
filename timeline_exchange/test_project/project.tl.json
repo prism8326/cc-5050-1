@@ -20,7 +20,13 @@
         "rational": "1001/400",
         "timecode": "00:00:02:12"
       },
-      "exists": true
+      "exists": true,
+      "media_ref": "media:cam-a",
+      "content_id": "sha256:d326b22ae5730f1e10218bad",
+      "timecode_origin": {
+        "rational": "0",
+        "timecode": "00:00:00:00"
+      }
     },
     "CAM_B": {
       "path": "sources/CAM_B",
@@ -30,7 +36,13 @@
         "rational": "48/25",
         "timecode": "00:00:01:23"
       },
-      "exists": true
+      "exists": true,
+      "media_ref": "media:cam-b",
+      "content_id": "sha256:713b38d9c53e7612aa0662e5",
+      "timecode_origin": {
+        "rational": "0",
+        "timecode": "00:00:00:00"
+      }
     },
     "CAM_C": {
       "path": "sources/CAM_C",
@@ -40,7 +52,13 @@
         "rational": "3003/1250",
         "timecode": "00:00:02:12"
       },
-      "exists": true
+      "exists": true,
+      "media_ref": "media:cam-c",
+      "content_id": "sha256:46a805c38c491e223b3f54b6",
+      "timecode_origin": {
+        "rational": "0",
+        "timecode": "00:00:00:00"
+      }
     }
   },
   "tracks": [
@@ -73,7 +91,9 @@
             "rational": "0",
             "timecode": "-1:00:00:00"
           },
-          "enabled": true
+          "enabled": true,
+          "reverse": false,
+          "baked": false
         },
         {
           "clip_id": "C0002",
@@ -99,7 +119,9 @@
             "rational": "0",
             "timecode": "-1:00:00:00"
           },
-          "enabled": true
+          "enabled": true,
+          "reverse": false,
+          "baked": false
         },
         {
           "clip_id": "C0003",
@@ -125,7 +147,9 @@
             "rational": "1001/4000",
             "timecode": "-1:00:00:06"
           },
-          "enabled": true
+          "enabled": true,
+          "reverse": false,
+          "baked": false
         },
         {
           "clip_id": "C0004",
@@ -151,7 +175,9 @@
             "rational": "1001/6000",
             "timecode": "-1:00:00:04"
           },
-          "enabled": true
+          "enabled": true,
+          "reverse": false,
+          "baked": false
         }
       ],
       "gaps": [
@@ -197,7 +223,9 @@
             "rational": "0",
             "timecode": "-1:00:00:00"
           },
-          "enabled": true
+          "enabled": true,
+          "reverse": false,
+          "baked": false
         }
       ],
       "gaps": []

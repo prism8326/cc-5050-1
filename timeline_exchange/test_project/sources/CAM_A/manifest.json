@@ -3,6 +3,7 @@
   "rate": "24000/1001",
   "frame_count": 60,
   "size": "320x180",
+  "content_seed": "CAM_A",
   "frames": [
     "frame_000000.png",
     "frame_000001.png",
@@ -65,5 +66,6 @@
     "frame_000058.png",
     "frame_000059.png"
   ],
-  "duration_rational": "1001/400"
+  "duration_rational": "1001/400",
+  "content_id": "sha256:d326b22ae5730f1e10218bad"
 }

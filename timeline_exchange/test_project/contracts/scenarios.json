@@ -1,0 +1,646 @@
+{
+  "seed": 7,
+  "scenarios": {
+    "baked_standin": {
+      "scenario": "baked_standin",
+      "seed": 7,
+      "description": "one source range replaced by a same-duration baked video; move an edit point and verify the stand-in is detected",
+      "move_on_real_clip": {
+        "clip_id": "C1",
+        "record_timecode": "00:00:00:00",
+        "old_source_in": {
+          "rational": "0",
+          "timecode": "00:00:00:00"
+        },
+        "new_source_in": {
+          "rational": "1001/6000",
+          "timecode": "00:00:00:04"
+        },
+        "before_selection": {
+          "source_id": "CAM_A",
+          "source_frame_index": 0
+        },
+        "after_selection": {
+          "source_id": "CAM_A",
+          "source_frame_index": 4
+        },
+        "wanted_frame": 4,
+        "media_ref": "media:cam-a",
+        "content_id": "sha256:aaaa",
+        "backed_by_claimed_media": true,
+        "verdict": "edit point moved onto the intended media"
+      },
+      "move_on_baked_clip": {
+        "clip_id": "C2",
+        "record_timecode": "00:00:00:20",
+        "old_source_in": {
+          "rational": "0",
+          "timecode": "00:00:00:00"
+        },
+        "new_source_in": {
+          "rational": "1001/6000",
+          "timecode": "00:00:00:04"
+        },
+        "before_selection": {
+          "source_id": "BAKED",
+          "source_frame_index": 0
+        },
+        "after_selection": {
+          "source_id": "BAKED",
+          "source_frame_index": 4
+        },
+        "wanted_frame": 4,
+        "media_ref": "media:baked-standin",
+        "content_id": "sha256:baked",
+        "backed_by_claimed_media": false,
+        "verdict": "edit point would resolve to a stand-in: same duration, wrong media"
+      },
+      "stand_in_detected": true,
+      "validation": {
+        "ok": false,
+        "needs_human_count": 1,
+        "resolved": [
+          {
+            "clip_id": "C1",
+            "track_id": "V1",
+            "source_id": "CAM_A",
+            "media_ref": "media:cam-a",
+            "content_id": "sha256:aaaa",
+            "timecode_origin": "00:00:00:00"
+          }
+        ],
+        "issues": [
+          {
+            "clip_id": "C2",
+            "source_id": "BAKED",
+            "media_ref": "media:baked-standin",
+            "record_timecode": "00:00:00:20",
+            "kind": "unresolved_ref",
+            "needs_human": true,
+            "message": "media_ref 'media:baked-standin' is not in the catalog; 0 asset(s) share the display name but must not be substituted",
+            "name_only_candidate": null,
+            "pixel_match": null
+          }
+        ],
+        "needs_human": [
+          {
+            "clip_id": "C2",
+            "source_id": "BAKED",
+            "media_ref": "media:baked-standin",
+            "record_timecode": "00:00:00:20",
+            "kind": "unresolved_ref",
+            "needs_human": true,
+            "message": "media_ref 'media:baked-standin' is not in the catalog; 0 asset(s) share the display name but must not be substituted",
+            "name_only_candidate": null,
+            "pixel_match": null
+          }
+        ]
+      },
+      "pass": true
+    },
+    "three_capabilities": {
+      "scenario": "three_capabilities",
+      "seed": 7,
+      "description": "reverse clip, transition overlapping a neighbouring track, and a cross-rate cut on one shot source; every output frame resolves",
+      "resolved_frames": {
+        "reverse_mid": {
+          "record_time_rational": "28829801/8000",
+          "record_timecode": "00:00:00:03",
+          "kind": "frame",
+          "clip_id": "C1",
+          "transition_in": null,
+          "transition_progress_rational": null,
+          "needs": "reconnect_one_range",
+          "sources": [
+            {
+              "role": "single",
+              "clip_id": "C1",
+              "source_id": "CAM_A",
+              "media_ref": "media:cam-a",
+              "source_time_rational": "13013/12000",
+              "source_timecode": "00:00:01:02",
+              "source_frame_index": 26,
+              "source_in_rational": "3003/4000",
+              "source_out_rational": "1001/800",
+              "source_in_timecode": "00:00:00:18",
+              "source_out_timecode": "00:00:01:06",
+              "rate": "24000/1001fps",
+              "reverse": true,
+              "baked": false
+            }
+          ],
+          "note": "plain cut: a single source range backs this frame"
+        },
+        "cross_rate_cut": {
+          "record_time_rational": "7208201/2000",
+          "record_timecode": "00:00:00:12",
+          "kind": "frame",
+          "clip_id": "C2",
+          "transition_in": null,
+          "transition_progress_rational": null,
+          "needs": "reconnect_one_range",
+          "sources": [
+            {
+              "role": "single",
+              "clip_id": "C2",
+              "source_id": "CAM_C",
+              "media_ref": "media:cam-c",
+              "source_time_rational": "1001/1500",
+              "source_timecode": "00:00:00:20",
+              "source_frame_index": 20,
+              "source_in_rational": "1001/1500",
+              "source_out_rational": "2002/1875",
+              "source_in_timecode": "00:00:00:20",
+              "source_out_timecode": "00:00:01:02",
+              "rate": "30000/1001fps",
+              "reverse": false,
+              "baked": false
+            }
+          ],
+          "note": "plain cut: a single source range backs this frame"
+        },
+        "overlap_transition": {
+          "record_time_rational": "3460457/960",
+          "record_timecode": "00:00:01:01",
+          "kind": "transition_in",
+          "clip_id": "C3",
+          "transition_in": "dissolve",
+          "transition_progress_rational": "1/6",
+          "needs": "reconnect_two_ranges",
+          "sources": [
+            {
+              "role": "outgoing",
+              "clip_id": "C2",
+              "source_id": "CAM_C",
+              "media_ref": "media:cam-c",
+              "source_time_rational": "29029/24000",
+              "source_timecode": "00:00:01:06",
+              "source_frame_index": 36,
+              "source_in_rational": "1001/1500",
+              "source_out_rational": "2002/1875",
+              "source_in_timecode": "00:00:00:20",
+              "source_out_timecode": "00:00:01:02",
+              "rate": "30000/1001fps",
+              "reverse": false,
+              "baked": false
+            },
+            {
+              "role": "incoming",
+              "clip_id": "C3",
+              "source_id": "CAM_B",
+              "media_ref": "media:cam-b",
+              "source_time_rational": "4841/24000",
+              "source_timecode": "00:00:00:05",
+              "source_frame_index": 5,
+              "source_in_rational": "4/25",
+              "source_out_rational": "24/25",
+              "source_in_timecode": "00:00:00:04",
+              "source_out_timecode": "00:00:00:24",
+              "rate": "25fps",
+              "reverse": false,
+              "baked": false
+            }
+          ],
+          "note": "live dissolve: edit point is still cuttable; relink both the outgoing and incoming source ranges"
+        },
+        "overlap_track_wins": {
+          "record_time_rational": "28837809/8000",
+          "record_timecode": "00:00:01:03",
+          "kind": "frame",
+          "clip_id": "O1",
+          "transition_in": null,
+          "transition_progress_rational": null,
+          "needs": "reconnect_one_range",
+          "sources": [
+            {
+              "role": "single",
+              "clip_id": "O1",
+              "source_id": "CAM_A",
+              "media_ref": "media:cam-a",
+              "source_time_rational": "41041/24000",
+              "source_timecode": "00:00:01:17",
+              "source_frame_index": 41,
+              "source_in_rational": "1001/600",
+              "source_out_rational": "1001/480",
+              "source_in_timecode": "00:00:01:16",
+              "source_out_timecode": "00:00:02:02",
+              "rate": "24000/1001fps",
+              "reverse": false,
+              "baked": false
+            }
+          ],
+          "note": "plain cut: a single source range backs this frame"
+        }
+      },
+      "frames_without_source": [],
+      "reverse_descends": true,
+      "overlap_shows_two_ranges": true,
+      "pass": true
+    },
+    "shared_name_swap": {
+      "scenario": "shared_name_swap",
+      "description": "two projects share the display name CAM_A but use different source timecodes; rebuild in random order and validate by ref",
+      "seed": 7,
+      "rebuild_order": [
+        "left",
+        "right"
+      ],
+      "validation": {
+        "left": {
+          "ok": true,
+          "needs_human_count": 0,
+          "resolved": [
+            {
+              "clip_id": "C1",
+              "track_id": "V1",
+              "source_id": "CAM_A",
+              "media_ref": "media:left",
+              "content_id": "sha256:left",
+              "timecode_origin": "01:00:00:00"
+            }
+          ],
+          "issues": [],
+          "needs_human": []
+        },
+        "right": {
+          "ok": true,
+          "needs_human_count": 0,
+          "resolved": [
+            {
+              "clip_id": "C1",
+              "track_id": "V1",
+              "source_id": "CAM_A",
+              "media_ref": "media:right",
+              "content_id": "sha256:right",
+              "timecode_origin": "02:00:00:00"
+            }
+          ],
+          "issues": [],
+          "needs_human": []
+        }
+      },
+      "name_only_lookup": {
+        "left": {
+          "candidate_count": 2,
+          "ambiguous": true,
+          "would_accept_by_name": true,
+          "correct_ref": "media:left",
+          "candidate_refs": [
+            "media:left",
+            "media:right"
+          ],
+          "candidate_origins": [
+            "01:00:00:00",
+            "02:00:00:00"
+          ]
+        },
+        "right": {
+          "candidate_count": 2,
+          "ambiguous": true,
+          "would_accept_by_name": true,
+          "correct_ref": "media:right",
+          "candidate_refs": [
+            "media:left",
+            "media:right"
+          ],
+          "candidate_origins": [
+            "01:00:00:00",
+            "02:00:00:00"
+          ]
+        }
+      },
+      "cross_project_catalog": {
+        "left": {
+          "ok": false,
+          "issues": [
+            {
+              "clip_id": "C1",
+              "source_id": "CAM_A",
+              "media_ref": "media:left",
+              "record_timecode": "00:00:00:00",
+              "kind": "unresolved_ref",
+              "needs_human": true,
+              "message": "media_ref 'media:left' is not in the catalog; 1 asset(s) share the display name but must not be substituted",
+              "name_only_candidate": "projects/right/CAM_A",
+              "pixel_match": null
+            }
+          ]
+        },
+        "right": {
+          "ok": false,
+          "issues": [
+            {
+              "clip_id": "C1",
+              "source_id": "CAM_A",
+              "media_ref": "media:right",
+              "record_timecode": "00:00:00:00",
+              "kind": "unresolved_ref",
+              "needs_human": true,
+              "message": "media_ref 'media:right' is not in the catalog; 1 asset(s) share the display name but must not be substituted",
+              "name_only_candidate": "projects/left/CAM_A",
+              "pixel_match": null
+            }
+          ]
+        }
+      },
+      "pass": true
+    },
+    "flatten_vs_editable": {
+      "scenario": "flatten_vs_editable",
+      "seed": 7,
+      "description": "identical decoded pictures; one project keeps an editable cut, the other is a baked asset — verdicts must stay separate",
+      "pixel_match": true,
+      "edit_structure_faithful": false,
+      "report": {
+        "pixel": {
+          "match": true,
+          "compared_frames": 40,
+          "differing_frames": 0,
+          "deltas": []
+        },
+        "structure": {
+          "faithful": false,
+          "deltas": [
+            {
+              "kind": "cut_changed",
+              "clip_id": "C2",
+              "record_timecode": "00:00:00:20",
+              "message": "flattened/baked state changed: the edit point is no longer editable"
+            }
+          ]
+        },
+        "separate_verdicts": true,
+        "notes": [
+          "decoded source frames match exactly, but the edit structure is not faithful: identical pixels do not imply an editable cut"
+        ]
+      },
+      "pass": true
+    },
+    "narrow_wipe": {
+      "scenario": "narrow_wipe",
+      "seed": 7,
+      "description": "remove wipe from the target capability list; only the wipe sample may change, and it must name the first lost edit position",
+      "diff": {
+        "base_profile": "cmx3600",
+        "narrowed_profile": "cmx3600-narrow-wipe",
+        "removed_capabilities": [
+          "transition:wipe"
+        ],
+        "changed_samples": [
+          {
+            "sample": "wipe",
+            "capabilities": [
+              "transition:wipe"
+            ],
+            "before_outcome": "reversible",
+            "after_outcome": "flattened",
+            "first_loss_record_timecode": "00:00:00:20",
+            "first_loss": {
+              "code": "transition_not_expressible",
+              "severity": "error",
+              "kind": "transition",
+              "object_id": "C2",
+              "timeline_start": {
+                "rational": "4325321/1200",
+                "timecode": "01:00:00:20"
+              },
+              "timeline_end": {
+                "rational": "3604601/1000",
+                "timecode": "01:00:01:00"
+              },
+              "message": "transition 'wipe' has no CMX 3600 equivalent under cmx3600-narrow-wipe; degraded to cut",
+              "details": {
+                "requested": "wipe",
+                "fallback": "cut",
+                "source_frames_unchanged": true
+              }
+            },
+            "explanation": "sample uses transition:wipe, which cmx3600-narrow-wipe no longer expresses; edit semantics first lost at 00:00:00:20"
+          }
+        ],
+        "unchanged_samples": [
+          "cut",
+          "dissolve",
+          "fade",
+          "push",
+          "slide",
+          "multi_track",
+          "gap",
+          "mixed_rate",
+          "reverse",
+          "baked"
+        ],
+        "changed_count": 1,
+        "only_affected_samples_changed": true
+      },
+      "affected_samples": [
+        "wipe"
+      ],
+      "pass": true
+    },
+    "relink_disk_media": {
+      "scenario": "relink_disk_media",
+      "seed": 7,
+      "description": "relink reverse + transition + cross-rate cut against real bundles; a same-duration baked stand-in and a same-name alternative must be refused by media identity, independent of input order",
+      "candidate_order": [
+        "CAM_C",
+        "CAM_A_BAKED",
+        "CAM_B",
+        "CAM_B_ALT",
+        "CAM_A"
+      ],
+      "accepted": [
+        {
+          "clip_id": "C1",
+          "role": "single",
+          "source_id": "CAM_A",
+          "request": "reconnect_range",
+          "candidate_path": "/workspace/timeline_exchange/test_project/sources/CAM_A",
+          "media_ref": "media:cam-a",
+          "content_id": "sha256:d326b22ae5730f1e10218bad",
+          "reason": "identity matched: media_ref + content_id + timecode_origin"
+        },
+        {
+          "clip_id": "C2",
+          "role": "single",
+          "source_id": "CAM_C",
+          "request": "reconnect_range",
+          "candidate_path": "/workspace/timeline_exchange/test_project/sources/CAM_C",
+          "media_ref": "media:cam-c",
+          "content_id": "sha256:46a805c38c491e223b3f54b6",
+          "reason": "identity matched: media_ref + content_id + timecode_origin"
+        },
+        {
+          "clip_id": "C3",
+          "role": "outgoing",
+          "source_id": "CAM_C",
+          "request": "reconnect_two_ranges",
+          "candidate_path": "/workspace/timeline_exchange/test_project/sources/CAM_C",
+          "media_ref": "media:cam-c",
+          "content_id": "sha256:46a805c38c491e223b3f54b6",
+          "reason": "same source already relinked"
+        },
+        {
+          "clip_id": "C3",
+          "role": "incoming",
+          "source_id": "CAM_B",
+          "request": "reconnect_two_ranges",
+          "candidate_path": "/workspace/timeline_exchange/test_project/sources/CAM_B",
+          "media_ref": "media:cam-b",
+          "content_id": "sha256:713b38d9c53e7612aa0662e5",
+          "reason": "identity matched: media_ref + content_id + timecode_origin"
+        },
+        {
+          "clip_id": "O1",
+          "role": "single",
+          "source_id": "CAM_A",
+          "request": "reconnect_range",
+          "candidate_path": "/workspace/timeline_exchange/test_project/sources/CAM_A",
+          "media_ref": "media:cam-a",
+          "content_id": "sha256:d326b22ae5730f1e10218bad",
+          "reason": "same source already relinked"
+        }
+      ],
+      "rejected": [
+        {
+          "clip_id": "C1",
+          "role": "single",
+          "source_id": "CAM_A",
+          "candidate_path": "/workspace/timeline_exchange/test_project/sources/CAM_C",
+          "reason": "media_ref mismatch: wanted 'media:cam-a', candidate 'media:cam-c'"
+        },
+        {
+          "clip_id": "C1",
+          "role": "single",
+          "source_id": "CAM_A",
+          "candidate_path": "/workspace/timeline_exchange/test_project/sources/CAM_A_BAKED",
+          "reason": "media_ref mismatch: wanted 'media:cam-a', candidate 'media:cam-a-baked'"
+        },
+        {
+          "clip_id": "C1",
+          "role": "single",
+          "source_id": "CAM_A",
+          "candidate_path": "/workspace/timeline_exchange/test_project/sources/CAM_B",
+          "reason": "media_ref mismatch: wanted 'media:cam-a', candidate 'media:cam-b'"
+        },
+        {
+          "clip_id": "C1",
+          "role": "single",
+          "source_id": "CAM_A",
+          "candidate_path": "/workspace/timeline_exchange/test_project/sources/CAM_B_ALT",
+          "reason": "media_ref mismatch: wanted 'media:cam-a', candidate 'media:cam-b-alt'"
+        },
+        {
+          "clip_id": "C3",
+          "role": "incoming",
+          "source_id": "CAM_B",
+          "candidate_path": "/workspace/timeline_exchange/test_project/sources/CAM_C",
+          "reason": "media_ref mismatch: wanted 'media:cam-b', candidate 'media:cam-c'"
+        },
+        {
+          "clip_id": "C3",
+          "role": "incoming",
+          "source_id": "CAM_B",
+          "candidate_path": "/workspace/timeline_exchange/test_project/sources/CAM_A_BAKED",
+          "reason": "media_ref mismatch: wanted 'media:cam-b', candidate 'media:cam-a-baked'"
+        }
+      ],
+      "missing_requests": [],
+      "accepted_bundles": [
+        "CAM_A",
+        "CAM_B",
+        "CAM_C"
+      ],
+      "decoy_only": {
+        "candidate_order": [
+          "CAM_B_ALT",
+          "CAM_A_BAKED"
+        ],
+        "accepted": [],
+        "rejected": [
+          {
+            "clip_id": "C1",
+            "role": "single",
+            "source_id": "CAM_A",
+            "candidate_path": "/workspace/timeline_exchange/test_project/sources/CAM_B_ALT",
+            "reason": "media_ref mismatch: wanted 'media:cam-a', candidate 'media:cam-b-alt'"
+          },
+          {
+            "clip_id": "C1",
+            "role": "single",
+            "source_id": "CAM_A",
+            "candidate_path": "/workspace/timeline_exchange/test_project/sources/CAM_A_BAKED",
+            "reason": "media_ref mismatch: wanted 'media:cam-a', candidate 'media:cam-a-baked'"
+          },
+          {
+            "clip_id": "C2",
+            "role": "single",
+            "source_id": "CAM_C",
+            "candidate_path": "/workspace/timeline_exchange/test_project/sources/CAM_B_ALT",
+            "reason": "media_ref mismatch: wanted 'media:cam-c', candidate 'media:cam-b-alt'"
+          },
+          {
+            "clip_id": "C2",
+            "role": "single",
+            "source_id": "CAM_C",
+            "candidate_path": "/workspace/timeline_exchange/test_project/sources/CAM_A_BAKED",
+            "reason": "media_ref mismatch: wanted 'media:cam-c', candidate 'media:cam-a-baked'"
+          },
+          {
+            "clip_id": "C3",
+            "role": "outgoing",
+            "source_id": "CAM_C",
+            "candidate_path": "/workspace/timeline_exchange/test_project/sources/CAM_B_ALT",
+            "reason": "media_ref mismatch: wanted 'media:cam-c', candidate 'media:cam-b-alt'"
+          },
+          {
+            "clip_id": "C3",
+            "role": "outgoing",
+            "source_id": "CAM_C",
+            "candidate_path": "/workspace/timeline_exchange/test_project/sources/CAM_A_BAKED",
+            "reason": "media_ref mismatch: wanted 'media:cam-c', candidate 'media:cam-a-baked'"
+          },
+          {
+            "clip_id": "C3",
+            "role": "incoming",
+            "source_id": "CAM_B",
+            "candidate_path": "/workspace/timeline_exchange/test_project/sources/CAM_B_ALT",
+            "reason": "media_ref mismatch: wanted 'media:cam-b', candidate 'media:cam-b-alt'"
+          },
+          {
+            "clip_id": "C3",
+            "role": "incoming",
+            "source_id": "CAM_B",
+            "candidate_path": "/workspace/timeline_exchange/test_project/sources/CAM_A_BAKED",
+            "reason": "media_ref mismatch: wanted 'media:cam-b', candidate 'media:cam-a-baked'"
+          },
+          {
+            "clip_id": "O1",
+            "role": "single",
+            "source_id": "CAM_A",
+            "candidate_path": "/workspace/timeline_exchange/test_project/sources/CAM_B_ALT",
+            "reason": "media_ref mismatch: wanted 'media:cam-a', candidate 'media:cam-b-alt'"
+          },
+          {
+            "clip_id": "O1",
+            "role": "single",
+            "source_id": "CAM_A",
+            "candidate_path": "/workspace/timeline_exchange/test_project/sources/CAM_A_BAKED",
+            "reason": "media_ref mismatch: wanted 'media:cam-a', candidate 'media:cam-a-baked'"
+          }
+        ],
+        "missing_requests": [
+          "CAM_A",
+          "CAM_B",
+          "CAM_C"
+        ]
+      },
+      "decoy_rejected_bundles": [
+        "CAM_A_BAKED",
+        "CAM_B_ALT"
+      ],
+      "pass": true
+    }
+  },
+  "failed": []
+}

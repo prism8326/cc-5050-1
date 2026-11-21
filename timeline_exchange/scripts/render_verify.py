@@ -21,7 +21,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 sys.path.insert(0, ROOT)
 
-from tlx import tl_json, cmx, exchange, render, preview  # noqa: E402
+from tlx import tl_json, cmx, exchange, render, preview, fidelity  # noqa: E402
 from tlx.loss import LossReport  # noqa: E402
 from tlx.timecode import frame_time, frame_index_at, format_timecode  # noqa: E402
 
@@ -37,6 +37,10 @@ def main() -> int:
     report = LossReport(cmx.FORMAT_NAME)
     edl = cmx.export_text(original, report)
     reimported = cmx.import_text(edl, original.rate, sources=dict(original.sources))
+
+    # Pixel fidelity and structural fidelity are separate verdicts even for a
+    # plain CMX round trip; record both so a reviewer sees which axis moved.
+    fid = fidelity.compare(original, reimported)
 
     count = frame_index_at(original.duration - original.start_time, original.rate)
     times = [original.start_time + frame_time(i, original.rate)
@@ -75,7 +79,13 @@ def main() -> int:
             ),
         })
     with open(os.path.join(OUT, "frame_audit.json"), "w", encoding="utf-8") as fh:
-        json.dump(audit, fh, indent=2)
+        json.dump(
+            {
+                "frames": audit,
+                "fidelity": fid.to_jsonable(),
+            },
+            fh, indent=2,
+        )
 
     preserved = sum(1 for row in audit if row["frame_identity_preserved"])
     changed = [row for row in audit if not row["frame_identity_preserved"]]
@@ -83,6 +93,9 @@ def main() -> int:
     print(f"source frame identity preserved on {preserved}/{count} frames")
     print(f"loss entries: {len(report.entries)} "
           f"(errors={sum(e.severity == 'error' for e in report.entries)})")
+    print(f"pixel match={fid.pixel_match} "
+          f"edit_structure_faithful={fid.edit_structure_faithful} "
+          f"(structure deltas={len(fid.structure_deltas)})")
     # Every non-preserved frame must map to a reported loss position/cause.
     loss_codes = {e.code for e in report.entries}
     assert "track_not_expressible" in loss_codes

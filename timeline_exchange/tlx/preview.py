@@ -31,6 +31,7 @@ class FrameSelection:
     source_frame_index: int | None
     transition_in: str | None
     transition_progress: Fraction | None  # exact 0..1 during a transition
+    reverse: bool = False
     detail: str = ""
 
 
@@ -93,7 +94,13 @@ def select_frame(tl: Timeline, time: Fraction) -> FrameSelection:
 
     src = tl.sources[clip.source_id]
     # Exact source time: clip offset plus (record time minus clip start).
-    source_time = clip.source_in + (time - clip.timeline_start)
+    if clip.reverse:
+        source_time = clip.source_out - (time - clip.timeline_start)
+        # The half-open source range [in, out) read backwards: the first record
+        # frame shows the last source frame *start*, not the exclusive out.
+        source_time = max(clip.source_in, source_time - src.rate.frame_duration)
+    else:
+        source_time = clip.source_in + (time - clip.timeline_start)
     idx = frame_index_at(source_time, src.rate)
 
     progress = None
@@ -114,6 +121,7 @@ def select_frame(tl: Timeline, time: Fraction) -> FrameSelection:
             source_frame_index=idx,
             transition_in=trans_in,
             transition_progress=progress,
+            reverse=clip.reverse,
             detail=(
                 f"missing media reference {clip.source_id!r} "
                 f"path={src.path!r} wanted source frame {idx}"
@@ -129,6 +137,7 @@ def select_frame(tl: Timeline, time: Fraction) -> FrameSelection:
         source_frame_index=idx,
         transition_in=trans_in,
         transition_progress=progress,
+        reverse=clip.reverse,
     )
 
 
@@ -153,11 +162,17 @@ def describe_selection(sel: FrameSelection, tl: Timeline) -> dict:
         "detail": sel.detail,
     }
     if sel.source_time is not None and sel.source_id is not None:
-        src_rate = tl.sources[sel.source_id].rate
+        src = tl.sources[sel.source_id]
         out["source_time_rational"] = str(sel.source_time)
-        out["source_timecode"] = format_timecode(sel.source_time, src_rate)
+        out["source_timecode"] = format_timecode(
+            sel.source_time - src.timecode_origin, src.rate
+        )
+        out["source_media_timecode"] = format_timecode(sel.source_time, src.rate)
         out["source_frame_index"] = sel.source_frame_index
-        out["source_rate"] = str(src_rate)
+        out["source_rate"] = str(src.rate)
+        out["source_media_ref"] = src.media_ref
+        out["source_content_id"] = src.content_id
+        out["reverse"] = bool(sel.reverse)
     if sel.transition_in:
         out["transition_in"] = sel.transition_in
         out["transition_progress_rational"] = str(sel.transition_progress)

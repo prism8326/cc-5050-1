@@ -1,0 +1,31 @@
+{
+  "schema": "tlx-media-catalog-v1",
+  "assets": [
+    {
+      "media_ref": "media:cam-a",
+      "path": "CAM_A",
+      "display_name": "CAM_A"
+    },
+    {
+      "media_ref": "media:cam-b",
+      "path": "CAM_B",
+      "display_name": "CAM_B"
+    },
+    {
+      "media_ref": "media:cam-c",
+      "path": "CAM_C",
+      "display_name": "CAM_C"
+    },
+    {
+      "media_ref": "media:cam-a-baked",
+      "path": "CAM_A_BAKED",
+      "display_name": "CAM_A_BAKED"
+    },
+    {
+      "media_ref": "media:cam-b-alt",
+      "path": "CAM_B_ALT",
+      "display_name": "CAM_B",
+      "timecode_origin_rational": "7200"
+    }
+  ]
+}

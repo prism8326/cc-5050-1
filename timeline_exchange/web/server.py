@@ -28,7 +28,11 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT)
 
-from tlx import tl_json, cmx, exchange, preview, render
+from tlx import (
+    tl_json, cmx, exchange, preview, render, capabilities, contracts,
+    fidelity, relink, trace, validate,
+)
+from tlx.media import MediaCatalog
 from tlx.timecode import FrameRate, frame_time, frame_index_at, format_timecode
 from tlx.model import Timeline
 from tlx.loss import LossReport
@@ -130,6 +134,10 @@ def _create_session(result: exchange.ExchangeResult, base_dir: str) -> str:
             "compared": result.compared_frames,
             "source_format": result.source_format,
             "target_format": result.target_format,
+            "profile_id": (
+                result.target_profile.profile_id
+                if result.target_profile else None
+            ),
         }
     return sid
 
@@ -141,6 +149,7 @@ def _session_payload(sid: str) -> dict:
         "session": sid,
         "source_format": s["source_format"],
         "target_format": s["target_format"],
+        "target_profile": s["profile_id"],
         "exported_document": s["exported"],
         "loss_report": s["loss"].to_jsonable(orig.rate),
         "verification": {
@@ -191,17 +200,21 @@ class Handler(BaseHTTPRequestHandler):
                 else "text/css; charset=utf-8"
             return self._serve_static(name, ctype)
         if path == "/api/formats":
-            from tlx.model import SUPPORTED_TRANSITIONS, CMX_EXPRESSIBLE_TRANSITIONS
+            from tlx.model import SUPPORTED_TRANSITIONS
             return self._send_json({
                 "formats": [
                     {"id": tl_json.FORMAT_NAME, "label": "TL-JSON (rich, lossless)"},
                     {"id": cmx.FORMAT_NAME, "label": "CMX 3600 EDL (single V track)"},
                 ],
+                "profiles": capabilities.profiles_jsonable(),
                 "internal_transitions": sorted(SUPPORTED_TRANSITIONS),
-                "cmx_expressible_transitions": sorted(CMX_EXPRESSIBLE_TRANSITIONS),
                 "gap_semantics": "gaps are explicit model objects; CMX export "
                                  "reports them because EDL has no gap construct",
             })
+        if path == "/api/capabilities":
+            return self._handle_capabilities()
+        if path == "/api/scenarios":
+            return self._handle_scenarios()
         if path == "/api/frame":
             return self._handle_frame()
         if path.startswith("/media/"):
@@ -218,6 +231,12 @@ class Handler(BaseHTTPRequestHandler):
             return self._handle_exchange(payload)
         if path == "/api/load-sample":
             return self._handle_load_sample()
+        if path == "/api/trace":
+            return self._handle_trace(payload)
+        if path == "/api/relink":
+            return self._handle_relink(payload)
+        if path == "/api/validate":
+            return self._handle_validate(payload)
         self._send_error_json(404, "not_found", f"unknown path {path}")
 
     def _handle_exchange(self, payload):
@@ -246,6 +265,7 @@ class Handler(BaseHTTPRequestHandler):
             result = exchange.run_exchange(
                 doc, src_fmt, tgt_fmt, rate=rate, sources=sources,
                 media_base_dir=payload.get("media_base_dir") or PROJECT,
+                profile_id=payload.get("target_profile"),
             )
         except Exception as exc:  # kernel failure -> UI, not a 500 crash
             return self._send_error_json(422, "exchange_failed", f"{type(exc).__name__}: {exc}")
@@ -256,6 +276,7 @@ class Handler(BaseHTTPRequestHandler):
         path = os.path.join(PROJECT, "project.tl.json")
         with open(path, encoding="utf-8") as fh:
             doc = fh.read()
+        _attach_media_refs(doc)
         try:
             result = exchange.run_exchange(
                 doc, tl_json.FORMAT_NAME, cmx.FORMAT_NAME,
@@ -265,7 +286,7 @@ class Handler(BaseHTTPRequestHandler):
             return self._send_error_json(422, "exchange_failed", str(exc))
         sid = _create_session(result, PROJECT)
         payload = _session_payload(sid)
-        payload["sample_document"] = doc
+        payload["sample_document"] = _attach_media_refs(doc)
         self._send_json(payload)
 
     def _handle_frame(self):
@@ -292,6 +313,96 @@ class Handler(BaseHTTPRequestHandler):
             "selection": preview.describe_selection(sel, tl),
             "svg": svg,
             "stage": stage,
+        })
+
+    def _handle_capabilities(self):
+        profile_id = None
+        from urllib.parse import urlparse, parse_qs
+        q = parse_qs(urlparse(self.path).query)
+        if q.get("profile"):
+            profile_id = q["profile"][0]
+        try:
+            profile = capabilities.get_profile(
+                profile_id, q.get("format", [cmx.FORMAT_NAME])[0]
+            )
+        except KeyError as exc:
+            return self._send_error_json(400, "bad_profile", str(exc))
+        outcomes = contracts.outcomes_jsonable(contracts.run_all(profile))
+        self._send_json({
+            "manifest": capabilities.manifest(profile, outcomes),
+            "samples": outcomes,
+            "profiles": capabilities.profiles_jsonable(),
+        })
+
+    def _handle_scenarios(self):
+        from urllib.parse import urlparse, parse_qs
+        q = parse_qs(urlparse(self.path).query)
+        try:
+            seed = int(q.get("seed", ["7"])[0])
+        except ValueError:
+            return self._send_error_json(400, "bad_seed", "seed must be an int")
+        runs = scenarios_run_all(seed)
+        self._send_json({
+            "seed": seed,
+            "scenarios": {r.name: r.result for r in runs},
+            "failed": [r.name for r in runs if not r.passed],
+        })
+
+    def _handle_trace(self, payload):
+        sid = payload.get("session")
+        with _LOCK:
+            sess = _SESSIONS.get(sid)
+        if not sess:
+            return self._send_error_json(404, "no_session", "rerun exchange")
+        tl = sess["original"]
+        try:
+            frame_idx = int(payload.get("frame", 0))
+        except (TypeError, ValueError):
+            return self._send_error_json(400, "bad_frame", "frame must be int")
+        max_idx = frame_index_at(tl.duration - tl.start_time, tl.rate) - 1
+        frame_idx = max(0, min(frame_idx, max_idx))
+        t = tl.start_time + frame_time(frame_idx, tl.rate)
+        res = trace.resolve(tl, t)
+        self._send_json({
+            "frame_index": frame_idx,
+            "resolution": res.to_jsonable(tl),
+        })
+
+    def _handle_relink(self, payload):
+        sid = payload.get("session")
+        with _LOCK:
+            sess = _SESSIONS.get(sid)
+        if not sess:
+            return self._send_error_json(404, "no_session", "rerun exchange")
+        tl = sess["original"]
+        catalog = MediaCatalog.from_directories([PROJECT, os.path.join(PROJECT, "sources")])
+        # Offer every catalog asset plus real bundle paths as candidates.
+        candidates = []
+        for asset in catalog.assets:
+            candidates.append(relink.MediaCandidate(
+                path=asset.path, media_ref=asset.media_ref,
+                content_id=asset.content_id, reel=asset.display_name,
+                rate=asset.rate, duration=asset.duration,
+                timecode_origin=asset.timecode_origin,
+            ))
+        result = relink.relink(tl, candidates)
+        self._send_json({
+            "relink": result.to_jsonable(tl),
+            "catalog": catalog.to_jsonable(),
+        })
+
+    def _handle_validate(self, payload):
+        sid = payload.get("session")
+        with _LOCK:
+            sess = _SESSIONS.get(sid)
+        if not sess:
+            return self._send_error_json(404, "no_session", "rerun exchange")
+        tl = sess["original"]
+        catalog = MediaCatalog.from_directories([PROJECT, os.path.join(PROJECT, "sources")])
+        result = validate.validate(tl, catalog)
+        self._send_json({
+            "validation": result.to_jsonable(tl),
+            "catalog": catalog.to_jsonable(),
         })
 
     def _serve_media(self, rel: str):
@@ -322,6 +433,27 @@ class Handler(BaseHTTPRequestHandler):
         self.send_header("Content-Length", str(len(body)))
         self.end_headers()
         self.wfile.write(body)
+
+
+_MEDIA_REFS = {
+    "CAM_A": "media:cam-a",
+    "CAM_B": "media:cam-b",
+    "CAM_C": "media:cam-c",
+}
+
+
+def _attach_media_refs(doc: str) -> str:
+    """Ensure the sample project carries stable media refs for validation."""
+    data = json.loads(doc)
+    for sid, src in data.get("sources", {}).items():
+        if not src.get("media_ref") and sid in _MEDIA_REFS:
+            src["media_ref"] = _MEDIA_REFS[sid]
+    return json.dumps(data, ensure_ascii=False)
+
+
+def scenarios_run_all(seed: int | None = None):
+    from tlx import scenarios
+    return scenarios.run_all(seed)
 
 
 def serve(host: str = "127.0.0.1", port: int = 8765) -> None:

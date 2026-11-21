@@ -89,6 +89,11 @@ def import_text(text: str) -> Timeline:
             duration=_parse_source_time(sdata["duration"], rate),
             exists=bool(sdata.get("exists", True)),
             reel=sdata.get("reel"),
+            media_ref=sdata.get("media_ref"),
+            content_id=sdata.get("content_id"),
+            timecode_origin=_parse_source_time(
+                sdata.get("timecode_origin", "0"), rate
+            ),
         )
 
     for tdata in data.get("tracks", []):
@@ -127,6 +132,8 @@ def import_text(text: str) -> Timeline:
                 transition_in=trans,
                 transition_duration=tdur,
                 enabled=bool(cdata.get("enabled", True)),
+                reverse=bool(cdata.get("reverse", False)),
+                baked=bool(cdata.get("baked", False)),
             )
             clip.validate()
             track.clips.append(clip)
@@ -178,6 +185,9 @@ def export_text(tl: Timeline) -> str:
             "rate": f"{src.rate.numerator}/{src.rate.denominator}",
             "duration": _source_time_obj(src.duration, src.rate),
             "exists": src.exists,
+            "media_ref": src.media_ref,
+            "content_id": src.content_id,
+            "timecode_origin": _source_time_obj(src.timecode_origin, src.rate),
         }
     for track in tl.tracks:
         tdoc = {
@@ -204,6 +214,8 @@ def export_text(tl: Timeline) -> str:
                         clip.transition_duration, tl.rate, origin
                     ),
                     "enabled": clip.enabled,
+                    "reverse": clip.reverse,
+                    "baked": clip.baked,
                 }
             )
         for gap in track.gaps:

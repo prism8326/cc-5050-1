@@ -1,0 +1,4052 @@
+{
+  "profiles": {
+    "tl-json": {
+      "manifest": {
+        "profile": {
+          "profile_id": "tl-json",
+          "format": "tl-json",
+          "label": "TL-JSON v1 (rich, lossless)",
+          "capabilities": {
+            "transition:cut": true,
+            "transition:dissolve": true,
+            "transition:fade": true,
+            "transition:wipe": true,
+            "transition:push": true,
+            "transition:slide": true,
+            "track:multi_video": true,
+            "gap:explicit": true,
+            "source:mixed_rate": true,
+            "clip:reverse": true,
+            "media:baked": true
+          }
+        },
+        "capabilities": [
+          {
+            "capability": "transition:cut",
+            "description": "hard cut with an editable edit point",
+            "supported": true,
+            "samples": [
+              {
+                "sample": "cut",
+                "outcome": "reversible",
+                "first_loss": null
+              }
+            ],
+            "has_contract": true
+          },
+          {
+            "capability": "transition:dissolve",
+            "description": "dissolve with two editable source ranges",
+            "supported": true,
+            "samples": [
+              {
+                "sample": "dissolve",
+                "outcome": "reversible",
+                "first_loss": null
+              }
+            ],
+            "has_contract": true
+          },
+          {
+            "capability": "transition:fade",
+            "description": "fade with two editable source ranges",
+            "supported": true,
+            "samples": [
+              {
+                "sample": "fade",
+                "outcome": "reversible",
+                "first_loss": null
+              }
+            ],
+            "has_contract": true
+          },
+          {
+            "capability": "transition:wipe",
+            "description": "wipe with two editable source ranges",
+            "supported": true,
+            "samples": [
+              {
+                "sample": "wipe",
+                "outcome": "reversible",
+                "first_loss": null
+              }
+            ],
+            "has_contract": true
+          },
+          {
+            "capability": "transition:push",
+            "description": "push with two editable source ranges",
+            "supported": true,
+            "samples": [
+              {
+                "sample": "push",
+                "outcome": "reversible",
+                "first_loss": null
+              }
+            ],
+            "has_contract": true
+          },
+          {
+            "capability": "transition:slide",
+            "description": "slide with two editable source ranges",
+            "supported": true,
+            "samples": [
+              {
+                "sample": "slide",
+                "outcome": "reversible",
+                "first_loss": null
+              }
+            ],
+            "has_contract": true
+          },
+          {
+            "capability": "track:multi_video",
+            "description": "more than one simultaneous video track",
+            "supported": true,
+            "samples": [
+              {
+                "sample": "multi_track",
+                "outcome": "reversible",
+                "first_loss": null
+              }
+            ],
+            "has_contract": true
+          },
+          {
+            "capability": "gap:explicit",
+            "description": "an explicit empty interval object on a track",
+            "supported": true,
+            "samples": [
+              {
+                "sample": "gap",
+                "outcome": "reversible",
+                "first_loss": null
+              }
+            ],
+            "has_contract": true
+          },
+          {
+            "capability": "source:mixed_rate",
+            "description": "mixed source frame rates alongside the record rate",
+            "supported": true,
+            "samples": [
+              {
+                "sample": "mixed_rate",
+                "outcome": "reversible",
+                "first_loss": null
+              }
+            ],
+            "has_contract": true
+          },
+          {
+            "capability": "clip:reverse",
+            "description": "a clip that plays its source range backwards",
+            "supported": true,
+            "samples": [
+              {
+                "sample": "reverse",
+                "outcome": "reversible",
+                "first_loss": null
+              }
+            ],
+            "has_contract": true
+          },
+          {
+            "capability": "media:baked",
+            "description": "reference a pre-baked (flattened) media asset",
+            "supported": true,
+            "samples": [
+              {
+                "sample": "baked",
+                "outcome": "reversible",
+                "first_loss": null
+              }
+            ],
+            "has_contract": true
+          }
+        ],
+        "uncovered_capabilities": []
+      },
+      "samples": [
+        {
+          "sample": "cut",
+          "title": "adjacent hard cut, editable edit point",
+          "capabilities": [
+            "transition:cut"
+          ],
+          "profile_id": "tl-json",
+          "outcome": "reversible",
+          "expected_for_full": "reversible",
+          "loss_codes": [],
+          "first_loss": null,
+          "first_loss_record_timecode": null,
+          "pixel_match": true,
+          "edit_structure_faithful": true,
+          "frame_deltas": 0,
+          "structure_deltas": 0,
+          "trace_window": {
+            "record_time_rational": "17298281/4800",
+            "record_timecode": "00:00:00:05",
+            "kind": "frame",
+            "clip_id": "C1",
+            "transition_in": null,
+            "transition_progress_rational": null,
+            "needs": "reconnect_one_range",
+            "sources": [
+              {
+                "role": "single",
+                "clip_id": "C1",
+                "source_id": "CAM_A",
+                "media_ref": "media:cam-a",
+                "source_time_rational": "1001/1600",
+                "source_timecode": "00:00:00:15",
+                "source_frame_index": 15,
+                "source_in_rational": "1001/2400",
+                "source_out_rational": "1001/600",
+                "source_in_timecode": "00:00:00:10",
+                "source_out_timecode": "00:00:01:16",
+                "rate": "24000/1001fps",
+                "reverse": false,
+                "baked": false
+              }
+            ],
+            "note": "plain cut: a single source range backs this frame"
+          }
+        },
+        {
+          "sample": "dissolve",
+          "title": "dissolve keeps both source ranges editable",
+          "capabilities": [
+            "transition:dissolve"
+          ],
+          "profile_id": "tl-json",
+          "outcome": "reversible",
+          "expected_for_full": "reversible",
+          "loss_codes": [],
+          "first_loss": null,
+          "first_loss_record_timecode": null,
+          "pixel_match": true,
+          "edit_structure_faithful": true,
+          "frame_deltas": 0,
+          "structure_deltas": 0,
+          "trace_window": {
+            "record_time_rational": "28835807/8000",
+            "record_timecode": "00:00:00:21",
+            "kind": "transition_in",
+            "clip_id": "C2",
+            "transition_in": "dissolve",
+            "transition_progress_rational": "1/4",
+            "needs": "reconnect_two_ranges",
+            "sources": [
+              {
+                "role": "outgoing",
+                "clip_id": "C1",
+                "source_id": "CAM_A",
+                "media_ref": "media:cam-a",
+                "source_time_rational": "7007/8000",
+                "source_timecode": "00:00:00:21",
+                "source_frame_index": 21,
+                "source_in_rational": "0",
+                "source_out_rational": "1001/1200",
+                "source_in_timecode": "00:00:00:00",
+                "source_out_timecode": "00:00:00:20",
+                "rate": "24000/1001fps",
+                "reverse": false,
+                "baked": false
+              },
+              {
+                "role": "incoming",
+                "clip_id": "C2",
+                "source_id": "CAM_B",
+                "media_ref": "media:cam-b",
+                "source_time_rational": "5801/24000",
+                "source_timecode": "00:00:00:06",
+                "source_frame_index": 6,
+                "source_in_rational": "1/5",
+                "source_out_rational": "1",
+                "source_in_timecode": "00:00:00:05",
+                "source_out_timecode": "00:00:01:00",
+                "rate": "25fps",
+                "reverse": false,
+                "baked": false
+              }
+            ],
+            "note": "live dissolve: edit point is still cuttable; relink both the outgoing and incoming source ranges"
+          }
+        },
+        {
+          "sample": "fade",
+          "title": "fade keeps both source ranges editable",
+          "capabilities": [
+            "transition:fade"
+          ],
+          "profile_id": "tl-json",
+          "outcome": "reversible",
+          "expected_for_full": "reversible",
+          "loss_codes": [],
+          "first_loss": null,
+          "first_loss_record_timecode": null,
+          "pixel_match": true,
+          "edit_structure_faithful": true,
+          "frame_deltas": 0,
+          "structure_deltas": 0,
+          "trace_window": {
+            "record_time_rational": "28835807/8000",
+            "record_timecode": "00:00:00:21",
+            "kind": "transition_in",
+            "clip_id": "C2",
+            "transition_in": "fade",
+            "transition_progress_rational": "1/4",
+            "needs": "reconnect_two_ranges",
+            "sources": [
+              {
+                "role": "outgoing",
+                "clip_id": "C1",
+                "source_id": "CAM_A",
+                "media_ref": "media:cam-a",
+                "source_time_rational": "7007/8000",
+                "source_timecode": "00:00:00:21",
+                "source_frame_index": 21,
+                "source_in_rational": "0",
+                "source_out_rational": "1001/1200",
+                "source_in_timecode": "00:00:00:00",
+                "source_out_timecode": "00:00:00:20",
+                "rate": "24000/1001fps",
+                "reverse": false,
+                "baked": false
+              },
+              {
+                "role": "incoming",
+                "clip_id": "C2",
+                "source_id": "CAM_B",
+                "media_ref": "media:cam-b",
+                "source_time_rational": "5801/24000",
+                "source_timecode": "00:00:00:06",
+                "source_frame_index": 6,
+                "source_in_rational": "1/5",
+                "source_out_rational": "1",
+                "source_in_timecode": "00:00:00:05",
+                "source_out_timecode": "00:00:01:00",
+                "rate": "25fps",
+                "reverse": false,
+                "baked": false
+              }
+            ],
+            "note": "live fade: edit point is still cuttable; relink both the outgoing and incoming source ranges"
+          }
+        },
+        {
+          "sample": "wipe",
+          "title": "wipe keeps both source ranges editable",
+          "capabilities": [
+            "transition:wipe"
+          ],
+          "profile_id": "tl-json",
+          "outcome": "reversible",
+          "expected_for_full": "reversible",
+          "loss_codes": [],
+          "first_loss": null,
+          "first_loss_record_timecode": null,
+          "pixel_match": true,
+          "edit_structure_faithful": true,
+          "frame_deltas": 0,
+          "structure_deltas": 0,
+          "trace_window": {
+            "record_time_rational": "28835807/8000",
+            "record_timecode": "00:00:00:21",
+            "kind": "transition_in",
+            "clip_id": "C2",
+            "transition_in": "wipe",
+            "transition_progress_rational": "1/4",
+            "needs": "reconnect_two_ranges",
+            "sources": [
+              {
+                "role": "outgoing",
+                "clip_id": "C1",
+                "source_id": "CAM_A",
+                "media_ref": "media:cam-a",
+                "source_time_rational": "7007/8000",
+                "source_timecode": "00:00:00:21",
+                "source_frame_index": 21,
+                "source_in_rational": "0",
+                "source_out_rational": "1001/1200",
+                "source_in_timecode": "00:00:00:00",
+                "source_out_timecode": "00:00:00:20",
+                "rate": "24000/1001fps",
+                "reverse": false,
+                "baked": false
+              },
+              {
+                "role": "incoming",
+                "clip_id": "C2",
+                "source_id": "CAM_B",
+                "media_ref": "media:cam-b",
+                "source_time_rational": "5801/24000",
+                "source_timecode": "00:00:00:06",
+                "source_frame_index": 6,
+                "source_in_rational": "1/5",
+                "source_out_rational": "1",
+                "source_in_timecode": "00:00:00:05",
+                "source_out_timecode": "00:00:01:00",
+                "rate": "25fps",
+                "reverse": false,
+                "baked": false
+              }
+            ],
+            "note": "live wipe: edit point is still cuttable; relink both the outgoing and incoming source ranges"
+          }
+        },
+        {
+          "sample": "push",
+          "title": "push transition between two ranges",
+          "capabilities": [
+            "transition:push"
+          ],
+          "profile_id": "tl-json",
+          "outcome": "reversible",
+          "expected_for_full": "reversible",
+          "loss_codes": [],
+          "first_loss": null,
+          "first_loss_record_timecode": null,
+          "pixel_match": true,
+          "edit_structure_faithful": true,
+          "frame_deltas": 0,
+          "structure_deltas": 0,
+          "trace_window": {
+            "record_time_rational": "28835807/8000",
+            "record_timecode": "00:00:00:21",
+            "kind": "transition_in",
+            "clip_id": "C2",
+            "transition_in": "push",
+            "transition_progress_rational": "1/4",
+            "needs": "reconnect_two_ranges",
+            "sources": [
+              {
+                "role": "outgoing",
+                "clip_id": "C1",
+                "source_id": "CAM_A",
+                "media_ref": "media:cam-a",
+                "source_time_rational": "7007/8000",
+                "source_timecode": "00:00:00:21",
+                "source_frame_index": 21,
+                "source_in_rational": "0",
+                "source_out_rational": "1001/1200",
+                "source_in_timecode": "00:00:00:00",
+                "source_out_timecode": "00:00:00:20",
+                "rate": "24000/1001fps",
+                "reverse": false,
+                "baked": false
+              },
+              {
+                "role": "incoming",
+                "clip_id": "C2",
+                "source_id": "CAM_B",
+                "media_ref": "media:cam-b",
+                "source_time_rational": "5801/24000",
+                "source_timecode": "00:00:00:06",
+                "source_frame_index": 6,
+                "source_in_rational": "1/5",
+                "source_out_rational": "1",
+                "source_in_timecode": "00:00:00:05",
+                "source_out_timecode": "00:00:01:00",
+                "rate": "25fps",
+                "reverse": false,
+                "baked": false
+              }
+            ],
+            "note": "live push: edit point is still cuttable; relink both the outgoing and incoming source ranges"
+          }
+        },
+        {
+          "sample": "slide",
+          "title": "slide transition between two ranges",
+          "capabilities": [
+            "transition:slide"
+          ],
+          "profile_id": "tl-json",
+          "outcome": "reversible",
+          "expected_for_full": "reversible",
+          "loss_codes": [],
+          "first_loss": null,
+          "first_loss_record_timecode": null,
+          "pixel_match": true,
+          "edit_structure_faithful": true,
+          "frame_deltas": 0,
+          "structure_deltas": 0,
+          "trace_window": {
+            "record_time_rational": "28835807/8000",
+            "record_timecode": "00:00:00:21",
+            "kind": "transition_in",
+            "clip_id": "C2",
+            "transition_in": "slide",
+            "transition_progress_rational": "1/4",
+            "needs": "reconnect_two_ranges",
+            "sources": [
+              {
+                "role": "outgoing",
+                "clip_id": "C1",
+                "source_id": "CAM_A",
+                "media_ref": "media:cam-a",
+                "source_time_rational": "7007/8000",
+                "source_timecode": "00:00:00:21",
+                "source_frame_index": 21,
+                "source_in_rational": "0",
+                "source_out_rational": "1001/1200",
+                "source_in_timecode": "00:00:00:00",
+                "source_out_timecode": "00:00:00:20",
+                "rate": "24000/1001fps",
+                "reverse": false,
+                "baked": false
+              },
+              {
+                "role": "incoming",
+                "clip_id": "C2",
+                "source_id": "CAM_B",
+                "media_ref": "media:cam-b",
+                "source_time_rational": "5801/24000",
+                "source_timecode": "00:00:00:06",
+                "source_frame_index": 6,
+                "source_in_rational": "1/5",
+                "source_out_rational": "1",
+                "source_in_timecode": "00:00:00:05",
+                "source_out_timecode": "00:00:01:00",
+                "rate": "25fps",
+                "reverse": false,
+                "baked": false
+              }
+            ],
+            "note": "live slide: edit point is still cuttable; relink both the outgoing and incoming source ranges"
+          }
+        },
+        {
+          "sample": "multi_track",
+          "title": "second simultaneous video track",
+          "capabilities": [
+            "track:multi_video"
+          ],
+          "profile_id": "tl-json",
+          "outcome": "reversible",
+          "expected_for_full": "reversible",
+          "loss_codes": [],
+          "first_loss": null,
+          "first_loss_record_timecode": null,
+          "pixel_match": true,
+          "edit_structure_faithful": true,
+          "frame_deltas": 0,
+          "structure_deltas": 0,
+          "trace_window": {
+            "record_time_rational": "14415401/4000",
+            "record_timecode": "00:00:00:06",
+            "kind": "frame",
+            "clip_id": "C2",
+            "transition_in": null,
+            "transition_progress_rational": null,
+            "needs": "reconnect_one_range",
+            "sources": [
+              {
+                "role": "single",
+                "clip_id": "C2",
+                "source_id": "CAM_B",
+                "media_ref": "media:cam-b",
+                "source_time_rational": "1001/12000",
+                "source_timecode": "00:00:00:02",
+                "source_frame_index": 2,
+                "source_in_rational": "0",
+                "source_out_rational": "2/5",
+                "source_in_timecode": "00:00:00:00",
+                "source_out_timecode": "00:00:00:10",
+                "rate": "25fps",
+                "reverse": false,
+                "baked": false
+              }
+            ],
+            "note": "plain cut: a single source range backs this frame"
+          }
+        },
+        {
+          "sample": "gap",
+          "title": "explicit empty interval object",
+          "capabilities": [
+            "gap:explicit"
+          ],
+          "profile_id": "tl-json",
+          "outcome": "reversible",
+          "expected_for_full": "reversible",
+          "loss_codes": [],
+          "first_loss": null,
+          "first_loss_record_timecode": null,
+          "pixel_match": true,
+          "edit_structure_faithful": true,
+          "frame_deltas": 0,
+          "structure_deltas": 0,
+          "trace_window": {
+            "record_time_rational": "7208201/2000",
+            "record_timecode": "00:00:00:12",
+            "kind": "gap",
+            "clip_id": null,
+            "transition_in": null,
+            "transition_progress_rational": null,
+            "needs": "none",
+            "sources": [],
+            "note": "explicit gap G1"
+          }
+        },
+        {
+          "sample": "mixed_rate",
+          "title": "mixed source rates on one record timeline",
+          "capabilities": [
+            "source:mixed_rate"
+          ],
+          "profile_id": "tl-json",
+          "outcome": "reversible",
+          "expected_for_full": "reversible",
+          "loss_codes": [],
+          "first_loss": null,
+          "first_loss_record_timecode": null,
+          "pixel_match": true,
+          "edit_structure_faithful": true,
+          "frame_deltas": 0,
+          "structure_deltas": 0,
+          "trace_window": {
+            "record_time_rational": "86497411/24000",
+            "record_timecode": "00:00:00:11",
+            "kind": "frame",
+            "clip_id": "C2",
+            "transition_in": null,
+            "transition_progress_rational": null,
+            "needs": "reconnect_one_range",
+            "sources": [
+              {
+                "role": "single",
+                "clip_id": "C2",
+                "source_id": "CAM_B",
+                "media_ref": "media:cam-b",
+                "source_time_rational": "2921/24000",
+                "source_timecode": "00:00:00:03",
+                "source_frame_index": 3,
+                "source_in_rational": "2/25",
+                "source_out_rational": "14/25",
+                "source_in_timecode": "00:00:00:02",
+                "source_out_timecode": "00:00:00:14",
+                "rate": "25fps",
+                "reverse": false,
+                "baked": false
+              }
+            ],
+            "note": "plain cut: a single source range backs this frame"
+          }
+        },
+        {
+          "sample": "reverse",
+          "title": "reverse-played source range",
+          "capabilities": [
+            "clip:reverse"
+          ],
+          "profile_id": "tl-json",
+          "outcome": "reversible",
+          "expected_for_full": "reversible",
+          "loss_codes": [],
+          "first_loss": null,
+          "first_loss_record_timecode": null,
+          "pixel_match": true,
+          "edit_structure_faithful": true,
+          "frame_deltas": 0,
+          "structure_deltas": 0,
+          "trace_window": {
+            "record_time_rational": "17298281/4800",
+            "record_timecode": "00:00:00:05",
+            "kind": "frame",
+            "clip_id": "C1",
+            "transition_in": null,
+            "transition_progress_rational": null,
+            "needs": "reconnect_one_range",
+            "sources": [
+              {
+                "role": "single",
+                "clip_id": "C1",
+                "source_id": "CAM_A",
+                "media_ref": "media:cam-a",
+                "source_time_rational": "17017/12000",
+                "source_timecode": "00:00:01:10",
+                "source_frame_index": 34,
+                "source_in_rational": "1001/2400",
+                "source_out_rational": "1001/600",
+                "source_in_timecode": "00:00:00:10",
+                "source_out_timecode": "00:00:01:16",
+                "rate": "24000/1001fps",
+                "reverse": true,
+                "baked": false
+              }
+            ],
+            "note": "plain cut: a single source range backs this frame"
+          }
+        },
+        {
+          "sample": "baked",
+          "title": "pre-flattened transition media asset",
+          "capabilities": [
+            "media:baked"
+          ],
+          "profile_id": "tl-json",
+          "outcome": "reversible",
+          "expected_for_full": "reversible",
+          "loss_codes": [],
+          "first_loss": null,
+          "first_loss_record_timecode": null,
+          "pixel_match": true,
+          "edit_structure_faithful": true,
+          "frame_deltas": 0,
+          "structure_deltas": 0,
+          "trace_window": {
+            "record_time_rational": "17298281/4800",
+            "record_timecode": "00:00:00:05",
+            "kind": "baked",
+            "clip_id": "C1",
+            "transition_in": "dissolve",
+            "transition_progress_rational": null,
+            "needs": "baked_media",
+            "sources": [
+              {
+                "role": "baked",
+                "clip_id": "C1",
+                "source_id": "CAM_A",
+                "media_ref": "media:cam-a",
+                "source_time_rational": "1001/1600",
+                "source_timecode": "00:00:00:15",
+                "source_frame_index": 15,
+                "source_in_rational": "1001/2400",
+                "source_out_rational": "1001/600",
+                "source_in_timecode": "00:00:00:10",
+                "source_out_timecode": "00:00:01:16",
+                "rate": "24000/1001fps",
+                "reverse": false,
+                "baked": true
+              }
+            ],
+            "note": "flattened transition: request the baked media; the outgoing and incoming source ranges are no longer separately addressable"
+          }
+        }
+      ]
+    },
+    "cmx3600": {
+      "manifest": {
+        "profile": {
+          "profile_id": "cmx3600",
+          "format": "cmx3600",
+          "label": "CMX 3600 EDL (single video track)",
+          "capabilities": {
+            "transition:cut": true,
+            "transition:dissolve": true,
+            "transition:fade": false,
+            "transition:wipe": true,
+            "transition:push": false,
+            "transition:slide": false,
+            "track:multi_video": false,
+            "gap:explicit": false,
+            "source:mixed_rate": true,
+            "clip:reverse": false,
+            "media:baked": false
+          }
+        },
+        "capabilities": [
+          {
+            "capability": "transition:cut",
+            "description": "hard cut with an editable edit point",
+            "supported": true,
+            "samples": [
+              {
+                "sample": "cut",
+                "outcome": "reversible",
+                "first_loss": null
+              }
+            ],
+            "has_contract": true
+          },
+          {
+            "capability": "transition:dissolve",
+            "description": "dissolve with two editable source ranges",
+            "supported": true,
+            "samples": [
+              {
+                "sample": "dissolve",
+                "outcome": "reversible",
+                "first_loss": {
+                  "code": "mixed_rate_source",
+                  "severity": "warning",
+                  "kind": "source",
+                  "object_id": "CAM_B",
+                  "timeline_start": {
+                    "rational": "4325321/1200",
+                    "timecode": "01:00:00:20"
+                  },
+                  "timeline_end": {
+                    "rational": "2163161/600",
+                    "timecode": "01:00:01:16"
+                  },
+                  "message": "source rate 25fps differs from record rate 24000/1001fps; EDL stores timecodes only, retiming metadata is lost",
+                  "details": {
+                    "fallback": "record_rate_timecode"
+                  }
+                }
+              }
+            ],
+            "has_contract": true
+          },
+          {
+            "capability": "transition:fade",
+            "description": "fade with two editable source ranges",
+            "supported": false,
+            "samples": [
+              {
+                "sample": "fade",
+                "outcome": "flattened",
+                "first_loss": {
+                  "code": "transition_not_expressible",
+                  "severity": "error",
+                  "kind": "transition",
+                  "object_id": "C2",
+                  "timeline_start": {
+                    "rational": "4325321/1200",
+                    "timecode": "01:00:00:20"
+                  },
+                  "timeline_end": {
+                    "rational": "3604601/1000",
+                    "timecode": "01:00:01:00"
+                  },
+                  "message": "transition 'fade' has no CMX 3600 equivalent under cmx3600; degraded to cut",
+                  "details": {
+                    "requested": "fade",
+                    "fallback": "cut",
+                    "source_frames_unchanged": true
+                  }
+                }
+              }
+            ],
+            "has_contract": true
+          },
+          {
+            "capability": "transition:wipe",
+            "description": "wipe with two editable source ranges",
+            "supported": true,
+            "samples": [
+              {
+                "sample": "wipe",
+                "outcome": "reversible",
+                "first_loss": {
+                  "code": "mixed_rate_source",
+                  "severity": "warning",
+                  "kind": "source",
+                  "object_id": "CAM_B",
+                  "timeline_start": {
+                    "rational": "4325321/1200",
+                    "timecode": "01:00:00:20"
+                  },
+                  "timeline_end": {
+                    "rational": "2163161/600",
+                    "timecode": "01:00:01:16"
+                  },
+                  "message": "source rate 25fps differs from record rate 24000/1001fps; EDL stores timecodes only, retiming metadata is lost",
+                  "details": {
+                    "fallback": "record_rate_timecode"
+                  }
+                }
+              }
+            ],
+            "has_contract": true
+          },
+          {
+            "capability": "transition:push",
+            "description": "push with two editable source ranges",
+            "supported": false,
+            "samples": [
+              {
+                "sample": "push",
+                "outcome": "flattened",
+                "first_loss": {
+                  "code": "transition_not_expressible",
+                  "severity": "error",
+                  "kind": "transition",
+                  "object_id": "C2",
+                  "timeline_start": {
+                    "rational": "4325321/1200",
+                    "timecode": "01:00:00:20"
+                  },
+                  "timeline_end": {
+                    "rational": "3604601/1000",
+                    "timecode": "01:00:01:00"
+                  },
+                  "message": "transition 'push' has no CMX 3600 equivalent under cmx3600; degraded to cut",
+                  "details": {
+                    "requested": "push",
+                    "fallback": "cut",
+                    "source_frames_unchanged": true
+                  }
+                }
+              }
+            ],
+            "has_contract": true
+          },
+          {
+            "capability": "transition:slide",
+            "description": "slide with two editable source ranges",
+            "supported": false,
+            "samples": [
+              {
+                "sample": "slide",
+                "outcome": "flattened",
+                "first_loss": {
+                  "code": "transition_not_expressible",
+                  "severity": "error",
+                  "kind": "transition",
+                  "object_id": "C2",
+                  "timeline_start": {
+                    "rational": "4325321/1200",
+                    "timecode": "01:00:00:20"
+                  },
+                  "timeline_end": {
+                    "rational": "3604601/1000",
+                    "timecode": "01:00:01:00"
+                  },
+                  "message": "transition 'slide' has no CMX 3600 equivalent under cmx3600; degraded to cut",
+                  "details": {
+                    "requested": "slide",
+                    "fallback": "cut",
+                    "source_frames_unchanged": true
+                  }
+                }
+              }
+            ],
+            "has_contract": true
+          },
+          {
+            "capability": "track:multi_video",
+            "description": "more than one simultaneous video track",
+            "supported": false,
+            "samples": [
+              {
+                "sample": "multi_track",
+                "outcome": "rejected",
+                "first_loss": {
+                  "code": "track_not_expressible",
+                  "severity": "error",
+                  "kind": "track",
+                  "object_id": "V2",
+                  "timeline_start": {
+                    "rational": "21622601/6000",
+                    "timecode": "01:00:00:04"
+                  },
+                  "timeline_end": {
+                    "rational": "43250207/12000",
+                    "timecode": "01:00:00:14"
+                  },
+                  "message": "CMX 3600 holds a single video track; clips on V2 cannot be exported",
+                  "details": {
+                    "fallback": "track_dropped"
+                  }
+                }
+              }
+            ],
+            "has_contract": true
+          },
+          {
+            "capability": "gap:explicit",
+            "description": "an explicit empty interval object on a track",
+            "supported": false,
+            "samples": [
+              {
+                "sample": "gap",
+                "outcome": "reversible",
+                "first_loss": {
+                  "code": "gap_not_expressible",
+                  "severity": "error",
+                  "kind": "gap",
+                  "object_id": "G1",
+                  "timeline_start": {
+                    "rational": "8649641/2400",
+                    "timecode": "01:00:00:10"
+                  },
+                  "timeline_end": {
+                    "rational": "5406401/1500",
+                    "timecode": "01:00:00:16"
+                  },
+                  "message": "CMX 3600 has no explicit gap construct; the empty interval is represented only by the record-time jump",
+                  "details": {
+                    "fallback": "record_time_jump"
+                  }
+                }
+              }
+            ],
+            "has_contract": true
+          },
+          {
+            "capability": "source:mixed_rate",
+            "description": "mixed source frame rates alongside the record rate",
+            "supported": true,
+            "samples": [
+              {
+                "sample": "mixed_rate",
+                "outcome": "reversible",
+                "first_loss": {
+                  "code": "mixed_rate_source",
+                  "severity": "warning",
+                  "kind": "source",
+                  "object_id": "CAM_B",
+                  "timeline_start": {
+                    "rational": "8649641/2400",
+                    "timecode": "01:00:00:10"
+                  },
+                  "timeline_end": {
+                    "rational": "43254211/12000",
+                    "timecode": "01:00:00:22"
+                  },
+                  "message": "source rate 25fps differs from record rate 24000/1001fps; EDL stores timecodes only, retiming metadata is lost",
+                  "details": {
+                    "fallback": "record_rate_timecode"
+                  }
+                }
+              }
+            ],
+            "has_contract": true
+          },
+          {
+            "capability": "clip:reverse",
+            "description": "a clip that plays its source range backwards",
+            "supported": false,
+            "samples": [
+              {
+                "sample": "reverse",
+                "outcome": "rejected",
+                "first_loss": {
+                  "code": "reverse_not_expressible",
+                  "severity": "error",
+                  "kind": "clip",
+                  "object_id": "C1",
+                  "timeline_start": {
+                    "rational": "18018/5",
+                    "timecode": "01:00:00:00"
+                  },
+                  "timeline_end": {
+                    "rational": "2883881/800",
+                    "timecode": "01:00:01:06"
+                  },
+                  "message": "target profile cannot express reverse playback; the source range is exported forwards",
+                  "details": {
+                    "fallback": "forward_playback",
+                    "source_range_reversed": true
+                  }
+                }
+              }
+            ],
+            "has_contract": true
+          },
+          {
+            "capability": "media:baked",
+            "description": "reference a pre-baked (flattened) media asset",
+            "supported": false,
+            "samples": [
+              {
+                "sample": "baked",
+                "outcome": "flattened",
+                "first_loss": {
+                  "code": "baked_media_not_expressible",
+                  "severity": "error",
+                  "kind": "clip",
+                  "object_id": "C1",
+                  "timeline_start": {
+                    "rational": "18018/5",
+                    "timecode": "01:00:00:00"
+                  },
+                  "timeline_end": {
+                    "rational": "2883881/800",
+                    "timecode": "01:00:01:06"
+                  },
+                  "message": "target profile cannot reference a pre-baked media asset; the flattened transition cannot be relinked",
+                  "details": {
+                    "fallback": "baked_asset_dropped"
+                  }
+                }
+              }
+            ],
+            "has_contract": true
+          }
+        ],
+        "uncovered_capabilities": []
+      },
+      "samples": [
+        {
+          "sample": "cut",
+          "title": "adjacent hard cut, editable edit point",
+          "capabilities": [
+            "transition:cut"
+          ],
+          "profile_id": "cmx3600",
+          "outcome": "reversible",
+          "expected_for_full": "reversible",
+          "loss_codes": [],
+          "first_loss": null,
+          "first_loss_record_timecode": null,
+          "pixel_match": true,
+          "edit_structure_faithful": true,
+          "frame_deltas": 0,
+          "structure_deltas": 0,
+          "trace_window": {
+            "record_time_rational": "17298281/4800",
+            "record_timecode": "00:00:00:05",
+            "kind": "frame",
+            "clip_id": "C1",
+            "transition_in": null,
+            "transition_progress_rational": null,
+            "needs": "reconnect_one_range",
+            "sources": [
+              {
+                "role": "single",
+                "clip_id": "C1",
+                "source_id": "CAM_A",
+                "media_ref": "media:cam-a",
+                "source_time_rational": "1001/1600",
+                "source_timecode": "00:00:00:15",
+                "source_frame_index": 15,
+                "source_in_rational": "1001/2400",
+                "source_out_rational": "1001/600",
+                "source_in_timecode": "00:00:00:10",
+                "source_out_timecode": "00:00:01:16",
+                "rate": "24000/1001fps",
+                "reverse": false,
+                "baked": false
+              }
+            ],
+            "note": "plain cut: a single source range backs this frame"
+          }
+        },
+        {
+          "sample": "dissolve",
+          "title": "dissolve keeps both source ranges editable",
+          "capabilities": [
+            "transition:dissolve"
+          ],
+          "profile_id": "cmx3600",
+          "outcome": "reversible",
+          "expected_for_full": "reversible",
+          "loss_codes": [
+            "mixed_rate_source"
+          ],
+          "first_loss": {
+            "code": "mixed_rate_source",
+            "severity": "warning",
+            "kind": "source",
+            "object_id": "CAM_B",
+            "timeline_start": {
+              "rational": "4325321/1200",
+              "timecode": "01:00:00:20"
+            },
+            "timeline_end": {
+              "rational": "2163161/600",
+              "timecode": "01:00:01:16"
+            },
+            "message": "source rate 25fps differs from record rate 24000/1001fps; EDL stores timecodes only, retiming metadata is lost",
+            "details": {
+              "fallback": "record_rate_timecode"
+            }
+          },
+          "first_loss_record_timecode": "00:00:00:20",
+          "pixel_match": true,
+          "edit_structure_faithful": true,
+          "frame_deltas": 0,
+          "structure_deltas": 0,
+          "trace_window": {
+            "record_time_rational": "28835807/8000",
+            "record_timecode": "00:00:00:21",
+            "kind": "transition_in",
+            "clip_id": "C2",
+            "transition_in": "dissolve",
+            "transition_progress_rational": "1/4",
+            "needs": "reconnect_two_ranges",
+            "sources": [
+              {
+                "role": "outgoing",
+                "clip_id": "C1",
+                "source_id": "CAM_A",
+                "media_ref": "media:cam-a",
+                "source_time_rational": "7007/8000",
+                "source_timecode": "00:00:00:21",
+                "source_frame_index": 21,
+                "source_in_rational": "0",
+                "source_out_rational": "1001/1200",
+                "source_in_timecode": "00:00:00:00",
+                "source_out_timecode": "00:00:00:20",
+                "rate": "24000/1001fps",
+                "reverse": false,
+                "baked": false
+              },
+              {
+                "role": "incoming",
+                "clip_id": "C2",
+                "source_id": "CAM_B",
+                "media_ref": "media:cam-b",
+                "source_time_rational": "5801/24000",
+                "source_timecode": "00:00:00:06",
+                "source_frame_index": 6,
+                "source_in_rational": "1/5",
+                "source_out_rational": "1",
+                "source_in_timecode": "00:00:00:05",
+                "source_out_timecode": "00:00:01:00",
+                "rate": "25fps",
+                "reverse": false,
+                "baked": false
+              }
+            ],
+            "note": "live dissolve: edit point is still cuttable; relink both the outgoing and incoming source ranges"
+          }
+        },
+        {
+          "sample": "fade",
+          "title": "fade keeps both source ranges editable",
+          "capabilities": [
+            "transition:fade"
+          ],
+          "profile_id": "cmx3600",
+          "outcome": "flattened",
+          "expected_for_full": "reversible",
+          "loss_codes": [
+            "mixed_rate_source",
+            "transition_not_expressible"
+          ],
+          "first_loss": {
+            "code": "transition_not_expressible",
+            "severity": "error",
+            "kind": "transition",
+            "object_id": "C2",
+            "timeline_start": {
+              "rational": "4325321/1200",
+              "timecode": "01:00:00:20"
+            },
+            "timeline_end": {
+              "rational": "3604601/1000",
+              "timecode": "01:00:01:00"
+            },
+            "message": "transition 'fade' has no CMX 3600 equivalent under cmx3600; degraded to cut",
+            "details": {
+              "requested": "fade",
+              "fallback": "cut",
+              "source_frames_unchanged": true
+            }
+          },
+          "first_loss_record_timecode": "00:00:00:20",
+          "pixel_match": true,
+          "edit_structure_faithful": false,
+          "frame_deltas": 0,
+          "structure_deltas": 1,
+          "trace_window": {
+            "record_time_rational": "28835807/8000",
+            "record_timecode": "00:00:00:21",
+            "kind": "transition_in",
+            "clip_id": "C2",
+            "transition_in": "fade",
+            "transition_progress_rational": "1/4",
+            "needs": "reconnect_two_ranges",
+            "sources": [
+              {
+                "role": "outgoing",
+                "clip_id": "C1",
+                "source_id": "CAM_A",
+                "media_ref": "media:cam-a",
+                "source_time_rational": "7007/8000",
+                "source_timecode": "00:00:00:21",
+                "source_frame_index": 21,
+                "source_in_rational": "0",
+                "source_out_rational": "1001/1200",
+                "source_in_timecode": "00:00:00:00",
+                "source_out_timecode": "00:00:00:20",
+                "rate": "24000/1001fps",
+                "reverse": false,
+                "baked": false
+              },
+              {
+                "role": "incoming",
+                "clip_id": "C2",
+                "source_id": "CAM_B",
+                "media_ref": "media:cam-b",
+                "source_time_rational": "5801/24000",
+                "source_timecode": "00:00:00:06",
+                "source_frame_index": 6,
+                "source_in_rational": "1/5",
+                "source_out_rational": "1",
+                "source_in_timecode": "00:00:00:05",
+                "source_out_timecode": "00:00:01:00",
+                "rate": "25fps",
+                "reverse": false,
+                "baked": false
+              }
+            ],
+            "note": "live fade: edit point is still cuttable; relink both the outgoing and incoming source ranges"
+          }
+        },
+        {
+          "sample": "wipe",
+          "title": "wipe keeps both source ranges editable",
+          "capabilities": [
+            "transition:wipe"
+          ],
+          "profile_id": "cmx3600",
+          "outcome": "reversible",
+          "expected_for_full": "reversible",
+          "loss_codes": [
+            "mixed_rate_source"
+          ],
+          "first_loss": {
+            "code": "mixed_rate_source",
+            "severity": "warning",
+            "kind": "source",
+            "object_id": "CAM_B",
+            "timeline_start": {
+              "rational": "4325321/1200",
+              "timecode": "01:00:00:20"
+            },
+            "timeline_end": {
+              "rational": "2163161/600",
+              "timecode": "01:00:01:16"
+            },
+            "message": "source rate 25fps differs from record rate 24000/1001fps; EDL stores timecodes only, retiming metadata is lost",
+            "details": {
+              "fallback": "record_rate_timecode"
+            }
+          },
+          "first_loss_record_timecode": "00:00:00:20",
+          "pixel_match": true,
+          "edit_structure_faithful": true,
+          "frame_deltas": 0,
+          "structure_deltas": 0,
+          "trace_window": {
+            "record_time_rational": "28835807/8000",
+            "record_timecode": "00:00:00:21",
+            "kind": "transition_in",
+            "clip_id": "C2",
+            "transition_in": "wipe",
+            "transition_progress_rational": "1/4",
+            "needs": "reconnect_two_ranges",
+            "sources": [
+              {
+                "role": "outgoing",
+                "clip_id": "C1",
+                "source_id": "CAM_A",
+                "media_ref": "media:cam-a",
+                "source_time_rational": "7007/8000",
+                "source_timecode": "00:00:00:21",
+                "source_frame_index": 21,
+                "source_in_rational": "0",
+                "source_out_rational": "1001/1200",
+                "source_in_timecode": "00:00:00:00",
+                "source_out_timecode": "00:00:00:20",
+                "rate": "24000/1001fps",
+                "reverse": false,
+                "baked": false
+              },
+              {
+                "role": "incoming",
+                "clip_id": "C2",
+                "source_id": "CAM_B",
+                "media_ref": "media:cam-b",
+                "source_time_rational": "5801/24000",
+                "source_timecode": "00:00:00:06",
+                "source_frame_index": 6,
+                "source_in_rational": "1/5",
+                "source_out_rational": "1",
+                "source_in_timecode": "00:00:00:05",
+                "source_out_timecode": "00:00:01:00",
+                "rate": "25fps",
+                "reverse": false,
+                "baked": false
+              }
+            ],
+            "note": "live wipe: edit point is still cuttable; relink both the outgoing and incoming source ranges"
+          }
+        },
+        {
+          "sample": "push",
+          "title": "push transition between two ranges",
+          "capabilities": [
+            "transition:push"
+          ],
+          "profile_id": "cmx3600",
+          "outcome": "flattened",
+          "expected_for_full": "reversible",
+          "loss_codes": [
+            "mixed_rate_source",
+            "transition_not_expressible"
+          ],
+          "first_loss": {
+            "code": "transition_not_expressible",
+            "severity": "error",
+            "kind": "transition",
+            "object_id": "C2",
+            "timeline_start": {
+              "rational": "4325321/1200",
+              "timecode": "01:00:00:20"
+            },
+            "timeline_end": {
+              "rational": "3604601/1000",
+              "timecode": "01:00:01:00"
+            },
+            "message": "transition 'push' has no CMX 3600 equivalent under cmx3600; degraded to cut",
+            "details": {
+              "requested": "push",
+              "fallback": "cut",
+              "source_frames_unchanged": true
+            }
+          },
+          "first_loss_record_timecode": "00:00:00:20",
+          "pixel_match": true,
+          "edit_structure_faithful": false,
+          "frame_deltas": 0,
+          "structure_deltas": 1,
+          "trace_window": {
+            "record_time_rational": "28835807/8000",
+            "record_timecode": "00:00:00:21",
+            "kind": "transition_in",
+            "clip_id": "C2",
+            "transition_in": "push",
+            "transition_progress_rational": "1/4",
+            "needs": "reconnect_two_ranges",
+            "sources": [
+              {
+                "role": "outgoing",
+                "clip_id": "C1",
+                "source_id": "CAM_A",
+                "media_ref": "media:cam-a",
+                "source_time_rational": "7007/8000",
+                "source_timecode": "00:00:00:21",
+                "source_frame_index": 21,
+                "source_in_rational": "0",
+                "source_out_rational": "1001/1200",
+                "source_in_timecode": "00:00:00:00",
+                "source_out_timecode": "00:00:00:20",
+                "rate": "24000/1001fps",
+                "reverse": false,
+                "baked": false
+              },
+              {
+                "role": "incoming",
+                "clip_id": "C2",
+                "source_id": "CAM_B",
+                "media_ref": "media:cam-b",
+                "source_time_rational": "5801/24000",
+                "source_timecode": "00:00:00:06",
+                "source_frame_index": 6,
+                "source_in_rational": "1/5",
+                "source_out_rational": "1",
+                "source_in_timecode": "00:00:00:05",
+                "source_out_timecode": "00:00:01:00",
+                "rate": "25fps",
+                "reverse": false,
+                "baked": false
+              }
+            ],
+            "note": "live push: edit point is still cuttable; relink both the outgoing and incoming source ranges"
+          }
+        },
+        {
+          "sample": "slide",
+          "title": "slide transition between two ranges",
+          "capabilities": [
+            "transition:slide"
+          ],
+          "profile_id": "cmx3600",
+          "outcome": "flattened",
+          "expected_for_full": "reversible",
+          "loss_codes": [
+            "mixed_rate_source",
+            "transition_not_expressible"
+          ],
+          "first_loss": {
+            "code": "transition_not_expressible",
+            "severity": "error",
+            "kind": "transition",
+            "object_id": "C2",
+            "timeline_start": {
+              "rational": "4325321/1200",
+              "timecode": "01:00:00:20"
+            },
+            "timeline_end": {
+              "rational": "3604601/1000",
+              "timecode": "01:00:01:00"
+            },
+            "message": "transition 'slide' has no CMX 3600 equivalent under cmx3600; degraded to cut",
+            "details": {
+              "requested": "slide",
+              "fallback": "cut",
+              "source_frames_unchanged": true
+            }
+          },
+          "first_loss_record_timecode": "00:00:00:20",
+          "pixel_match": true,
+          "edit_structure_faithful": false,
+          "frame_deltas": 0,
+          "structure_deltas": 1,
+          "trace_window": {
+            "record_time_rational": "28835807/8000",
+            "record_timecode": "00:00:00:21",
+            "kind": "transition_in",
+            "clip_id": "C2",
+            "transition_in": "slide",
+            "transition_progress_rational": "1/4",
+            "needs": "reconnect_two_ranges",
+            "sources": [
+              {
+                "role": "outgoing",
+                "clip_id": "C1",
+                "source_id": "CAM_A",
+                "media_ref": "media:cam-a",
+                "source_time_rational": "7007/8000",
+                "source_timecode": "00:00:00:21",
+                "source_frame_index": 21,
+                "source_in_rational": "0",
+                "source_out_rational": "1001/1200",
+                "source_in_timecode": "00:00:00:00",
+                "source_out_timecode": "00:00:00:20",
+                "rate": "24000/1001fps",
+                "reverse": false,
+                "baked": false
+              },
+              {
+                "role": "incoming",
+                "clip_id": "C2",
+                "source_id": "CAM_B",
+                "media_ref": "media:cam-b",
+                "source_time_rational": "5801/24000",
+                "source_timecode": "00:00:00:06",
+                "source_frame_index": 6,
+                "source_in_rational": "1/5",
+                "source_out_rational": "1",
+                "source_in_timecode": "00:00:00:05",
+                "source_out_timecode": "00:00:01:00",
+                "rate": "25fps",
+                "reverse": false,
+                "baked": false
+              }
+            ],
+            "note": "live slide: edit point is still cuttable; relink both the outgoing and incoming source ranges"
+          }
+        },
+        {
+          "sample": "multi_track",
+          "title": "second simultaneous video track",
+          "capabilities": [
+            "track:multi_video"
+          ],
+          "profile_id": "cmx3600",
+          "outcome": "rejected",
+          "expected_for_full": "reversible",
+          "loss_codes": [
+            "track_not_expressible"
+          ],
+          "first_loss": {
+            "code": "track_not_expressible",
+            "severity": "error",
+            "kind": "track",
+            "object_id": "V2",
+            "timeline_start": {
+              "rational": "21622601/6000",
+              "timecode": "01:00:00:04"
+            },
+            "timeline_end": {
+              "rational": "43250207/12000",
+              "timecode": "01:00:00:14"
+            },
+            "message": "CMX 3600 holds a single video track; clips on V2 cannot be exported",
+            "details": {
+              "fallback": "track_dropped"
+            }
+          },
+          "first_loss_record_timecode": "00:00:00:04",
+          "pixel_match": false,
+          "edit_structure_faithful": false,
+          "frame_deltas": 10,
+          "structure_deltas": 1,
+          "trace_window": {
+            "record_time_rational": "14415401/4000",
+            "record_timecode": "00:00:00:06",
+            "kind": "frame",
+            "clip_id": "C2",
+            "transition_in": null,
+            "transition_progress_rational": null,
+            "needs": "reconnect_one_range",
+            "sources": [
+              {
+                "role": "single",
+                "clip_id": "C2",
+                "source_id": "CAM_B",
+                "media_ref": "media:cam-b",
+                "source_time_rational": "1001/12000",
+                "source_timecode": "00:00:00:02",
+                "source_frame_index": 2,
+                "source_in_rational": "0",
+                "source_out_rational": "2/5",
+                "source_in_timecode": "00:00:00:00",
+                "source_out_timecode": "00:00:00:10",
+                "rate": "25fps",
+                "reverse": false,
+                "baked": false
+              }
+            ],
+            "note": "plain cut: a single source range backs this frame"
+          }
+        },
+        {
+          "sample": "gap",
+          "title": "explicit empty interval object",
+          "capabilities": [
+            "gap:explicit"
+          ],
+          "profile_id": "cmx3600",
+          "outcome": "reversible",
+          "expected_for_full": "reversible",
+          "loss_codes": [
+            "gap_not_expressible"
+          ],
+          "first_loss": {
+            "code": "gap_not_expressible",
+            "severity": "error",
+            "kind": "gap",
+            "object_id": "G1",
+            "timeline_start": {
+              "rational": "8649641/2400",
+              "timecode": "01:00:00:10"
+            },
+            "timeline_end": {
+              "rational": "5406401/1500",
+              "timecode": "01:00:00:16"
+            },
+            "message": "CMX 3600 has no explicit gap construct; the empty interval is represented only by the record-time jump",
+            "details": {
+              "fallback": "record_time_jump"
+            }
+          },
+          "first_loss_record_timecode": "00:00:00:10",
+          "pixel_match": true,
+          "edit_structure_faithful": true,
+          "frame_deltas": 0,
+          "structure_deltas": 0,
+          "trace_window": {
+            "record_time_rational": "7208201/2000",
+            "record_timecode": "00:00:00:12",
+            "kind": "gap",
+            "clip_id": null,
+            "transition_in": null,
+            "transition_progress_rational": null,
+            "needs": "none",
+            "sources": [],
+            "note": "explicit gap G1"
+          }
+        },
+        {
+          "sample": "mixed_rate",
+          "title": "mixed source rates on one record timeline",
+          "capabilities": [
+            "source:mixed_rate"
+          ],
+          "profile_id": "cmx3600",
+          "outcome": "reversible",
+          "expected_for_full": "reversible",
+          "loss_codes": [
+            "mixed_rate_source"
+          ],
+          "first_loss": {
+            "code": "mixed_rate_source",
+            "severity": "warning",
+            "kind": "source",
+            "object_id": "CAM_B",
+            "timeline_start": {
+              "rational": "8649641/2400",
+              "timecode": "01:00:00:10"
+            },
+            "timeline_end": {
+              "rational": "43254211/12000",
+              "timecode": "01:00:00:22"
+            },
+            "message": "source rate 25fps differs from record rate 24000/1001fps; EDL stores timecodes only, retiming metadata is lost",
+            "details": {
+              "fallback": "record_rate_timecode"
+            }
+          },
+          "first_loss_record_timecode": "00:00:00:10",
+          "pixel_match": true,
+          "edit_structure_faithful": true,
+          "frame_deltas": 0,
+          "structure_deltas": 0,
+          "trace_window": {
+            "record_time_rational": "86497411/24000",
+            "record_timecode": "00:00:00:11",
+            "kind": "frame",
+            "clip_id": "C2",
+            "transition_in": null,
+            "transition_progress_rational": null,
+            "needs": "reconnect_one_range",
+            "sources": [
+              {
+                "role": "single",
+                "clip_id": "C2",
+                "source_id": "CAM_B",
+                "media_ref": "media:cam-b",
+                "source_time_rational": "2921/24000",
+                "source_timecode": "00:00:00:03",
+                "source_frame_index": 3,
+                "source_in_rational": "2/25",
+                "source_out_rational": "14/25",
+                "source_in_timecode": "00:00:00:02",
+                "source_out_timecode": "00:00:00:14",
+                "rate": "25fps",
+                "reverse": false,
+                "baked": false
+              }
+            ],
+            "note": "plain cut: a single source range backs this frame"
+          }
+        },
+        {
+          "sample": "reverse",
+          "title": "reverse-played source range",
+          "capabilities": [
+            "clip:reverse"
+          ],
+          "profile_id": "cmx3600",
+          "outcome": "rejected",
+          "expected_for_full": "reversible",
+          "loss_codes": [
+            "reverse_not_expressible"
+          ],
+          "first_loss": {
+            "code": "reverse_not_expressible",
+            "severity": "error",
+            "kind": "clip",
+            "object_id": "C1",
+            "timeline_start": {
+              "rational": "18018/5",
+              "timecode": "01:00:00:00"
+            },
+            "timeline_end": {
+              "rational": "2883881/800",
+              "timecode": "01:00:01:06"
+            },
+            "message": "target profile cannot express reverse playback; the source range is exported forwards",
+            "details": {
+              "fallback": "forward_playback",
+              "source_range_reversed": true
+            }
+          },
+          "first_loss_record_timecode": "00:00:00:00",
+          "pixel_match": false,
+          "edit_structure_faithful": false,
+          "frame_deltas": 30,
+          "structure_deltas": 1,
+          "trace_window": {
+            "record_time_rational": "17298281/4800",
+            "record_timecode": "00:00:00:05",
+            "kind": "frame",
+            "clip_id": "C1",
+            "transition_in": null,
+            "transition_progress_rational": null,
+            "needs": "reconnect_one_range",
+            "sources": [
+              {
+                "role": "single",
+                "clip_id": "C1",
+                "source_id": "CAM_A",
+                "media_ref": "media:cam-a",
+                "source_time_rational": "17017/12000",
+                "source_timecode": "00:00:01:10",
+                "source_frame_index": 34,
+                "source_in_rational": "1001/2400",
+                "source_out_rational": "1001/600",
+                "source_in_timecode": "00:00:00:10",
+                "source_out_timecode": "00:00:01:16",
+                "rate": "24000/1001fps",
+                "reverse": true,
+                "baked": false
+              }
+            ],
+            "note": "plain cut: a single source range backs this frame"
+          }
+        },
+        {
+          "sample": "baked",
+          "title": "pre-flattened transition media asset",
+          "capabilities": [
+            "media:baked"
+          ],
+          "profile_id": "cmx3600",
+          "outcome": "flattened",
+          "expected_for_full": "reversible",
+          "loss_codes": [
+            "baked_media_not_expressible"
+          ],
+          "first_loss": {
+            "code": "baked_media_not_expressible",
+            "severity": "error",
+            "kind": "clip",
+            "object_id": "C1",
+            "timeline_start": {
+              "rational": "18018/5",
+              "timecode": "01:00:00:00"
+            },
+            "timeline_end": {
+              "rational": "2883881/800",
+              "timecode": "01:00:01:06"
+            },
+            "message": "target profile cannot reference a pre-baked media asset; the flattened transition cannot be relinked",
+            "details": {
+              "fallback": "baked_asset_dropped"
+            }
+          },
+          "first_loss_record_timecode": "00:00:00:00",
+          "pixel_match": true,
+          "edit_structure_faithful": false,
+          "frame_deltas": 0,
+          "structure_deltas": 1,
+          "trace_window": {
+            "record_time_rational": "17298281/4800",
+            "record_timecode": "00:00:00:05",
+            "kind": "baked",
+            "clip_id": "C1",
+            "transition_in": "dissolve",
+            "transition_progress_rational": null,
+            "needs": "baked_media",
+            "sources": [
+              {
+                "role": "baked",
+                "clip_id": "C1",
+                "source_id": "CAM_A",
+                "media_ref": "media:cam-a",
+                "source_time_rational": "1001/1600",
+                "source_timecode": "00:00:00:15",
+                "source_frame_index": 15,
+                "source_in_rational": "1001/2400",
+                "source_out_rational": "1001/600",
+                "source_in_timecode": "00:00:00:10",
+                "source_out_timecode": "00:00:01:16",
+                "rate": "24000/1001fps",
+                "reverse": false,
+                "baked": true
+              }
+            ],
+            "note": "flattened transition: request the baked media; the outgoing and incoming source ranges are no longer separately addressable"
+          }
+        }
+      ]
+    },
+    "cmx3600-narrow-wipe": {
+      "manifest": {
+        "profile": {
+          "profile_id": "cmx3600-narrow-wipe",
+          "format": "cmx3600",
+          "label": "CMX 3600 EDL (single video track) — narrowed (transition:wipe)",
+          "capabilities": {
+            "transition:cut": true,
+            "transition:dissolve": true,
+            "transition:fade": false,
+            "transition:wipe": false,
+            "transition:push": false,
+            "transition:slide": false,
+            "track:multi_video": false,
+            "gap:explicit": false,
+            "source:mixed_rate": true,
+            "clip:reverse": false,
+            "media:baked": false
+          }
+        },
+        "capabilities": [
+          {
+            "capability": "transition:cut",
+            "description": "hard cut with an editable edit point",
+            "supported": true,
+            "samples": [
+              {
+                "sample": "cut",
+                "outcome": "reversible",
+                "first_loss": null
+              }
+            ],
+            "has_contract": true
+          },
+          {
+            "capability": "transition:dissolve",
+            "description": "dissolve with two editable source ranges",
+            "supported": true,
+            "samples": [
+              {
+                "sample": "dissolve",
+                "outcome": "reversible",
+                "first_loss": {
+                  "code": "mixed_rate_source",
+                  "severity": "warning",
+                  "kind": "source",
+                  "object_id": "CAM_B",
+                  "timeline_start": {
+                    "rational": "4325321/1200",
+                    "timecode": "01:00:00:20"
+                  },
+                  "timeline_end": {
+                    "rational": "2163161/600",
+                    "timecode": "01:00:01:16"
+                  },
+                  "message": "source rate 25fps differs from record rate 24000/1001fps; EDL stores timecodes only, retiming metadata is lost",
+                  "details": {
+                    "fallback": "record_rate_timecode"
+                  }
+                }
+              }
+            ],
+            "has_contract": true
+          },
+          {
+            "capability": "transition:fade",
+            "description": "fade with two editable source ranges",
+            "supported": false,
+            "samples": [
+              {
+                "sample": "fade",
+                "outcome": "flattened",
+                "first_loss": {
+                  "code": "transition_not_expressible",
+                  "severity": "error",
+                  "kind": "transition",
+                  "object_id": "C2",
+                  "timeline_start": {
+                    "rational": "4325321/1200",
+                    "timecode": "01:00:00:20"
+                  },
+                  "timeline_end": {
+                    "rational": "3604601/1000",
+                    "timecode": "01:00:01:00"
+                  },
+                  "message": "transition 'fade' has no CMX 3600 equivalent under cmx3600-narrow-wipe; degraded to cut",
+                  "details": {
+                    "requested": "fade",
+                    "fallback": "cut",
+                    "source_frames_unchanged": true
+                  }
+                }
+              }
+            ],
+            "has_contract": true
+          },
+          {
+            "capability": "transition:wipe",
+            "description": "wipe with two editable source ranges",
+            "supported": false,
+            "samples": [
+              {
+                "sample": "wipe",
+                "outcome": "flattened",
+                "first_loss": {
+                  "code": "transition_not_expressible",
+                  "severity": "error",
+                  "kind": "transition",
+                  "object_id": "C2",
+                  "timeline_start": {
+                    "rational": "4325321/1200",
+                    "timecode": "01:00:00:20"
+                  },
+                  "timeline_end": {
+                    "rational": "3604601/1000",
+                    "timecode": "01:00:01:00"
+                  },
+                  "message": "transition 'wipe' has no CMX 3600 equivalent under cmx3600-narrow-wipe; degraded to cut",
+                  "details": {
+                    "requested": "wipe",
+                    "fallback": "cut",
+                    "source_frames_unchanged": true
+                  }
+                }
+              }
+            ],
+            "has_contract": true
+          },
+          {
+            "capability": "transition:push",
+            "description": "push with two editable source ranges",
+            "supported": false,
+            "samples": [
+              {
+                "sample": "push",
+                "outcome": "flattened",
+                "first_loss": {
+                  "code": "transition_not_expressible",
+                  "severity": "error",
+                  "kind": "transition",
+                  "object_id": "C2",
+                  "timeline_start": {
+                    "rational": "4325321/1200",
+                    "timecode": "01:00:00:20"
+                  },
+                  "timeline_end": {
+                    "rational": "3604601/1000",
+                    "timecode": "01:00:01:00"
+                  },
+                  "message": "transition 'push' has no CMX 3600 equivalent under cmx3600-narrow-wipe; degraded to cut",
+                  "details": {
+                    "requested": "push",
+                    "fallback": "cut",
+                    "source_frames_unchanged": true
+                  }
+                }
+              }
+            ],
+            "has_contract": true
+          },
+          {
+            "capability": "transition:slide",
+            "description": "slide with two editable source ranges",
+            "supported": false,
+            "samples": [
+              {
+                "sample": "slide",
+                "outcome": "flattened",
+                "first_loss": {
+                  "code": "transition_not_expressible",
+                  "severity": "error",
+                  "kind": "transition",
+                  "object_id": "C2",
+                  "timeline_start": {
+                    "rational": "4325321/1200",
+                    "timecode": "01:00:00:20"
+                  },
+                  "timeline_end": {
+                    "rational": "3604601/1000",
+                    "timecode": "01:00:01:00"
+                  },
+                  "message": "transition 'slide' has no CMX 3600 equivalent under cmx3600-narrow-wipe; degraded to cut",
+                  "details": {
+                    "requested": "slide",
+                    "fallback": "cut",
+                    "source_frames_unchanged": true
+                  }
+                }
+              }
+            ],
+            "has_contract": true
+          },
+          {
+            "capability": "track:multi_video",
+            "description": "more than one simultaneous video track",
+            "supported": false,
+            "samples": [
+              {
+                "sample": "multi_track",
+                "outcome": "rejected",
+                "first_loss": {
+                  "code": "track_not_expressible",
+                  "severity": "error",
+                  "kind": "track",
+                  "object_id": "V2",
+                  "timeline_start": {
+                    "rational": "21622601/6000",
+                    "timecode": "01:00:00:04"
+                  },
+                  "timeline_end": {
+                    "rational": "43250207/12000",
+                    "timecode": "01:00:00:14"
+                  },
+                  "message": "CMX 3600 holds a single video track; clips on V2 cannot be exported",
+                  "details": {
+                    "fallback": "track_dropped"
+                  }
+                }
+              }
+            ],
+            "has_contract": true
+          },
+          {
+            "capability": "gap:explicit",
+            "description": "an explicit empty interval object on a track",
+            "supported": false,
+            "samples": [
+              {
+                "sample": "gap",
+                "outcome": "reversible",
+                "first_loss": {
+                  "code": "gap_not_expressible",
+                  "severity": "error",
+                  "kind": "gap",
+                  "object_id": "G1",
+                  "timeline_start": {
+                    "rational": "8649641/2400",
+                    "timecode": "01:00:00:10"
+                  },
+                  "timeline_end": {
+                    "rational": "5406401/1500",
+                    "timecode": "01:00:00:16"
+                  },
+                  "message": "CMX 3600 has no explicit gap construct; the empty interval is represented only by the record-time jump",
+                  "details": {
+                    "fallback": "record_time_jump"
+                  }
+                }
+              }
+            ],
+            "has_contract": true
+          },
+          {
+            "capability": "source:mixed_rate",
+            "description": "mixed source frame rates alongside the record rate",
+            "supported": true,
+            "samples": [
+              {
+                "sample": "mixed_rate",
+                "outcome": "reversible",
+                "first_loss": {
+                  "code": "mixed_rate_source",
+                  "severity": "warning",
+                  "kind": "source",
+                  "object_id": "CAM_B",
+                  "timeline_start": {
+                    "rational": "8649641/2400",
+                    "timecode": "01:00:00:10"
+                  },
+                  "timeline_end": {
+                    "rational": "43254211/12000",
+                    "timecode": "01:00:00:22"
+                  },
+                  "message": "source rate 25fps differs from record rate 24000/1001fps; EDL stores timecodes only, retiming metadata is lost",
+                  "details": {
+                    "fallback": "record_rate_timecode"
+                  }
+                }
+              }
+            ],
+            "has_contract": true
+          },
+          {
+            "capability": "clip:reverse",
+            "description": "a clip that plays its source range backwards",
+            "supported": false,
+            "samples": [
+              {
+                "sample": "reverse",
+                "outcome": "rejected",
+                "first_loss": {
+                  "code": "reverse_not_expressible",
+                  "severity": "error",
+                  "kind": "clip",
+                  "object_id": "C1",
+                  "timeline_start": {
+                    "rational": "18018/5",
+                    "timecode": "01:00:00:00"
+                  },
+                  "timeline_end": {
+                    "rational": "2883881/800",
+                    "timecode": "01:00:01:06"
+                  },
+                  "message": "target profile cannot express reverse playback; the source range is exported forwards",
+                  "details": {
+                    "fallback": "forward_playback",
+                    "source_range_reversed": true
+                  }
+                }
+              }
+            ],
+            "has_contract": true
+          },
+          {
+            "capability": "media:baked",
+            "description": "reference a pre-baked (flattened) media asset",
+            "supported": false,
+            "samples": [
+              {
+                "sample": "baked",
+                "outcome": "flattened",
+                "first_loss": {
+                  "code": "baked_media_not_expressible",
+                  "severity": "error",
+                  "kind": "clip",
+                  "object_id": "C1",
+                  "timeline_start": {
+                    "rational": "18018/5",
+                    "timecode": "01:00:00:00"
+                  },
+                  "timeline_end": {
+                    "rational": "2883881/800",
+                    "timecode": "01:00:01:06"
+                  },
+                  "message": "target profile cannot reference a pre-baked media asset; the flattened transition cannot be relinked",
+                  "details": {
+                    "fallback": "baked_asset_dropped"
+                  }
+                }
+              }
+            ],
+            "has_contract": true
+          }
+        ],
+        "uncovered_capabilities": []
+      },
+      "samples": [
+        {
+          "sample": "cut",
+          "title": "adjacent hard cut, editable edit point",
+          "capabilities": [
+            "transition:cut"
+          ],
+          "profile_id": "cmx3600-narrow-wipe",
+          "outcome": "reversible",
+          "expected_for_full": "reversible",
+          "loss_codes": [],
+          "first_loss": null,
+          "first_loss_record_timecode": null,
+          "pixel_match": true,
+          "edit_structure_faithful": true,
+          "frame_deltas": 0,
+          "structure_deltas": 0,
+          "trace_window": {
+            "record_time_rational": "17298281/4800",
+            "record_timecode": "00:00:00:05",
+            "kind": "frame",
+            "clip_id": "C1",
+            "transition_in": null,
+            "transition_progress_rational": null,
+            "needs": "reconnect_one_range",
+            "sources": [
+              {
+                "role": "single",
+                "clip_id": "C1",
+                "source_id": "CAM_A",
+                "media_ref": "media:cam-a",
+                "source_time_rational": "1001/1600",
+                "source_timecode": "00:00:00:15",
+                "source_frame_index": 15,
+                "source_in_rational": "1001/2400",
+                "source_out_rational": "1001/600",
+                "source_in_timecode": "00:00:00:10",
+                "source_out_timecode": "00:00:01:16",
+                "rate": "24000/1001fps",
+                "reverse": false,
+                "baked": false
+              }
+            ],
+            "note": "plain cut: a single source range backs this frame"
+          }
+        },
+        {
+          "sample": "dissolve",
+          "title": "dissolve keeps both source ranges editable",
+          "capabilities": [
+            "transition:dissolve"
+          ],
+          "profile_id": "cmx3600-narrow-wipe",
+          "outcome": "reversible",
+          "expected_for_full": "reversible",
+          "loss_codes": [
+            "mixed_rate_source"
+          ],
+          "first_loss": {
+            "code": "mixed_rate_source",
+            "severity": "warning",
+            "kind": "source",
+            "object_id": "CAM_B",
+            "timeline_start": {
+              "rational": "4325321/1200",
+              "timecode": "01:00:00:20"
+            },
+            "timeline_end": {
+              "rational": "2163161/600",
+              "timecode": "01:00:01:16"
+            },
+            "message": "source rate 25fps differs from record rate 24000/1001fps; EDL stores timecodes only, retiming metadata is lost",
+            "details": {
+              "fallback": "record_rate_timecode"
+            }
+          },
+          "first_loss_record_timecode": "00:00:00:20",
+          "pixel_match": true,
+          "edit_structure_faithful": true,
+          "frame_deltas": 0,
+          "structure_deltas": 0,
+          "trace_window": {
+            "record_time_rational": "28835807/8000",
+            "record_timecode": "00:00:00:21",
+            "kind": "transition_in",
+            "clip_id": "C2",
+            "transition_in": "dissolve",
+            "transition_progress_rational": "1/4",
+            "needs": "reconnect_two_ranges",
+            "sources": [
+              {
+                "role": "outgoing",
+                "clip_id": "C1",
+                "source_id": "CAM_A",
+                "media_ref": "media:cam-a",
+                "source_time_rational": "7007/8000",
+                "source_timecode": "00:00:00:21",
+                "source_frame_index": 21,
+                "source_in_rational": "0",
+                "source_out_rational": "1001/1200",
+                "source_in_timecode": "00:00:00:00",
+                "source_out_timecode": "00:00:00:20",
+                "rate": "24000/1001fps",
+                "reverse": false,
+                "baked": false
+              },
+              {
+                "role": "incoming",
+                "clip_id": "C2",
+                "source_id": "CAM_B",
+                "media_ref": "media:cam-b",
+                "source_time_rational": "5801/24000",
+                "source_timecode": "00:00:00:06",
+                "source_frame_index": 6,
+                "source_in_rational": "1/5",
+                "source_out_rational": "1",
+                "source_in_timecode": "00:00:00:05",
+                "source_out_timecode": "00:00:01:00",
+                "rate": "25fps",
+                "reverse": false,
+                "baked": false
+              }
+            ],
+            "note": "live dissolve: edit point is still cuttable; relink both the outgoing and incoming source ranges"
+          }
+        },
+        {
+          "sample": "fade",
+          "title": "fade keeps both source ranges editable",
+          "capabilities": [
+            "transition:fade"
+          ],
+          "profile_id": "cmx3600-narrow-wipe",
+          "outcome": "flattened",
+          "expected_for_full": "reversible",
+          "loss_codes": [
+            "mixed_rate_source",
+            "transition_not_expressible"
+          ],
+          "first_loss": {
+            "code": "transition_not_expressible",
+            "severity": "error",
+            "kind": "transition",
+            "object_id": "C2",
+            "timeline_start": {
+              "rational": "4325321/1200",
+              "timecode": "01:00:00:20"
+            },
+            "timeline_end": {
+              "rational": "3604601/1000",
+              "timecode": "01:00:01:00"
+            },
+            "message": "transition 'fade' has no CMX 3600 equivalent under cmx3600-narrow-wipe; degraded to cut",
+            "details": {
+              "requested": "fade",
+              "fallback": "cut",
+              "source_frames_unchanged": true
+            }
+          },
+          "first_loss_record_timecode": "00:00:00:20",
+          "pixel_match": true,
+          "edit_structure_faithful": false,
+          "frame_deltas": 0,
+          "structure_deltas": 1,
+          "trace_window": {
+            "record_time_rational": "28835807/8000",
+            "record_timecode": "00:00:00:21",
+            "kind": "transition_in",
+            "clip_id": "C2",
+            "transition_in": "fade",
+            "transition_progress_rational": "1/4",
+            "needs": "reconnect_two_ranges",
+            "sources": [
+              {
+                "role": "outgoing",
+                "clip_id": "C1",
+                "source_id": "CAM_A",
+                "media_ref": "media:cam-a",
+                "source_time_rational": "7007/8000",
+                "source_timecode": "00:00:00:21",
+                "source_frame_index": 21,
+                "source_in_rational": "0",
+                "source_out_rational": "1001/1200",
+                "source_in_timecode": "00:00:00:00",
+                "source_out_timecode": "00:00:00:20",
+                "rate": "24000/1001fps",
+                "reverse": false,
+                "baked": false
+              },
+              {
+                "role": "incoming",
+                "clip_id": "C2",
+                "source_id": "CAM_B",
+                "media_ref": "media:cam-b",
+                "source_time_rational": "5801/24000",
+                "source_timecode": "00:00:00:06",
+                "source_frame_index": 6,
+                "source_in_rational": "1/5",
+                "source_out_rational": "1",
+                "source_in_timecode": "00:00:00:05",
+                "source_out_timecode": "00:00:01:00",
+                "rate": "25fps",
+                "reverse": false,
+                "baked": false
+              }
+            ],
+            "note": "live fade: edit point is still cuttable; relink both the outgoing and incoming source ranges"
+          }
+        },
+        {
+          "sample": "wipe",
+          "title": "wipe keeps both source ranges editable",
+          "capabilities": [
+            "transition:wipe"
+          ],
+          "profile_id": "cmx3600-narrow-wipe",
+          "outcome": "flattened",
+          "expected_for_full": "reversible",
+          "loss_codes": [
+            "mixed_rate_source",
+            "transition_not_expressible"
+          ],
+          "first_loss": {
+            "code": "transition_not_expressible",
+            "severity": "error",
+            "kind": "transition",
+            "object_id": "C2",
+            "timeline_start": {
+              "rational": "4325321/1200",
+              "timecode": "01:00:00:20"
+            },
+            "timeline_end": {
+              "rational": "3604601/1000",
+              "timecode": "01:00:01:00"
+            },
+            "message": "transition 'wipe' has no CMX 3600 equivalent under cmx3600-narrow-wipe; degraded to cut",
+            "details": {
+              "requested": "wipe",
+              "fallback": "cut",
+              "source_frames_unchanged": true
+            }
+          },
+          "first_loss_record_timecode": "00:00:00:20",
+          "pixel_match": true,
+          "edit_structure_faithful": false,
+          "frame_deltas": 0,
+          "structure_deltas": 1,
+          "trace_window": {
+            "record_time_rational": "28835807/8000",
+            "record_timecode": "00:00:00:21",
+            "kind": "transition_in",
+            "clip_id": "C2",
+            "transition_in": "wipe",
+            "transition_progress_rational": "1/4",
+            "needs": "reconnect_two_ranges",
+            "sources": [
+              {
+                "role": "outgoing",
+                "clip_id": "C1",
+                "source_id": "CAM_A",
+                "media_ref": "media:cam-a",
+                "source_time_rational": "7007/8000",
+                "source_timecode": "00:00:00:21",
+                "source_frame_index": 21,
+                "source_in_rational": "0",
+                "source_out_rational": "1001/1200",
+                "source_in_timecode": "00:00:00:00",
+                "source_out_timecode": "00:00:00:20",
+                "rate": "24000/1001fps",
+                "reverse": false,
+                "baked": false
+              },
+              {
+                "role": "incoming",
+                "clip_id": "C2",
+                "source_id": "CAM_B",
+                "media_ref": "media:cam-b",
+                "source_time_rational": "5801/24000",
+                "source_timecode": "00:00:00:06",
+                "source_frame_index": 6,
+                "source_in_rational": "1/5",
+                "source_out_rational": "1",
+                "source_in_timecode": "00:00:00:05",
+                "source_out_timecode": "00:00:01:00",
+                "rate": "25fps",
+                "reverse": false,
+                "baked": false
+              }
+            ],
+            "note": "live wipe: edit point is still cuttable; relink both the outgoing and incoming source ranges"
+          }
+        },
+        {
+          "sample": "push",
+          "title": "push transition between two ranges",
+          "capabilities": [
+            "transition:push"
+          ],
+          "profile_id": "cmx3600-narrow-wipe",
+          "outcome": "flattened",
+          "expected_for_full": "reversible",
+          "loss_codes": [
+            "mixed_rate_source",
+            "transition_not_expressible"
+          ],
+          "first_loss": {
+            "code": "transition_not_expressible",
+            "severity": "error",
+            "kind": "transition",
+            "object_id": "C2",
+            "timeline_start": {
+              "rational": "4325321/1200",
+              "timecode": "01:00:00:20"
+            },
+            "timeline_end": {
+              "rational": "3604601/1000",
+              "timecode": "01:00:01:00"
+            },
+            "message": "transition 'push' has no CMX 3600 equivalent under cmx3600-narrow-wipe; degraded to cut",
+            "details": {
+              "requested": "push",
+              "fallback": "cut",
+              "source_frames_unchanged": true
+            }
+          },
+          "first_loss_record_timecode": "00:00:00:20",
+          "pixel_match": true,
+          "edit_structure_faithful": false,
+          "frame_deltas": 0,
+          "structure_deltas": 1,
+          "trace_window": {
+            "record_time_rational": "28835807/8000",
+            "record_timecode": "00:00:00:21",
+            "kind": "transition_in",
+            "clip_id": "C2",
+            "transition_in": "push",
+            "transition_progress_rational": "1/4",
+            "needs": "reconnect_two_ranges",
+            "sources": [
+              {
+                "role": "outgoing",
+                "clip_id": "C1",
+                "source_id": "CAM_A",
+                "media_ref": "media:cam-a",
+                "source_time_rational": "7007/8000",
+                "source_timecode": "00:00:00:21",
+                "source_frame_index": 21,
+                "source_in_rational": "0",
+                "source_out_rational": "1001/1200",
+                "source_in_timecode": "00:00:00:00",
+                "source_out_timecode": "00:00:00:20",
+                "rate": "24000/1001fps",
+                "reverse": false,
+                "baked": false
+              },
+              {
+                "role": "incoming",
+                "clip_id": "C2",
+                "source_id": "CAM_B",
+                "media_ref": "media:cam-b",
+                "source_time_rational": "5801/24000",
+                "source_timecode": "00:00:00:06",
+                "source_frame_index": 6,
+                "source_in_rational": "1/5",
+                "source_out_rational": "1",
+                "source_in_timecode": "00:00:00:05",
+                "source_out_timecode": "00:00:01:00",
+                "rate": "25fps",
+                "reverse": false,
+                "baked": false
+              }
+            ],
+            "note": "live push: edit point is still cuttable; relink both the outgoing and incoming source ranges"
+          }
+        },
+        {
+          "sample": "slide",
+          "title": "slide transition between two ranges",
+          "capabilities": [
+            "transition:slide"
+          ],
+          "profile_id": "cmx3600-narrow-wipe",
+          "outcome": "flattened",
+          "expected_for_full": "reversible",
+          "loss_codes": [
+            "mixed_rate_source",
+            "transition_not_expressible"
+          ],
+          "first_loss": {
+            "code": "transition_not_expressible",
+            "severity": "error",
+            "kind": "transition",
+            "object_id": "C2",
+            "timeline_start": {
+              "rational": "4325321/1200",
+              "timecode": "01:00:00:20"
+            },
+            "timeline_end": {
+              "rational": "3604601/1000",
+              "timecode": "01:00:01:00"
+            },
+            "message": "transition 'slide' has no CMX 3600 equivalent under cmx3600-narrow-wipe; degraded to cut",
+            "details": {
+              "requested": "slide",
+              "fallback": "cut",
+              "source_frames_unchanged": true
+            }
+          },
+          "first_loss_record_timecode": "00:00:00:20",
+          "pixel_match": true,
+          "edit_structure_faithful": false,
+          "frame_deltas": 0,
+          "structure_deltas": 1,
+          "trace_window": {
+            "record_time_rational": "28835807/8000",
+            "record_timecode": "00:00:00:21",
+            "kind": "transition_in",
+            "clip_id": "C2",
+            "transition_in": "slide",
+            "transition_progress_rational": "1/4",
+            "needs": "reconnect_two_ranges",
+            "sources": [
+              {
+                "role": "outgoing",
+                "clip_id": "C1",
+                "source_id": "CAM_A",
+                "media_ref": "media:cam-a",
+                "source_time_rational": "7007/8000",
+                "source_timecode": "00:00:00:21",
+                "source_frame_index": 21,
+                "source_in_rational": "0",
+                "source_out_rational": "1001/1200",
+                "source_in_timecode": "00:00:00:00",
+                "source_out_timecode": "00:00:00:20",
+                "rate": "24000/1001fps",
+                "reverse": false,
+                "baked": false
+              },
+              {
+                "role": "incoming",
+                "clip_id": "C2",
+                "source_id": "CAM_B",
+                "media_ref": "media:cam-b",
+                "source_time_rational": "5801/24000",
+                "source_timecode": "00:00:00:06",
+                "source_frame_index": 6,
+                "source_in_rational": "1/5",
+                "source_out_rational": "1",
+                "source_in_timecode": "00:00:00:05",
+                "source_out_timecode": "00:00:01:00",
+                "rate": "25fps",
+                "reverse": false,
+                "baked": false
+              }
+            ],
+            "note": "live slide: edit point is still cuttable; relink both the outgoing and incoming source ranges"
+          }
+        },
+        {
+          "sample": "multi_track",
+          "title": "second simultaneous video track",
+          "capabilities": [
+            "track:multi_video"
+          ],
+          "profile_id": "cmx3600-narrow-wipe",
+          "outcome": "rejected",
+          "expected_for_full": "reversible",
+          "loss_codes": [
+            "track_not_expressible"
+          ],
+          "first_loss": {
+            "code": "track_not_expressible",
+            "severity": "error",
+            "kind": "track",
+            "object_id": "V2",
+            "timeline_start": {
+              "rational": "21622601/6000",
+              "timecode": "01:00:00:04"
+            },
+            "timeline_end": {
+              "rational": "43250207/12000",
+              "timecode": "01:00:00:14"
+            },
+            "message": "CMX 3600 holds a single video track; clips on V2 cannot be exported",
+            "details": {
+              "fallback": "track_dropped"
+            }
+          },
+          "first_loss_record_timecode": "00:00:00:04",
+          "pixel_match": false,
+          "edit_structure_faithful": false,
+          "frame_deltas": 10,
+          "structure_deltas": 1,
+          "trace_window": {
+            "record_time_rational": "14415401/4000",
+            "record_timecode": "00:00:00:06",
+            "kind": "frame",
+            "clip_id": "C2",
+            "transition_in": null,
+            "transition_progress_rational": null,
+            "needs": "reconnect_one_range",
+            "sources": [
+              {
+                "role": "single",
+                "clip_id": "C2",
+                "source_id": "CAM_B",
+                "media_ref": "media:cam-b",
+                "source_time_rational": "1001/12000",
+                "source_timecode": "00:00:00:02",
+                "source_frame_index": 2,
+                "source_in_rational": "0",
+                "source_out_rational": "2/5",
+                "source_in_timecode": "00:00:00:00",
+                "source_out_timecode": "00:00:00:10",
+                "rate": "25fps",
+                "reverse": false,
+                "baked": false
+              }
+            ],
+            "note": "plain cut: a single source range backs this frame"
+          }
+        },
+        {
+          "sample": "gap",
+          "title": "explicit empty interval object",
+          "capabilities": [
+            "gap:explicit"
+          ],
+          "profile_id": "cmx3600-narrow-wipe",
+          "outcome": "reversible",
+          "expected_for_full": "reversible",
+          "loss_codes": [
+            "gap_not_expressible"
+          ],
+          "first_loss": {
+            "code": "gap_not_expressible",
+            "severity": "error",
+            "kind": "gap",
+            "object_id": "G1",
+            "timeline_start": {
+              "rational": "8649641/2400",
+              "timecode": "01:00:00:10"
+            },
+            "timeline_end": {
+              "rational": "5406401/1500",
+              "timecode": "01:00:00:16"
+            },
+            "message": "CMX 3600 has no explicit gap construct; the empty interval is represented only by the record-time jump",
+            "details": {
+              "fallback": "record_time_jump"
+            }
+          },
+          "first_loss_record_timecode": "00:00:00:10",
+          "pixel_match": true,
+          "edit_structure_faithful": true,
+          "frame_deltas": 0,
+          "structure_deltas": 0,
+          "trace_window": {
+            "record_time_rational": "7208201/2000",
+            "record_timecode": "00:00:00:12",
+            "kind": "gap",
+            "clip_id": null,
+            "transition_in": null,
+            "transition_progress_rational": null,
+            "needs": "none",
+            "sources": [],
+            "note": "explicit gap G1"
+          }
+        },
+        {
+          "sample": "mixed_rate",
+          "title": "mixed source rates on one record timeline",
+          "capabilities": [
+            "source:mixed_rate"
+          ],
+          "profile_id": "cmx3600-narrow-wipe",
+          "outcome": "reversible",
+          "expected_for_full": "reversible",
+          "loss_codes": [
+            "mixed_rate_source"
+          ],
+          "first_loss": {
+            "code": "mixed_rate_source",
+            "severity": "warning",
+            "kind": "source",
+            "object_id": "CAM_B",
+            "timeline_start": {
+              "rational": "8649641/2400",
+              "timecode": "01:00:00:10"
+            },
+            "timeline_end": {
+              "rational": "43254211/12000",
+              "timecode": "01:00:00:22"
+            },
+            "message": "source rate 25fps differs from record rate 24000/1001fps; EDL stores timecodes only, retiming metadata is lost",
+            "details": {
+              "fallback": "record_rate_timecode"
+            }
+          },
+          "first_loss_record_timecode": "00:00:00:10",
+          "pixel_match": true,
+          "edit_structure_faithful": true,
+          "frame_deltas": 0,
+          "structure_deltas": 0,
+          "trace_window": {
+            "record_time_rational": "86497411/24000",
+            "record_timecode": "00:00:00:11",
+            "kind": "frame",
+            "clip_id": "C2",
+            "transition_in": null,
+            "transition_progress_rational": null,
+            "needs": "reconnect_one_range",
+            "sources": [
+              {
+                "role": "single",
+                "clip_id": "C2",
+                "source_id": "CAM_B",
+                "media_ref": "media:cam-b",
+                "source_time_rational": "2921/24000",
+                "source_timecode": "00:00:00:03",
+                "source_frame_index": 3,
+                "source_in_rational": "2/25",
+                "source_out_rational": "14/25",
+                "source_in_timecode": "00:00:00:02",
+                "source_out_timecode": "00:00:00:14",
+                "rate": "25fps",
+                "reverse": false,
+                "baked": false
+              }
+            ],
+            "note": "plain cut: a single source range backs this frame"
+          }
+        },
+        {
+          "sample": "reverse",
+          "title": "reverse-played source range",
+          "capabilities": [
+            "clip:reverse"
+          ],
+          "profile_id": "cmx3600-narrow-wipe",
+          "outcome": "rejected",
+          "expected_for_full": "reversible",
+          "loss_codes": [
+            "reverse_not_expressible"
+          ],
+          "first_loss": {
+            "code": "reverse_not_expressible",
+            "severity": "error",
+            "kind": "clip",
+            "object_id": "C1",
+            "timeline_start": {
+              "rational": "18018/5",
+              "timecode": "01:00:00:00"
+            },
+            "timeline_end": {
+              "rational": "2883881/800",
+              "timecode": "01:00:01:06"
+            },
+            "message": "target profile cannot express reverse playback; the source range is exported forwards",
+            "details": {
+              "fallback": "forward_playback",
+              "source_range_reversed": true
+            }
+          },
+          "first_loss_record_timecode": "00:00:00:00",
+          "pixel_match": false,
+          "edit_structure_faithful": false,
+          "frame_deltas": 30,
+          "structure_deltas": 1,
+          "trace_window": {
+            "record_time_rational": "17298281/4800",
+            "record_timecode": "00:00:00:05",
+            "kind": "frame",
+            "clip_id": "C1",
+            "transition_in": null,
+            "transition_progress_rational": null,
+            "needs": "reconnect_one_range",
+            "sources": [
+              {
+                "role": "single",
+                "clip_id": "C1",
+                "source_id": "CAM_A",
+                "media_ref": "media:cam-a",
+                "source_time_rational": "17017/12000",
+                "source_timecode": "00:00:01:10",
+                "source_frame_index": 34,
+                "source_in_rational": "1001/2400",
+                "source_out_rational": "1001/600",
+                "source_in_timecode": "00:00:00:10",
+                "source_out_timecode": "00:00:01:16",
+                "rate": "24000/1001fps",
+                "reverse": true,
+                "baked": false
+              }
+            ],
+            "note": "plain cut: a single source range backs this frame"
+          }
+        },
+        {
+          "sample": "baked",
+          "title": "pre-flattened transition media asset",
+          "capabilities": [
+            "media:baked"
+          ],
+          "profile_id": "cmx3600-narrow-wipe",
+          "outcome": "flattened",
+          "expected_for_full": "reversible",
+          "loss_codes": [
+            "baked_media_not_expressible"
+          ],
+          "first_loss": {
+            "code": "baked_media_not_expressible",
+            "severity": "error",
+            "kind": "clip",
+            "object_id": "C1",
+            "timeline_start": {
+              "rational": "18018/5",
+              "timecode": "01:00:00:00"
+            },
+            "timeline_end": {
+              "rational": "2883881/800",
+              "timecode": "01:00:01:06"
+            },
+            "message": "target profile cannot reference a pre-baked media asset; the flattened transition cannot be relinked",
+            "details": {
+              "fallback": "baked_asset_dropped"
+            }
+          },
+          "first_loss_record_timecode": "00:00:00:00",
+          "pixel_match": true,
+          "edit_structure_faithful": false,
+          "frame_deltas": 0,
+          "structure_deltas": 1,
+          "trace_window": {
+            "record_time_rational": "17298281/4800",
+            "record_timecode": "00:00:00:05",
+            "kind": "baked",
+            "clip_id": "C1",
+            "transition_in": "dissolve",
+            "transition_progress_rational": null,
+            "needs": "baked_media",
+            "sources": [
+              {
+                "role": "baked",
+                "clip_id": "C1",
+                "source_id": "CAM_A",
+                "media_ref": "media:cam-a",
+                "source_time_rational": "1001/1600",
+                "source_timecode": "00:00:00:15",
+                "source_frame_index": 15,
+                "source_in_rational": "1001/2400",
+                "source_out_rational": "1001/600",
+                "source_in_timecode": "00:00:00:10",
+                "source_out_timecode": "00:00:01:16",
+                "rate": "24000/1001fps",
+                "reverse": false,
+                "baked": true
+              }
+            ],
+            "note": "flattened transition: request the baked media; the outgoing and incoming source ranges are no longer separately addressable"
+          }
+        }
+      ]
+    },
+    "cmx3600-narrow-gap": {
+      "manifest": {
+        "profile": {
+          "profile_id": "cmx3600-narrow-gap",
+          "format": "cmx3600",
+          "label": "CMX 3600 EDL (single video track) — narrowed (gap:explicit)",
+          "capabilities": {
+            "transition:cut": true,
+            "transition:dissolve": true,
+            "transition:fade": false,
+            "transition:wipe": true,
+            "transition:push": false,
+            "transition:slide": false,
+            "track:multi_video": false,
+            "gap:explicit": false,
+            "source:mixed_rate": true,
+            "clip:reverse": false,
+            "media:baked": false
+          }
+        },
+        "capabilities": [
+          {
+            "capability": "transition:cut",
+            "description": "hard cut with an editable edit point",
+            "supported": true,
+            "samples": [
+              {
+                "sample": "cut",
+                "outcome": "reversible",
+                "first_loss": null
+              }
+            ],
+            "has_contract": true
+          },
+          {
+            "capability": "transition:dissolve",
+            "description": "dissolve with two editable source ranges",
+            "supported": true,
+            "samples": [
+              {
+                "sample": "dissolve",
+                "outcome": "reversible",
+                "first_loss": {
+                  "code": "mixed_rate_source",
+                  "severity": "warning",
+                  "kind": "source",
+                  "object_id": "CAM_B",
+                  "timeline_start": {
+                    "rational": "4325321/1200",
+                    "timecode": "01:00:00:20"
+                  },
+                  "timeline_end": {
+                    "rational": "2163161/600",
+                    "timecode": "01:00:01:16"
+                  },
+                  "message": "source rate 25fps differs from record rate 24000/1001fps; EDL stores timecodes only, retiming metadata is lost",
+                  "details": {
+                    "fallback": "record_rate_timecode"
+                  }
+                }
+              }
+            ],
+            "has_contract": true
+          },
+          {
+            "capability": "transition:fade",
+            "description": "fade with two editable source ranges",
+            "supported": false,
+            "samples": [
+              {
+                "sample": "fade",
+                "outcome": "flattened",
+                "first_loss": {
+                  "code": "transition_not_expressible",
+                  "severity": "error",
+                  "kind": "transition",
+                  "object_id": "C2",
+                  "timeline_start": {
+                    "rational": "4325321/1200",
+                    "timecode": "01:00:00:20"
+                  },
+                  "timeline_end": {
+                    "rational": "3604601/1000",
+                    "timecode": "01:00:01:00"
+                  },
+                  "message": "transition 'fade' has no CMX 3600 equivalent under cmx3600-narrow-gap; degraded to cut",
+                  "details": {
+                    "requested": "fade",
+                    "fallback": "cut",
+                    "source_frames_unchanged": true
+                  }
+                }
+              }
+            ],
+            "has_contract": true
+          },
+          {
+            "capability": "transition:wipe",
+            "description": "wipe with two editable source ranges",
+            "supported": true,
+            "samples": [
+              {
+                "sample": "wipe",
+                "outcome": "reversible",
+                "first_loss": {
+                  "code": "mixed_rate_source",
+                  "severity": "warning",
+                  "kind": "source",
+                  "object_id": "CAM_B",
+                  "timeline_start": {
+                    "rational": "4325321/1200",
+                    "timecode": "01:00:00:20"
+                  },
+                  "timeline_end": {
+                    "rational": "2163161/600",
+                    "timecode": "01:00:01:16"
+                  },
+                  "message": "source rate 25fps differs from record rate 24000/1001fps; EDL stores timecodes only, retiming metadata is lost",
+                  "details": {
+                    "fallback": "record_rate_timecode"
+                  }
+                }
+              }
+            ],
+            "has_contract": true
+          },
+          {
+            "capability": "transition:push",
+            "description": "push with two editable source ranges",
+            "supported": false,
+            "samples": [
+              {
+                "sample": "push",
+                "outcome": "flattened",
+                "first_loss": {
+                  "code": "transition_not_expressible",
+                  "severity": "error",
+                  "kind": "transition",
+                  "object_id": "C2",
+                  "timeline_start": {
+                    "rational": "4325321/1200",
+                    "timecode": "01:00:00:20"
+                  },
+                  "timeline_end": {
+                    "rational": "3604601/1000",
+                    "timecode": "01:00:01:00"
+                  },
+                  "message": "transition 'push' has no CMX 3600 equivalent under cmx3600-narrow-gap; degraded to cut",
+                  "details": {
+                    "requested": "push",
+                    "fallback": "cut",
+                    "source_frames_unchanged": true
+                  }
+                }
+              }
+            ],
+            "has_contract": true
+          },
+          {
+            "capability": "transition:slide",
+            "description": "slide with two editable source ranges",
+            "supported": false,
+            "samples": [
+              {
+                "sample": "slide",
+                "outcome": "flattened",
+                "first_loss": {
+                  "code": "transition_not_expressible",
+                  "severity": "error",
+                  "kind": "transition",
+                  "object_id": "C2",
+                  "timeline_start": {
+                    "rational": "4325321/1200",
+                    "timecode": "01:00:00:20"
+                  },
+                  "timeline_end": {
+                    "rational": "3604601/1000",
+                    "timecode": "01:00:01:00"
+                  },
+                  "message": "transition 'slide' has no CMX 3600 equivalent under cmx3600-narrow-gap; degraded to cut",
+                  "details": {
+                    "requested": "slide",
+                    "fallback": "cut",
+                    "source_frames_unchanged": true
+                  }
+                }
+              }
+            ],
+            "has_contract": true
+          },
+          {
+            "capability": "track:multi_video",
+            "description": "more than one simultaneous video track",
+            "supported": false,
+            "samples": [
+              {
+                "sample": "multi_track",
+                "outcome": "rejected",
+                "first_loss": {
+                  "code": "track_not_expressible",
+                  "severity": "error",
+                  "kind": "track",
+                  "object_id": "V2",
+                  "timeline_start": {
+                    "rational": "21622601/6000",
+                    "timecode": "01:00:00:04"
+                  },
+                  "timeline_end": {
+                    "rational": "43250207/12000",
+                    "timecode": "01:00:00:14"
+                  },
+                  "message": "CMX 3600 holds a single video track; clips on V2 cannot be exported",
+                  "details": {
+                    "fallback": "track_dropped"
+                  }
+                }
+              }
+            ],
+            "has_contract": true
+          },
+          {
+            "capability": "gap:explicit",
+            "description": "an explicit empty interval object on a track",
+            "supported": false,
+            "samples": [
+              {
+                "sample": "gap",
+                "outcome": "reversible",
+                "first_loss": {
+                  "code": "gap_not_expressible",
+                  "severity": "error",
+                  "kind": "gap",
+                  "object_id": "G1",
+                  "timeline_start": {
+                    "rational": "8649641/2400",
+                    "timecode": "01:00:00:10"
+                  },
+                  "timeline_end": {
+                    "rational": "5406401/1500",
+                    "timecode": "01:00:00:16"
+                  },
+                  "message": "CMX 3600 has no explicit gap construct; the empty interval is represented only by the record-time jump",
+                  "details": {
+                    "fallback": "record_time_jump"
+                  }
+                }
+              }
+            ],
+            "has_contract": true
+          },
+          {
+            "capability": "source:mixed_rate",
+            "description": "mixed source frame rates alongside the record rate",
+            "supported": true,
+            "samples": [
+              {
+                "sample": "mixed_rate",
+                "outcome": "reversible",
+                "first_loss": {
+                  "code": "mixed_rate_source",
+                  "severity": "warning",
+                  "kind": "source",
+                  "object_id": "CAM_B",
+                  "timeline_start": {
+                    "rational": "8649641/2400",
+                    "timecode": "01:00:00:10"
+                  },
+                  "timeline_end": {
+                    "rational": "43254211/12000",
+                    "timecode": "01:00:00:22"
+                  },
+                  "message": "source rate 25fps differs from record rate 24000/1001fps; EDL stores timecodes only, retiming metadata is lost",
+                  "details": {
+                    "fallback": "record_rate_timecode"
+                  }
+                }
+              }
+            ],
+            "has_contract": true
+          },
+          {
+            "capability": "clip:reverse",
+            "description": "a clip that plays its source range backwards",
+            "supported": false,
+            "samples": [
+              {
+                "sample": "reverse",
+                "outcome": "rejected",
+                "first_loss": {
+                  "code": "reverse_not_expressible",
+                  "severity": "error",
+                  "kind": "clip",
+                  "object_id": "C1",
+                  "timeline_start": {
+                    "rational": "18018/5",
+                    "timecode": "01:00:00:00"
+                  },
+                  "timeline_end": {
+                    "rational": "2883881/800",
+                    "timecode": "01:00:01:06"
+                  },
+                  "message": "target profile cannot express reverse playback; the source range is exported forwards",
+                  "details": {
+                    "fallback": "forward_playback",
+                    "source_range_reversed": true
+                  }
+                }
+              }
+            ],
+            "has_contract": true
+          },
+          {
+            "capability": "media:baked",
+            "description": "reference a pre-baked (flattened) media asset",
+            "supported": false,
+            "samples": [
+              {
+                "sample": "baked",
+                "outcome": "flattened",
+                "first_loss": {
+                  "code": "baked_media_not_expressible",
+                  "severity": "error",
+                  "kind": "clip",
+                  "object_id": "C1",
+                  "timeline_start": {
+                    "rational": "18018/5",
+                    "timecode": "01:00:00:00"
+                  },
+                  "timeline_end": {
+                    "rational": "2883881/800",
+                    "timecode": "01:00:01:06"
+                  },
+                  "message": "target profile cannot reference a pre-baked media asset; the flattened transition cannot be relinked",
+                  "details": {
+                    "fallback": "baked_asset_dropped"
+                  }
+                }
+              }
+            ],
+            "has_contract": true
+          }
+        ],
+        "uncovered_capabilities": []
+      },
+      "samples": [
+        {
+          "sample": "cut",
+          "title": "adjacent hard cut, editable edit point",
+          "capabilities": [
+            "transition:cut"
+          ],
+          "profile_id": "cmx3600-narrow-gap",
+          "outcome": "reversible",
+          "expected_for_full": "reversible",
+          "loss_codes": [],
+          "first_loss": null,
+          "first_loss_record_timecode": null,
+          "pixel_match": true,
+          "edit_structure_faithful": true,
+          "frame_deltas": 0,
+          "structure_deltas": 0,
+          "trace_window": {
+            "record_time_rational": "17298281/4800",
+            "record_timecode": "00:00:00:05",
+            "kind": "frame",
+            "clip_id": "C1",
+            "transition_in": null,
+            "transition_progress_rational": null,
+            "needs": "reconnect_one_range",
+            "sources": [
+              {
+                "role": "single",
+                "clip_id": "C1",
+                "source_id": "CAM_A",
+                "media_ref": "media:cam-a",
+                "source_time_rational": "1001/1600",
+                "source_timecode": "00:00:00:15",
+                "source_frame_index": 15,
+                "source_in_rational": "1001/2400",
+                "source_out_rational": "1001/600",
+                "source_in_timecode": "00:00:00:10",
+                "source_out_timecode": "00:00:01:16",
+                "rate": "24000/1001fps",
+                "reverse": false,
+                "baked": false
+              }
+            ],
+            "note": "plain cut: a single source range backs this frame"
+          }
+        },
+        {
+          "sample": "dissolve",
+          "title": "dissolve keeps both source ranges editable",
+          "capabilities": [
+            "transition:dissolve"
+          ],
+          "profile_id": "cmx3600-narrow-gap",
+          "outcome": "reversible",
+          "expected_for_full": "reversible",
+          "loss_codes": [
+            "mixed_rate_source"
+          ],
+          "first_loss": {
+            "code": "mixed_rate_source",
+            "severity": "warning",
+            "kind": "source",
+            "object_id": "CAM_B",
+            "timeline_start": {
+              "rational": "4325321/1200",
+              "timecode": "01:00:00:20"
+            },
+            "timeline_end": {
+              "rational": "2163161/600",
+              "timecode": "01:00:01:16"
+            },
+            "message": "source rate 25fps differs from record rate 24000/1001fps; EDL stores timecodes only, retiming metadata is lost",
+            "details": {
+              "fallback": "record_rate_timecode"
+            }
+          },
+          "first_loss_record_timecode": "00:00:00:20",
+          "pixel_match": true,
+          "edit_structure_faithful": true,
+          "frame_deltas": 0,
+          "structure_deltas": 0,
+          "trace_window": {
+            "record_time_rational": "28835807/8000",
+            "record_timecode": "00:00:00:21",
+            "kind": "transition_in",
+            "clip_id": "C2",
+            "transition_in": "dissolve",
+            "transition_progress_rational": "1/4",
+            "needs": "reconnect_two_ranges",
+            "sources": [
+              {
+                "role": "outgoing",
+                "clip_id": "C1",
+                "source_id": "CAM_A",
+                "media_ref": "media:cam-a",
+                "source_time_rational": "7007/8000",
+                "source_timecode": "00:00:00:21",
+                "source_frame_index": 21,
+                "source_in_rational": "0",
+                "source_out_rational": "1001/1200",
+                "source_in_timecode": "00:00:00:00",
+                "source_out_timecode": "00:00:00:20",
+                "rate": "24000/1001fps",
+                "reverse": false,
+                "baked": false
+              },
+              {
+                "role": "incoming",
+                "clip_id": "C2",
+                "source_id": "CAM_B",
+                "media_ref": "media:cam-b",
+                "source_time_rational": "5801/24000",
+                "source_timecode": "00:00:00:06",
+                "source_frame_index": 6,
+                "source_in_rational": "1/5",
+                "source_out_rational": "1",
+                "source_in_timecode": "00:00:00:05",
+                "source_out_timecode": "00:00:01:00",
+                "rate": "25fps",
+                "reverse": false,
+                "baked": false
+              }
+            ],
+            "note": "live dissolve: edit point is still cuttable; relink both the outgoing and incoming source ranges"
+          }
+        },
+        {
+          "sample": "fade",
+          "title": "fade keeps both source ranges editable",
+          "capabilities": [
+            "transition:fade"
+          ],
+          "profile_id": "cmx3600-narrow-gap",
+          "outcome": "flattened",
+          "expected_for_full": "reversible",
+          "loss_codes": [
+            "mixed_rate_source",
+            "transition_not_expressible"
+          ],
+          "first_loss": {
+            "code": "transition_not_expressible",
+            "severity": "error",
+            "kind": "transition",
+            "object_id": "C2",
+            "timeline_start": {
+              "rational": "4325321/1200",
+              "timecode": "01:00:00:20"
+            },
+            "timeline_end": {
+              "rational": "3604601/1000",
+              "timecode": "01:00:01:00"
+            },
+            "message": "transition 'fade' has no CMX 3600 equivalent under cmx3600-narrow-gap; degraded to cut",
+            "details": {
+              "requested": "fade",
+              "fallback": "cut",
+              "source_frames_unchanged": true
+            }
+          },
+          "first_loss_record_timecode": "00:00:00:20",
+          "pixel_match": true,
+          "edit_structure_faithful": false,
+          "frame_deltas": 0,
+          "structure_deltas": 1,
+          "trace_window": {
+            "record_time_rational": "28835807/8000",
+            "record_timecode": "00:00:00:21",
+            "kind": "transition_in",
+            "clip_id": "C2",
+            "transition_in": "fade",
+            "transition_progress_rational": "1/4",
+            "needs": "reconnect_two_ranges",
+            "sources": [
+              {
+                "role": "outgoing",
+                "clip_id": "C1",
+                "source_id": "CAM_A",
+                "media_ref": "media:cam-a",
+                "source_time_rational": "7007/8000",
+                "source_timecode": "00:00:00:21",
+                "source_frame_index": 21,
+                "source_in_rational": "0",
+                "source_out_rational": "1001/1200",
+                "source_in_timecode": "00:00:00:00",
+                "source_out_timecode": "00:00:00:20",
+                "rate": "24000/1001fps",
+                "reverse": false,
+                "baked": false
+              },
+              {
+                "role": "incoming",
+                "clip_id": "C2",
+                "source_id": "CAM_B",
+                "media_ref": "media:cam-b",
+                "source_time_rational": "5801/24000",
+                "source_timecode": "00:00:00:06",
+                "source_frame_index": 6,
+                "source_in_rational": "1/5",
+                "source_out_rational": "1",
+                "source_in_timecode": "00:00:00:05",
+                "source_out_timecode": "00:00:01:00",
+                "rate": "25fps",
+                "reverse": false,
+                "baked": false
+              }
+            ],
+            "note": "live fade: edit point is still cuttable; relink both the outgoing and incoming source ranges"
+          }
+        },
+        {
+          "sample": "wipe",
+          "title": "wipe keeps both source ranges editable",
+          "capabilities": [
+            "transition:wipe"
+          ],
+          "profile_id": "cmx3600-narrow-gap",
+          "outcome": "reversible",
+          "expected_for_full": "reversible",
+          "loss_codes": [
+            "mixed_rate_source"
+          ],
+          "first_loss": {
+            "code": "mixed_rate_source",
+            "severity": "warning",
+            "kind": "source",
+            "object_id": "CAM_B",
+            "timeline_start": {
+              "rational": "4325321/1200",
+              "timecode": "01:00:00:20"
+            },
+            "timeline_end": {
+              "rational": "2163161/600",
+              "timecode": "01:00:01:16"
+            },
+            "message": "source rate 25fps differs from record rate 24000/1001fps; EDL stores timecodes only, retiming metadata is lost",
+            "details": {
+              "fallback": "record_rate_timecode"
+            }
+          },
+          "first_loss_record_timecode": "00:00:00:20",
+          "pixel_match": true,
+          "edit_structure_faithful": true,
+          "frame_deltas": 0,
+          "structure_deltas": 0,
+          "trace_window": {
+            "record_time_rational": "28835807/8000",
+            "record_timecode": "00:00:00:21",
+            "kind": "transition_in",
+            "clip_id": "C2",
+            "transition_in": "wipe",
+            "transition_progress_rational": "1/4",
+            "needs": "reconnect_two_ranges",
+            "sources": [
+              {
+                "role": "outgoing",
+                "clip_id": "C1",
+                "source_id": "CAM_A",
+                "media_ref": "media:cam-a",
+                "source_time_rational": "7007/8000",
+                "source_timecode": "00:00:00:21",
+                "source_frame_index": 21,
+                "source_in_rational": "0",
+                "source_out_rational": "1001/1200",
+                "source_in_timecode": "00:00:00:00",
+                "source_out_timecode": "00:00:00:20",
+                "rate": "24000/1001fps",
+                "reverse": false,
+                "baked": false
+              },
+              {
+                "role": "incoming",
+                "clip_id": "C2",
+                "source_id": "CAM_B",
+                "media_ref": "media:cam-b",
+                "source_time_rational": "5801/24000",
+                "source_timecode": "00:00:00:06",
+                "source_frame_index": 6,
+                "source_in_rational": "1/5",
+                "source_out_rational": "1",
+                "source_in_timecode": "00:00:00:05",
+                "source_out_timecode": "00:00:01:00",
+                "rate": "25fps",
+                "reverse": false,
+                "baked": false
+              }
+            ],
+            "note": "live wipe: edit point is still cuttable; relink both the outgoing and incoming source ranges"
+          }
+        },
+        {
+          "sample": "push",
+          "title": "push transition between two ranges",
+          "capabilities": [
+            "transition:push"
+          ],
+          "profile_id": "cmx3600-narrow-gap",
+          "outcome": "flattened",
+          "expected_for_full": "reversible",
+          "loss_codes": [
+            "mixed_rate_source",
+            "transition_not_expressible"
+          ],
+          "first_loss": {
+            "code": "transition_not_expressible",
+            "severity": "error",
+            "kind": "transition",
+            "object_id": "C2",
+            "timeline_start": {
+              "rational": "4325321/1200",
+              "timecode": "01:00:00:20"
+            },
+            "timeline_end": {
+              "rational": "3604601/1000",
+              "timecode": "01:00:01:00"
+            },
+            "message": "transition 'push' has no CMX 3600 equivalent under cmx3600-narrow-gap; degraded to cut",
+            "details": {
+              "requested": "push",
+              "fallback": "cut",
+              "source_frames_unchanged": true
+            }
+          },
+          "first_loss_record_timecode": "00:00:00:20",
+          "pixel_match": true,
+          "edit_structure_faithful": false,
+          "frame_deltas": 0,
+          "structure_deltas": 1,
+          "trace_window": {
+            "record_time_rational": "28835807/8000",
+            "record_timecode": "00:00:00:21",
+            "kind": "transition_in",
+            "clip_id": "C2",
+            "transition_in": "push",
+            "transition_progress_rational": "1/4",
+            "needs": "reconnect_two_ranges",
+            "sources": [
+              {
+                "role": "outgoing",
+                "clip_id": "C1",
+                "source_id": "CAM_A",
+                "media_ref": "media:cam-a",
+                "source_time_rational": "7007/8000",
+                "source_timecode": "00:00:00:21",
+                "source_frame_index": 21,
+                "source_in_rational": "0",
+                "source_out_rational": "1001/1200",
+                "source_in_timecode": "00:00:00:00",
+                "source_out_timecode": "00:00:00:20",
+                "rate": "24000/1001fps",
+                "reverse": false,
+                "baked": false
+              },
+              {
+                "role": "incoming",
+                "clip_id": "C2",
+                "source_id": "CAM_B",
+                "media_ref": "media:cam-b",
+                "source_time_rational": "5801/24000",
+                "source_timecode": "00:00:00:06",
+                "source_frame_index": 6,
+                "source_in_rational": "1/5",
+                "source_out_rational": "1",
+                "source_in_timecode": "00:00:00:05",
+                "source_out_timecode": "00:00:01:00",
+                "rate": "25fps",
+                "reverse": false,
+                "baked": false
+              }
+            ],
+            "note": "live push: edit point is still cuttable; relink both the outgoing and incoming source ranges"
+          }
+        },
+        {
+          "sample": "slide",
+          "title": "slide transition between two ranges",
+          "capabilities": [
+            "transition:slide"
+          ],
+          "profile_id": "cmx3600-narrow-gap",
+          "outcome": "flattened",
+          "expected_for_full": "reversible",
+          "loss_codes": [
+            "mixed_rate_source",
+            "transition_not_expressible"
+          ],
+          "first_loss": {
+            "code": "transition_not_expressible",
+            "severity": "error",
+            "kind": "transition",
+            "object_id": "C2",
+            "timeline_start": {
+              "rational": "4325321/1200",
+              "timecode": "01:00:00:20"
+            },
+            "timeline_end": {
+              "rational": "3604601/1000",
+              "timecode": "01:00:01:00"
+            },
+            "message": "transition 'slide' has no CMX 3600 equivalent under cmx3600-narrow-gap; degraded to cut",
+            "details": {
+              "requested": "slide",
+              "fallback": "cut",
+              "source_frames_unchanged": true
+            }
+          },
+          "first_loss_record_timecode": "00:00:00:20",
+          "pixel_match": true,
+          "edit_structure_faithful": false,
+          "frame_deltas": 0,
+          "structure_deltas": 1,
+          "trace_window": {
+            "record_time_rational": "28835807/8000",
+            "record_timecode": "00:00:00:21",
+            "kind": "transition_in",
+            "clip_id": "C2",
+            "transition_in": "slide",
+            "transition_progress_rational": "1/4",
+            "needs": "reconnect_two_ranges",
+            "sources": [
+              {
+                "role": "outgoing",
+                "clip_id": "C1",
+                "source_id": "CAM_A",
+                "media_ref": "media:cam-a",
+                "source_time_rational": "7007/8000",
+                "source_timecode": "00:00:00:21",
+                "source_frame_index": 21,
+                "source_in_rational": "0",
+                "source_out_rational": "1001/1200",
+                "source_in_timecode": "00:00:00:00",
+                "source_out_timecode": "00:00:00:20",
+                "rate": "24000/1001fps",
+                "reverse": false,
+                "baked": false
+              },
+              {
+                "role": "incoming",
+                "clip_id": "C2",
+                "source_id": "CAM_B",
+                "media_ref": "media:cam-b",
+                "source_time_rational": "5801/24000",
+                "source_timecode": "00:00:00:06",
+                "source_frame_index": 6,
+                "source_in_rational": "1/5",
+                "source_out_rational": "1",
+                "source_in_timecode": "00:00:00:05",
+                "source_out_timecode": "00:00:01:00",
+                "rate": "25fps",
+                "reverse": false,
+                "baked": false
+              }
+            ],
+            "note": "live slide: edit point is still cuttable; relink both the outgoing and incoming source ranges"
+          }
+        },
+        {
+          "sample": "multi_track",
+          "title": "second simultaneous video track",
+          "capabilities": [
+            "track:multi_video"
+          ],
+          "profile_id": "cmx3600-narrow-gap",
+          "outcome": "rejected",
+          "expected_for_full": "reversible",
+          "loss_codes": [
+            "track_not_expressible"
+          ],
+          "first_loss": {
+            "code": "track_not_expressible",
+            "severity": "error",
+            "kind": "track",
+            "object_id": "V2",
+            "timeline_start": {
+              "rational": "21622601/6000",
+              "timecode": "01:00:00:04"
+            },
+            "timeline_end": {
+              "rational": "43250207/12000",
+              "timecode": "01:00:00:14"
+            },
+            "message": "CMX 3600 holds a single video track; clips on V2 cannot be exported",
+            "details": {
+              "fallback": "track_dropped"
+            }
+          },
+          "first_loss_record_timecode": "00:00:00:04",
+          "pixel_match": false,
+          "edit_structure_faithful": false,
+          "frame_deltas": 10,
+          "structure_deltas": 1,
+          "trace_window": {
+            "record_time_rational": "14415401/4000",
+            "record_timecode": "00:00:00:06",
+            "kind": "frame",
+            "clip_id": "C2",
+            "transition_in": null,
+            "transition_progress_rational": null,
+            "needs": "reconnect_one_range",
+            "sources": [
+              {
+                "role": "single",
+                "clip_id": "C2",
+                "source_id": "CAM_B",
+                "media_ref": "media:cam-b",
+                "source_time_rational": "1001/12000",
+                "source_timecode": "00:00:00:02",
+                "source_frame_index": 2,
+                "source_in_rational": "0",
+                "source_out_rational": "2/5",
+                "source_in_timecode": "00:00:00:00",
+                "source_out_timecode": "00:00:00:10",
+                "rate": "25fps",
+                "reverse": false,
+                "baked": false
+              }
+            ],
+            "note": "plain cut: a single source range backs this frame"
+          }
+        },
+        {
+          "sample": "gap",
+          "title": "explicit empty interval object",
+          "capabilities": [
+            "gap:explicit"
+          ],
+          "profile_id": "cmx3600-narrow-gap",
+          "outcome": "reversible",
+          "expected_for_full": "reversible",
+          "loss_codes": [
+            "gap_not_expressible"
+          ],
+          "first_loss": {
+            "code": "gap_not_expressible",
+            "severity": "error",
+            "kind": "gap",
+            "object_id": "G1",
+            "timeline_start": {
+              "rational": "8649641/2400",
+              "timecode": "01:00:00:10"
+            },
+            "timeline_end": {
+              "rational": "5406401/1500",
+              "timecode": "01:00:00:16"
+            },
+            "message": "CMX 3600 has no explicit gap construct; the empty interval is represented only by the record-time jump",
+            "details": {
+              "fallback": "record_time_jump"
+            }
+          },
+          "first_loss_record_timecode": "00:00:00:10",
+          "pixel_match": true,
+          "edit_structure_faithful": true,
+          "frame_deltas": 0,
+          "structure_deltas": 0,
+          "trace_window": {
+            "record_time_rational": "7208201/2000",
+            "record_timecode": "00:00:00:12",
+            "kind": "gap",
+            "clip_id": null,
+            "transition_in": null,
+            "transition_progress_rational": null,
+            "needs": "none",
+            "sources": [],
+            "note": "explicit gap G1"
+          }
+        },
+        {
+          "sample": "mixed_rate",
+          "title": "mixed source rates on one record timeline",
+          "capabilities": [
+            "source:mixed_rate"
+          ],
+          "profile_id": "cmx3600-narrow-gap",
+          "outcome": "reversible",
+          "expected_for_full": "reversible",
+          "loss_codes": [
+            "mixed_rate_source"
+          ],
+          "first_loss": {
+            "code": "mixed_rate_source",
+            "severity": "warning",
+            "kind": "source",
+            "object_id": "CAM_B",
+            "timeline_start": {
+              "rational": "8649641/2400",
+              "timecode": "01:00:00:10"
+            },
+            "timeline_end": {
+              "rational": "43254211/12000",
+              "timecode": "01:00:00:22"
+            },
+            "message": "source rate 25fps differs from record rate 24000/1001fps; EDL stores timecodes only, retiming metadata is lost",
+            "details": {
+              "fallback": "record_rate_timecode"
+            }
+          },
+          "first_loss_record_timecode": "00:00:00:10",
+          "pixel_match": true,
+          "edit_structure_faithful": true,
+          "frame_deltas": 0,
+          "structure_deltas": 0,
+          "trace_window": {
+            "record_time_rational": "86497411/24000",
+            "record_timecode": "00:00:00:11",
+            "kind": "frame",
+            "clip_id": "C2",
+            "transition_in": null,
+            "transition_progress_rational": null,
+            "needs": "reconnect_one_range",
+            "sources": [
+              {
+                "role": "single",
+                "clip_id": "C2",
+                "source_id": "CAM_B",
+                "media_ref": "media:cam-b",
+                "source_time_rational": "2921/24000",
+                "source_timecode": "00:00:00:03",
+                "source_frame_index": 3,
+                "source_in_rational": "2/25",
+                "source_out_rational": "14/25",
+                "source_in_timecode": "00:00:00:02",
+                "source_out_timecode": "00:00:00:14",
+                "rate": "25fps",
+                "reverse": false,
+                "baked": false
+              }
+            ],
+            "note": "plain cut: a single source range backs this frame"
+          }
+        },
+        {
+          "sample": "reverse",
+          "title": "reverse-played source range",
+          "capabilities": [
+            "clip:reverse"
+          ],
+          "profile_id": "cmx3600-narrow-gap",
+          "outcome": "rejected",
+          "expected_for_full": "reversible",
+          "loss_codes": [
+            "reverse_not_expressible"
+          ],
+          "first_loss": {
+            "code": "reverse_not_expressible",
+            "severity": "error",
+            "kind": "clip",
+            "object_id": "C1",
+            "timeline_start": {
+              "rational": "18018/5",
+              "timecode": "01:00:00:00"
+            },
+            "timeline_end": {
+              "rational": "2883881/800",
+              "timecode": "01:00:01:06"
+            },
+            "message": "target profile cannot express reverse playback; the source range is exported forwards",
+            "details": {
+              "fallback": "forward_playback",
+              "source_range_reversed": true
+            }
+          },
+          "first_loss_record_timecode": "00:00:00:00",
+          "pixel_match": false,
+          "edit_structure_faithful": false,
+          "frame_deltas": 30,
+          "structure_deltas": 1,
+          "trace_window": {
+            "record_time_rational": "17298281/4800",
+            "record_timecode": "00:00:00:05",
+            "kind": "frame",
+            "clip_id": "C1",
+            "transition_in": null,
+            "transition_progress_rational": null,
+            "needs": "reconnect_one_range",
+            "sources": [
+              {
+                "role": "single",
+                "clip_id": "C1",
+                "source_id": "CAM_A",
+                "media_ref": "media:cam-a",
+                "source_time_rational": "17017/12000",
+                "source_timecode": "00:00:01:10",
+                "source_frame_index": 34,
+                "source_in_rational": "1001/2400",
+                "source_out_rational": "1001/600",
+                "source_in_timecode": "00:00:00:10",
+                "source_out_timecode": "00:00:01:16",
+                "rate": "24000/1001fps",
+                "reverse": true,
+                "baked": false
+              }
+            ],
+            "note": "plain cut: a single source range backs this frame"
+          }
+        },
+        {
+          "sample": "baked",
+          "title": "pre-flattened transition media asset",
+          "capabilities": [
+            "media:baked"
+          ],
+          "profile_id": "cmx3600-narrow-gap",
+          "outcome": "flattened",
+          "expected_for_full": "reversible",
+          "loss_codes": [
+            "baked_media_not_expressible"
+          ],
+          "first_loss": {
+            "code": "baked_media_not_expressible",
+            "severity": "error",
+            "kind": "clip",
+            "object_id": "C1",
+            "timeline_start": {
+              "rational": "18018/5",
+              "timecode": "01:00:00:00"
+            },
+            "timeline_end": {
+              "rational": "2883881/800",
+              "timecode": "01:00:01:06"
+            },
+            "message": "target profile cannot reference a pre-baked media asset; the flattened transition cannot be relinked",
+            "details": {
+              "fallback": "baked_asset_dropped"
+            }
+          },
+          "first_loss_record_timecode": "00:00:00:00",
+          "pixel_match": true,
+          "edit_structure_faithful": false,
+          "frame_deltas": 0,
+          "structure_deltas": 1,
+          "trace_window": {
+            "record_time_rational": "17298281/4800",
+            "record_timecode": "00:00:00:05",
+            "kind": "baked",
+            "clip_id": "C1",
+            "transition_in": "dissolve",
+            "transition_progress_rational": null,
+            "needs": "baked_media",
+            "sources": [
+              {
+                "role": "baked",
+                "clip_id": "C1",
+                "source_id": "CAM_A",
+                "media_ref": "media:cam-a",
+                "source_time_rational": "1001/1600",
+                "source_timecode": "00:00:00:15",
+                "source_frame_index": 15,
+                "source_in_rational": "1001/2400",
+                "source_out_rational": "1001/600",
+                "source_in_timecode": "00:00:00:10",
+                "source_out_timecode": "00:00:01:16",
+                "rate": "24000/1001fps",
+                "reverse": false,
+                "baked": true
+              }
+            ],
+            "note": "flattened transition: request the baked media; the outgoing and incoming source ranges are no longer separately addressable"
+          }
+        }
+      ]
+    }
+  }
+}

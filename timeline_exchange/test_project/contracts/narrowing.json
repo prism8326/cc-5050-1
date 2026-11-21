@@ -1,0 +1,53 @@
+{
+  "base_profile": "cmx3600",
+  "narrowed_profile": "cmx3600-narrow-wipe",
+  "removed_capabilities": [
+    "transition:wipe"
+  ],
+  "changed_samples": [
+    {
+      "sample": "wipe",
+      "capabilities": [
+        "transition:wipe"
+      ],
+      "before_outcome": "reversible",
+      "after_outcome": "flattened",
+      "first_loss_record_timecode": "00:00:00:20",
+      "first_loss": {
+        "code": "transition_not_expressible",
+        "severity": "error",
+        "kind": "transition",
+        "object_id": "C2",
+        "timeline_start": {
+          "rational": "4325321/1200",
+          "timecode": "01:00:00:20"
+        },
+        "timeline_end": {
+          "rational": "3604601/1000",
+          "timecode": "01:00:01:00"
+        },
+        "message": "transition 'wipe' has no CMX 3600 equivalent under cmx3600-narrow-wipe; degraded to cut",
+        "details": {
+          "requested": "wipe",
+          "fallback": "cut",
+          "source_frames_unchanged": true
+        }
+      },
+      "explanation": "sample uses transition:wipe, which cmx3600-narrow-wipe no longer expresses; edit semantics first lost at 00:00:00:20"
+    }
+  ],
+  "unchanged_samples": [
+    "cut",
+    "dissolve",
+    "fade",
+    "push",
+    "slide",
+    "multi_track",
+    "gap",
+    "mixed_rate",
+    "reverse",
+    "baked"
+  ],
+  "changed_count": 1,
+  "only_affected_samples_changed": true
+}

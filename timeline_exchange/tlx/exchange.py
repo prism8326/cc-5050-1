@@ -12,9 +12,10 @@ from fractions import Fraction
 
 from . import tl_json, cmx
 from .timecode import FrameRate, frame_time, frame_index_at, format_timecode
-from .model import Timeline
+from .model import Timeline, TRANSITION_CUT
 from .loss import LossReport
 from . import preview
+from .capabilities import TargetProfile, get_profile
 
 
 FORMATS = (tl_json.FORMAT_NAME, cmx.FORMAT_NAME)
@@ -49,15 +50,33 @@ class ExchangeResult:
     mismatches: list[FrameMismatch]
     compared_frames: int
     missing_sources: list[str]
+    target_profile: TargetProfile | None = None
 
     def verify_summary(self) -> dict:
         rate = self.original.rate
+        first = self.loss_report.first_positioned()
         return {
             "source_format": self.source_format,
             "target_format": self.target_format,
+            "target_profile": (
+                self.target_profile.profile_id if self.target_profile else None
+            ),
             "compared_frames": self.compared_frames,
             "mismatch_count": len(self.mismatches),
             "loss": self.loss_report.to_jsonable(rate),
+            "first_loss": self.loss_report.first_loss_jsonable(rate),
+            "first_loss_position": (
+                {
+                    "rational": str(first.timeline_start),
+                    "timecode": format_timecode(
+                        first.timeline_start - self.original.start_time, rate
+                    ),
+                    "code": first.code,
+                    "object_id": first.object_id,
+                }
+                if first is not None
+                else None
+            ),
             "missing_sources": self.missing_sources,
             "mismatches": [m.to_jsonable(rate) for m in self.mismatches],
         }
@@ -74,12 +93,13 @@ def import_document(fmt: str, text: str, rate: FrameRate | None = None,
     raise ValueError(f"unknown format {fmt!r}; supported: {FORMATS}")
 
 
-def export_document(fmt: str, tl: Timeline) -> tuple[str, LossReport]:
+def export_document(fmt: str, tl: Timeline,
+                    profile: TargetProfile | None = None) -> tuple[str, LossReport]:
     report = LossReport(fmt)
     if fmt == tl_json.FORMAT_NAME:
         return tl_json.export_text(tl), report
     if fmt == cmx.FORMAT_NAME:
-        return cmx.export_text(tl, report), report
+        return cmx.export_text(tl, report, profile=profile), report
     raise ValueError(f"unknown format {fmt!r}; supported: {FORMATS}")
 
 
@@ -138,12 +158,16 @@ def _explain_mismatch(b: dict, a: dict) -> str:
 def run_exchange(text: str, source_format: str, target_format: str,
                  rate: FrameRate | None = None, sources: dict | None = None,
                  media_base_dir: str | None = None,
-                 start_hour: int = 1) -> ExchangeResult:
+                 start_hour: int = 1,
+                 profile: TargetProfile | None = None,
+                 profile_id: str | None = None) -> ExchangeResult:
     original = import_document(
         source_format, text, rate=rate, sources=sources, start_hour=start_hour
     )
     missing = preview.probe_sources(original, media_base_dir)
-    exported, report = export_document(target_format, original)
+    if profile is None:
+        profile = get_profile(profile_id, target_format)
+    exported, report = export_document(target_format, original, profile=profile)
 
     # Re-import using the same source registry so reel names resolve back.
     re_sources = dict(original.sources)
@@ -168,4 +192,5 @@ def run_exchange(text: str, source_format: str, target_format: str,
         mismatches=mismatches,
         compared_frames=frame_count,
         missing_sources=missing,
+        target_profile=profile,
     )

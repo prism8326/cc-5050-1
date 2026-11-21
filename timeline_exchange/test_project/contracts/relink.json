@@ -1,0 +1,361 @@
+{
+  "input": "/workspace/timeline_exchange/test_project/project.tl.json",
+  "seed": 7,
+  "catalog": {
+    "assets": [
+      {
+        "path": "/workspace/timeline_exchange/test_project/sources/CAM_A",
+        "media_ref": "media:cam-a",
+        "content_id": "sha256:d326b22ae5730f1e10218bad",
+        "rate": "24000/1001",
+        "duration_rational": "1001/400",
+        "timecode_origin_rational": "0",
+        "timecode_origin": "00:00:00:00",
+        "display_name": "CAM_A",
+        "frame_count": 60
+      },
+      {
+        "path": "/workspace/timeline_exchange/test_project/sources/CAM_B",
+        "media_ref": "media:cam-b",
+        "content_id": "sha256:713b38d9c53e7612aa0662e5",
+        "rate": "25/1",
+        "duration_rational": "48/25",
+        "timecode_origin_rational": "0",
+        "timecode_origin": "00:00:00:00",
+        "display_name": "CAM_B",
+        "frame_count": 48
+      },
+      {
+        "path": "/workspace/timeline_exchange/test_project/sources/CAM_C",
+        "media_ref": "media:cam-c",
+        "content_id": "sha256:46a805c38c491e223b3f54b6",
+        "rate": "30000/1001",
+        "duration_rational": "3003/1250",
+        "timecode_origin_rational": "0",
+        "timecode_origin": "00:00:00:00",
+        "display_name": "CAM_C",
+        "frame_count": 72
+      },
+      {
+        "path": "/workspace/timeline_exchange/test_project/sources/CAM_A_BAKED",
+        "media_ref": "media:cam-a-baked",
+        "content_id": "sha256:d326b22ae5730f1e10218bad",
+        "rate": "24000/1001",
+        "duration_rational": "1001/400",
+        "timecode_origin_rational": "0",
+        "timecode_origin": "00:00:00:00",
+        "display_name": "CAM_A_BAKED",
+        "frame_count": 60
+      },
+      {
+        "path": "/workspace/timeline_exchange/test_project/sources/CAM_B_ALT",
+        "media_ref": "media:cam-b-alt",
+        "content_id": "sha256:ee3665fe2933c915655df2bc",
+        "rate": "25/1",
+        "duration_rational": "48/25",
+        "timecode_origin_rational": "7200",
+        "timecode_origin": "02:00:00:00",
+        "display_name": "CAM_B",
+        "frame_count": 48
+      }
+    ]
+  },
+  "relink": {
+    "decisions": [
+      {
+        "clip_id": "C0001",
+        "request": "reconnect_range",
+        "reason": "plain cut: reconnect the single source range",
+        "ranges": [
+          {
+            "clip_id": "C0001",
+            "role": "single",
+            "source_id": "CAM_A",
+            "media_ref": "media:cam-a",
+            "source_in": {
+              "rational": "0",
+              "timecode": "00:00:00:00"
+            },
+            "source_out": {
+              "rational": "1001/2000",
+              "timecode": "00:00:00:12"
+            },
+            "transition_in": "cut"
+          }
+        ]
+      },
+      {
+        "clip_id": "C0002",
+        "request": "reconnect_range",
+        "reason": "plain cut: reconnect the single source range",
+        "ranges": [
+          {
+            "clip_id": "C0002",
+            "role": "single",
+            "source_id": "CAM_B",
+            "media_ref": "media:cam-b",
+            "source_in": {
+              "rational": "4/25",
+              "timecode": "00:00:00:04"
+            },
+            "source_out": {
+              "rational": "16/25",
+              "timecode": "00:00:00:16"
+            },
+            "transition_in": "cut"
+          }
+        ]
+      },
+      {
+        "clip_id": "C0003",
+        "request": "reconnect_two_ranges",
+        "reason": "edit point has a clip: both the outgoing and incoming source ranges must reconnect",
+        "ranges": [
+          {
+            "clip_id": "C0003",
+            "role": "incoming",
+            "source_id": "CAM_C",
+            "media_ref": "media:cam-c",
+            "source_in": {
+              "rational": "1001/3000",
+              "timecode": "00:00:00:10"
+            },
+            "source_out": {
+              "rational": "11011/15000",
+              "timecode": "00:00:00:22"
+            },
+            "transition_in": "dissolve"
+          }
+        ]
+      },
+      {
+        "clip_id": "C0004",
+        "request": "reconnect_two_ranges",
+        "reason": "edit point has a clip: both the outgoing and incoming source ranges must reconnect",
+        "ranges": [
+          {
+            "clip_id": "C0004",
+            "role": "outgoing",
+            "source_id": "CAM_C",
+            "media_ref": "media:cam-c",
+            "source_in": {
+              "rational": "1001/3000",
+              "timecode": "00:00:00:10"
+            },
+            "source_out": {
+              "rational": "11011/15000",
+              "timecode": "00:00:00:22"
+            },
+            "transition_in": "dissolve"
+          },
+          {
+            "clip_id": "C0004",
+            "role": "incoming",
+            "source_id": "CAM_A",
+            "media_ref": "media:cam-a",
+            "source_in": {
+              "rational": "1001/1200",
+              "timecode": "00:00:00:20"
+            },
+            "source_out": {
+              "rational": "1001/800",
+              "timecode": "00:00:01:06"
+            },
+            "transition_in": "push"
+          }
+        ]
+      },
+      {
+        "clip_id": "C0101",
+        "request": "reconnect_range",
+        "reason": "plain cut: reconnect the single source range",
+        "ranges": [
+          {
+            "clip_id": "C0101",
+            "role": "single",
+            "source_id": "CAM_B",
+            "media_ref": "media:cam-b",
+            "source_in": {
+              "rational": "0",
+              "timecode": "00:00:00:00"
+            },
+            "source_out": {
+              "rational": "6/25",
+              "timecode": "00:00:00:06"
+            },
+            "transition_in": "cut"
+          }
+        ]
+      }
+    ],
+    "accepted": [
+      {
+        "clip_id": "C0001",
+        "role": "single",
+        "source_id": "CAM_A",
+        "request": "reconnect_range",
+        "candidate_path": "/workspace/timeline_exchange/test_project/sources/CAM_A",
+        "media_ref": "media:cam-a",
+        "content_id": "sha256:d326b22ae5730f1e10218bad",
+        "reason": "identity matched: media_ref + content_id + timecode_origin"
+      },
+      {
+        "clip_id": "C0002",
+        "role": "single",
+        "source_id": "CAM_B",
+        "request": "reconnect_range",
+        "candidate_path": "/workspace/timeline_exchange/test_project/sources/CAM_B",
+        "media_ref": "media:cam-b",
+        "content_id": "sha256:713b38d9c53e7612aa0662e5",
+        "reason": "identity matched: media_ref + content_id + timecode_origin"
+      },
+      {
+        "clip_id": "C0003",
+        "role": "incoming",
+        "source_id": "CAM_C",
+        "request": "reconnect_two_ranges",
+        "candidate_path": "/workspace/timeline_exchange/test_project/sources/CAM_C",
+        "media_ref": "media:cam-c",
+        "content_id": "sha256:46a805c38c491e223b3f54b6",
+        "reason": "identity matched: media_ref + content_id + timecode_origin"
+      },
+      {
+        "clip_id": "C0004",
+        "role": "outgoing",
+        "source_id": "CAM_C",
+        "request": "reconnect_two_ranges",
+        "candidate_path": "/workspace/timeline_exchange/test_project/sources/CAM_C",
+        "media_ref": "media:cam-c",
+        "content_id": "sha256:46a805c38c491e223b3f54b6",
+        "reason": "same source already relinked"
+      },
+      {
+        "clip_id": "C0004",
+        "role": "incoming",
+        "source_id": "CAM_A",
+        "request": "reconnect_two_ranges",
+        "candidate_path": "/workspace/timeline_exchange/test_project/sources/CAM_A",
+        "media_ref": "media:cam-a",
+        "content_id": "sha256:d326b22ae5730f1e10218bad",
+        "reason": "same source already relinked"
+      },
+      {
+        "clip_id": "C0101",
+        "role": "single",
+        "source_id": "CAM_B",
+        "request": "reconnect_range",
+        "candidate_path": "/workspace/timeline_exchange/test_project/sources/CAM_B",
+        "media_ref": "media:cam-b",
+        "content_id": "sha256:713b38d9c53e7612aa0662e5",
+        "reason": "same source already relinked"
+      }
+    ],
+    "rejected": [
+      {
+        "clip_id": "C0001",
+        "role": "single",
+        "source_id": "CAM_A",
+        "candidate_path": "/workspace/timeline_exchange/test_project/sources/CAM_B_ALT",
+        "reason": "media_ref mismatch: wanted 'media:cam-a', candidate 'media:cam-b-alt'"
+      },
+      {
+        "clip_id": "C0002",
+        "role": "single",
+        "source_id": "CAM_B",
+        "candidate_path": "/workspace/timeline_exchange/test_project/sources/CAM_B_ALT",
+        "reason": "media_ref mismatch: wanted 'media:cam-b', candidate 'media:cam-b-alt'"
+      },
+      {
+        "clip_id": "C0002",
+        "role": "single",
+        "source_id": "CAM_B",
+        "candidate_path": "/workspace/timeline_exchange/test_project/sources/CAM_A",
+        "reason": "media_ref mismatch: wanted 'media:cam-b', candidate 'media:cam-a'"
+      },
+      {
+        "clip_id": "C0002",
+        "role": "single",
+        "source_id": "CAM_B",
+        "candidate_path": "/workspace/timeline_exchange/test_project/sources/CAM_A_BAKED",
+        "reason": "media_ref mismatch: wanted 'media:cam-b', candidate 'media:cam-a-baked'"
+      },
+      {
+        "clip_id": "C0003",
+        "role": "incoming",
+        "source_id": "CAM_C",
+        "candidate_path": "/workspace/timeline_exchange/test_project/sources/CAM_B_ALT",
+        "reason": "media_ref mismatch: wanted 'media:cam-c', candidate 'media:cam-b-alt'"
+      },
+      {
+        "clip_id": "C0003",
+        "role": "incoming",
+        "source_id": "CAM_C",
+        "candidate_path": "/workspace/timeline_exchange/test_project/sources/CAM_A",
+        "reason": "media_ref mismatch: wanted 'media:cam-c', candidate 'media:cam-a'"
+      },
+      {
+        "clip_id": "C0003",
+        "role": "incoming",
+        "source_id": "CAM_C",
+        "candidate_path": "/workspace/timeline_exchange/test_project/sources/CAM_A_BAKED",
+        "reason": "media_ref mismatch: wanted 'media:cam-c', candidate 'media:cam-a-baked'"
+      },
+      {
+        "clip_id": "C0003",
+        "role": "incoming",
+        "source_id": "CAM_C",
+        "candidate_path": "/workspace/timeline_exchange/test_project/sources/CAM_B",
+        "reason": "media_ref mismatch: wanted 'media:cam-c', candidate 'media:cam-b'"
+      }
+    ],
+    "missing_requests": []
+  },
+  "validation": {
+    "ok": true,
+    "needs_human_count": 0,
+    "resolved": [
+      {
+        "clip_id": "C0001",
+        "track_id": "V1",
+        "source_id": "CAM_A",
+        "media_ref": "media:cam-a",
+        "content_id": "sha256:d326b22ae5730f1e10218bad",
+        "timecode_origin": "00:00:00:00"
+      },
+      {
+        "clip_id": "C0002",
+        "track_id": "V1",
+        "source_id": "CAM_B",
+        "media_ref": "media:cam-b",
+        "content_id": "sha256:713b38d9c53e7612aa0662e5",
+        "timecode_origin": "00:00:00:00"
+      },
+      {
+        "clip_id": "C0003",
+        "track_id": "V1",
+        "source_id": "CAM_C",
+        "media_ref": "media:cam-c",
+        "content_id": "sha256:46a805c38c491e223b3f54b6",
+        "timecode_origin": "00:00:00:00"
+      },
+      {
+        "clip_id": "C0004",
+        "track_id": "V1",
+        "source_id": "CAM_A",
+        "media_ref": "media:cam-a",
+        "content_id": "sha256:d326b22ae5730f1e10218bad",
+        "timecode_origin": "00:00:00:00"
+      },
+      {
+        "clip_id": "C0101",
+        "track_id": "V2",
+        "source_id": "CAM_B",
+        "media_ref": "media:cam-b",
+        "content_id": "sha256:713b38d9c53e7612aa0662e5",
+        "timecode_origin": "00:00:00:00"
+      }
+    ],
+    "issues": [],
+    "needs_human": []
+  }
+}
